@@ -1,0 +1,25 @@
+{
+ "ensembl_release": 116,
+ "assemblies": {
+  "homo_sapiens": {
+   "assembly_name": "GRCh38.p14",
+   "assembly_accession": "GCA_000001405.29",
+   "genebuild_last_geneset_update": "2025-11"
+  },
+  "mus_musculus": {
+   "assembly_name": "GRCm39",
+   "assembly_accession": "GCA_000001635.9",
+   "genebuild_last_geneset_update": "2025-11"
+  },
+  "rattus_norvegicus": {
+   "assembly_name": "GRCr8",
+   "assembly_accession": "GCA_036323735.1",
+   "genebuild_last_geneset_update": "2024-03"
+  },
+  "danio_rerio": {
+   "assembly_name": "GRCz11",
+   "assembly_accession": "GCA_000002035.4",
+   "genebuild_last_geneset_update": "2018-04"
+  }
+ }
+}

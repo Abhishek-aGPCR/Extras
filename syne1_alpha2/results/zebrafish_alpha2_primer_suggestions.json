@@ -1,0 +1,87 @@
+{
+ "transcript": "syne1a-alpha2-pred-plusDV23-GRCz11",
+ "note": "Forward primers lie in the unique exon 1alpha2 (or span its junction with the first shared exon); reverse primers lie in the 2nd-4th exons of the alpha2 model. Products therefore span introns (cDNA-specific) and cannot come from the giant isoform. Tm: nearest-neighbour (SantaLucia 1998) with Primer3-like salt settings (50 mM Na+, 1.5 mM Mg2+, 0.6 mM dNTP, 250 nM oligo). These are starting points: check specificity with Primer-BLAST before ordering.",
+ "first_intron_bp": 1448,
+ "pairs": [
+  {
+   "forward": {
+    "seq": "GCTCAATGGTGCTGGATATG",
+    "start": 93,
+    "end": 112,
+    "tm": 60.3,
+    "gc": 50.0,
+    "junction": false
+   },
+   "reverse": {
+    "seq": "TTCTCTGGATCTCGTGTGAG",
+    "start": 310,
+    "end": 329,
+    "tm": 60.1,
+    "gc": 50.0,
+    "exon": 2
+   },
+   "product": 237,
+   "penalty": 0.6
+  },
+  {
+   "forward": {
+    "seq": "GATAACATGGCAGGATGTCC",
+    "start": 119,
+    "end": 138,
+    "tm": 59.7,
+    "gc": 50.0,
+    "junction": false
+   },
+   "reverse": {
+    "seq": "TTCTCTGGATCTCGTGTGAG",
+    "start": 310,
+    "end": 329,
+    "tm": 60.1,
+    "gc": 50.0,
+    "exon": 2
+   },
+   "product": 211,
+   "penalty": 0.6
+  },
+  {
+   "forward": {
+    "seq": "CTGTGACATTAACAGGGTGAAG",
+    "start": 169,
+    "end": 190,
+    "tm": 60.1,
+    "gc": 45.5,
+    "junction": true
+   },
+   "reverse": {
+    "seq": "TTCTCTGGATCTCGTGTGAG",
+    "start": 310,
+    "end": 329,
+    "tm": 60.1,
+    "gc": 50.0,
+    "exon": 2
+   },
+   "product": 161,
+   "penalty": 0.65
+  },
+  {
+   "forward": {
+    "seq": "GCTCAATGGTGCTGGATATG",
+    "start": 93,
+    "end": 112,
+    "tm": 60.3,
+    "gc": 50.0,
+    "junction": false
+   },
+   "reverse": {
+    "seq": "CCTGCTGTATGGATTCACAC",
+    "start": 451,
+    "end": 470,
+    "tm": 59.8,
+    "gc": 50.0,
+    "exon": 3
+   },
+   "product": 378,
+   "penalty": 0.7
+  }
+ ]
+}

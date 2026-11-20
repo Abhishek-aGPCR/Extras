@@ -1,0 +1,3391 @@
+{
+ "mammal_alpha2_transcripts": {
+  "human_SYNE1": [
+   "ENST00000354674.5",
+   "ENST00000539504.5",
+   "NM_001347702.2"
+  ],
+  "mouse_Syne1": [
+   "ENSMUST00000095899.6",
+   "NM_022027.3",
+   "XM_036155937.1"
+  ],
+  "rat_Syne1": [
+   "XM_006227852.6",
+   "XM_063270634.2"
+  ]
+ },
+ "mammal_exon1alpha2": {
+  "human": {
+   "view": "human_SYNE1",
+   "transcript": "NM_001347702.2",
+   "protein_id": "NP_001334631.1",
+   "exon": [
+    152168113,
+    152168312
+   ],
+   "strand": -1,
+   "length": 200,
+   "utr5": 108,
+   "coding_nt": 92,
+   "end_phase": 2,
+   "peptide": "MVVAEDLSALRMAEDSCVDADLPDCNCDVT",
+   "donor": "GCAGGCAT",
+   "seq": "ACAGTGAGCATTTTCATACTTCTATACACAGACAAGGGGAAACTTTCATCCCCACGCAGGATATAGCTTTTTGCTCTGCAGAGTCTAACTTTTGCAAGTGGAAGCTTCATGGTGGTGGCGGAGGACCTGAGTGCCCTGAGGATGGCAGAGGACAGCTGTGTGGATGCAGATCTCCCAGATTGTAACTGCGATGTCACAAG",
+   "protein_nterm": "MVVAEDLSALRMAEDSCVDADLPDCNCDVTRVKKLKETLV",
+   "second_exon": [
+    152164163,
+    152164325
+   ]
+  },
+  "mouse": {
+   "view": "mouse_Syne1",
+   "transcript": "NM_022027.3",
+   "protein_id": "NP_071310.2",
+   "exon": [
+    5018807,
+    5019054
+   ],
+   "strand": -1,
+   "length": 248,
+   "utr5": 156,
+   "coding_nt": 92,
+   "end_phase": 2,
+   "peptide": "MVVAEDLHGPRMAEDSSVDADLPDCDCDVS",
+   "donor": "GCAGGCAT",
+   "seq": "GCCCAGTGTCATGTTAACAGACAGACAACCAGCACCATTTGTCCACCAAGAGCATTTTCATACTTCTGGCCTAGATAAGGGGAGAGACTCTCTCCTCATCCAGGAAGGACTGAGCCTTTCGCTCTGCAGAGCCGGACTTCTACAAGTGACAGCTTCATGGTGGTGGCAGAGGACTTGCATGGCCCGAGGATGGCAGAGGACAGCAGTGTGGATGCAGATCTCCCAGACTGCGACTGCGATGTCTCCAG",
+   "protein_nterm": "MVVAEDLHGPRMAEDSSVDADLPDCDCDVSRVKKLKETLV",
+   "second_exon": [
+    5011389,
+    5011551
+   ]
+  },
+  "rat": {
+   "view": "rat_Syne1",
+   "transcript": "XM_063270634.2",
+   "protein_id": "XP_063126704.1",
+   "exon": [
+    43963048,
+    43963273
+   ],
+   "strand": -1,
+   "length": 226,
+   "utr5": 134,
+   "coding_nt": 92,
+   "end_phase": 2,
+   "peptide": "MVVAEDLRALRMAEDGSVDADLPDCDCDVS",
+   "donor": "GCAGGCAT",
+   "seq": "AGACAACCAGCACCATTTGTCCGCCAAGAGCATTTCCATCCTTCTGGCCTAGACGAGGGGAGAAACTCTCTCCTTGCCCAGGAAGGACTGAGCCTTTTGCTCTGCAGAGCCGGACTTTTGCAAGTGGCAGCTTCATGGTGGTGGCAGAGGACTTGCGTGCCCTGAGGATGGCAGAGGACGGCAGTGTGGACGCAGATCTCCCAGACTGTGACTGCGATGTCTCCAG",
+   "protein_nterm": "MVVAEDLRALRMAEDGSVDADLPDCDCDVSRVKKLKETLV",
+   "second_exon": [
+    43956866,
+    43957028
+   ]
+  }
+ },
+ "zebrafish_exon1alpha2": {
+  "assembly": "GRCz11",
+  "chrom": "chr20",
+  "strand": "+",
+  "cds_part": [
+   26341223,
+   26341308
+  ],
+  "coding_nt": 86,
+  "predicted_exon": [
+   26341126,
+   26341308
+  ],
+  "predicted_exon_note": "3' end (GC splice donor) and CDS start are defined by the ORF; the 5' end (TSS) is approximate, placed by homology to the AAGGGGA motif that lies human 33 nt, mouse 76 nt downstream of the exon start (human used as anchor)",
+  "coding_seq": "ATGGTGCTGGATATGGGCACTGATAACATGGCAGGATGTCCTGGACAGGACTCAGATCTGCCCGAGTGCGACTGTGACATTAACAG",
+  "peptide": "MVLDMGTDNMAGCPGQDSDLPECDCDIN",
+  "donor": "GCAGGAAA",
+  "donor_type": "GC",
+  "kozak": "GGCTCAATGG",
+  "exon_seq": "GCAACACCGGACACTGTTATCCAGACTAAAGAGAAGGGGAATTTCTACAGGGTGGAAGTTTTTCTTTATTCTGGCACACTCGATTGGATACGGCTCAATGGTGCTGGATATGGGCACTGATAACATGGCAGGATGTCCTGGACAGGACTCAGATCTGCCCGAGTGCGACTGTGACATTAACAG",
+  "scores_vs_mammal_peptides": {
+   "human": 56,
+   "mouse": 64,
+   "rat": 62
+  },
+  "other_assemblies": {
+   "GRCz11 (danRer11; Ensembl 116)": {
+    "acc": "chr20",
+    "start": 26341223,
+    "end": 26341308
+   },
+   "GRCz12tu (NCBI RefSeq)": {
+    "acc": "NC_133195.1 (chr20)",
+    "start": 29055761,
+    "end": 29055846
+   },
+   "GRCz13ab (NCBI RefSeq)": {
+    "acc": "NC_141040.1 (chr20)",
+    "start": 30257700,
+    "end": 30257785
+   }
+  },
+  "GRCz12tu_predicted_exon": [
+   29055664,
+   29055846
+  ],
+  "GRCz12tu_exon_identical": true
+ },
+ "whole_gene_scans": {
+  "zebrafish_syne1a": {
+   "query": "MVLDLGSDNMAGCSSEEDLPDCDCDVN",
+   "best_score": 115,
+   "best_hit_genomic": 26341304,
+   "best_hit_seq": "MVLDMGTDNMAGCPGQDSDLPECDCDIN",
+   "shuffled_mean": 37.8,
+   "shuffled_max": 47,
+   "shuffled_p95": 42
+  },
+  "zebrafish_syne1b": {
+   "query": "MVLDLGSDNMAGCSSEEDLPDCDCDVN",
+   "best_score": 40,
+   "best_hit_genomic": 8120578,
+   "best_hit_seq": "EEDIPDC",
+   "shuffled_mean": 37.6,
+   "shuffled_max": 45,
+   "shuffled_p95": 42
+  },
+  "zebrafish_syne1a_GRCz12tu": {
+   "query": "MVLDLGSDNMAGCSSEEDLPDCDCDVN",
+   "best_score": 115,
+   "best_hit_genomic": 29055842,
+   "best_hit_seq": "MVLDMGTDNMAGCPGQDSDLPECDCDIN",
+   "shuffled_mean": 38.4,
+   "shuffled_max": 47,
+   "shuffled_p95": 43
+  },
+  "zebrafish_syne1b_GRCz12tu": {
+   "query": "MVLDLGSDNMAGCSSEEDLPDCDCDVN",
+   "best_score": 40,
+   "best_hit_genomic": 9266909,
+   "best_hit_seq": "EEDIPDC",
+   "shuffled_mean": 37.6,
+   "shuffled_max": 45,
+   "shuffled_p95": 42
+  },
+  "zebrafish_syne1b_vs_human": {
+   "query": "MVVAEDLSALRMAEDSCVDADLPDCNCDVT",
+   "best_score": 39,
+   "best_hit_genomic": 7949517,
+   "best_hit_seq": "VTALRILEDSC",
+   "shuffled_mean": 37.6,
+   "shuffled_max": 42,
+   "shuffled_p95": 41
+  },
+  "zebrafish_syne1b_vs_mouse": {
+   "query": "MVVAEDLHGPRMAEDSSVDADLPDCDCDVS",
+   "best_score": 35,
+   "best_hit_genomic": 8120578,
+   "best_hit_seq": "VEEDIPDC",
+   "shuffled_mean": 38.6,
+   "shuffled_max": 46,
+   "shuffled_p95": 45
+  },
+  "zebrafish_syne1b_vs_rat": {
+   "query": "MVVAEDLRALRMAEDGSVDADLPDCDCDVS",
+   "best_score": 40,
+   "best_hit_genomic": 8120578,
+   "best_hit_seq": "GRVEEDIPDC",
+   "shuffled_mean": 36.5,
+   "shuffled_max": 44,
+   "shuffled_p95": 43
+  }
+ },
+ "vertebrate_survey_counts": {
+  "Amphibians": 22,
+  "Birds": 56,
+  "Mammals": 116,
+  "Ray-finned fish": 4,
+  "Reptiles": 7
+ },
+ "vertebrate_survey": [
+  {
+   "accession": "XP_069462898.1",
+   "organism": "Ambystoma mexicanum",
+   "group": "Amphibians",
+   "gene": "SYNE1",
+   "length": 987,
+   "unique_nterm": "MLKSLMAMVVAAAASDFCAGRVLDNGSVDPDDLPDCNCDVS",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_075452634.1",
+   "organism": "Ascaphus truei",
+   "group": "Amphibians",
+   "gene": "SYNE1",
+   "length": 988,
+   "unique_nterm": "MVLFLLMSTFMVAAAAAIADLSAHIMAEDGTEDSDLPDCDCDVS",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_040285432.1",
+   "organism": "Bufo bufo",
+   "group": "Amphibians",
+   "gene": "SYNE1",
+   "length": 989,
+   "unique_nterm": "MVVPFLMSTFMVLAAAIADLGAHNMAEDSIEESELPDCDCDVS",
+   "junction": "RVKKLKETLLAV"
+  },
+  {
+   "accession": "XP_044144519.1",
+   "organism": "Bufo gargarizans",
+   "group": "Amphibians",
+   "gene": "SYNE1",
+   "length": 989,
+   "unique_nterm": "MVVPFLMSTFMVLAAAIADLGAHNMAEDSIEESELPDCDCDVS",
+   "junction": "RVKKLKETLLAV"
+  },
+  {
+   "accession": "XP_069811414.1",
+   "organism": "Dendropsophus ebraccatus",
+   "group": "Amphibians",
+   "gene": "SYNE1",
+   "length": 988,
+   "unique_nterm": "MVLPVLMSTFMVLAAAIADLGAHTMAEDSMEDAELPDCDCDVS",
+   "junction": "RVKKLKETLLAV"
+  },
+  {
+   "accession": "XP_066452056.1",
+   "organism": "Eleutherodactylus coqui",
+   "group": "Amphibians",
+   "gene": "SYNE1",
+   "length": 988,
+   "unique_nterm": "MLLLFLMSTFMVLAAAIADLGAHKMAEDSIEDSELPDCDCDVS",
+   "junction": "RVKKLKETLLAV"
+  },
+  {
+   "accession": "XP_071997065.1",
+   "organism": "Engystomops pustulosus",
+   "group": "Amphibians",
+   "gene": "SYNE1",
+   "length": 965,
+   "unique_nterm": "MILHFLMSMFMVLAAAIADLGVHAMAEDSIEDSELPDCDCDVS",
+   "junction": "RVKKLKETLLAV"
+  },
+  {
+   "accession": "XP_033792800.1",
+   "organism": "Geotrypetes seraphini",
+   "group": "Amphibians",
+   "gene": "SYNE1",
+   "length": 983,
+   "unique_nterm": "MVLFLILEVCMVVGAVDFCTQRMADNGSVDSDLPDCNCDIS",
+   "junction": "RVKKLKETLIAV"
+  },
+  {
+   "accession": "XP_056423267.1",
+   "organism": "Hyla sarda",
+   "group": "Amphibians",
+   "gene": "SYNE1",
+   "length": 988,
+   "unique_nterm": "MILLFLMSTFMVLAAAIADLGPHMMAEDSIEDSELPDCDCDVS",
+   "junction": "RVKKLKETLLAV"
+  },
+  {
+   "accession": "XP_078504900.1",
+   "organism": "Lissotriton helveticus",
+   "group": "Amphibians",
+   "gene": "SYNE1",
+   "length": 986,
+   "unique_nterm": "MFKPLMAMVVAAAASDFGAGSVSDDSSGSVDSDDLPDCNCDVS",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_086783000.1",
+   "organism": "Lissotriton vulgaris",
+   "group": "Amphibians",
+   "gene": "SYNE1",
+   "length": 986,
+   "unique_nterm": "MFKPLMAMVVAAAASDFGAGSGSDDGSGSVDSDDLPDCNCDVS",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_077342464.1",
+   "organism": "Lithobates pipiens",
+   "group": "Amphibians",
+   "gene": "SYNE1",
+   "length": 985,
+   "unique_nterm": "MVLLLLMSTFMVLAAAIADLGVHKMAEDSIEDSELPDCDCDVS",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_075059681.1",
+   "organism": "Mixophyes fleayi",
+   "group": "Amphibians",
+   "gene": "SYNE1",
+   "length": 988,
+   "unique_nterm": "MVLLLLMSTFMVLAAAIADLGAHNMAEDSIEDSELPDCDCDVS",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_063299675.1",
+   "organism": "Pelobates fuscus",
+   "group": "Amphibians",
+   "gene": "SYNE1",
+   "length": 1011,
+   "unique_nterm": "MCYSLISAFPAELRGFLQRLYLLMVLYLLMSMFMVLAAAIADLGAHKMAEDGTEDSDLPDCDCDIS",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_073528829.1",
+   "organism": "Phyllobates terribilis",
+   "group": "Amphibians",
+   "gene": "SYNE1",
+   "length": 988,
+   "unique_nterm": "MVLLFLMSTFMVLAAAIADLGSHKMAEDSIEDSELPDCDCDVS",
+   "junction": "RVKKLKETLLAV"
+  },
+  {
+   "accession": "XP_069090823.1",
+   "organism": "Pleurodeles waltl",
+   "group": "Amphibians",
+   "gene": "SYNE1",
+   "length": 961,
+   "unique_nterm": "MFKPLMAMVVAAAASDFCADSVSDDDSVDSDDLPDCNCDVS",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_063773940.1",
+   "organism": "Pseudophryne corroboree",
+   "group": "Amphibians",
+   "gene": "SYNE1",
+   "length": 987,
+   "unique_nterm": "MVLPLLMSTFMILAAAIADLGAHKMAEDSTEDSELPDCDCDVS",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_040206818.1",
+   "organism": "Rana temporaria",
+   "group": "Amphibians",
+   "gene": "SYNE1",
+   "length": 985,
+   "unique_nterm": "MVLLLLMSTFMVLAAAIADLGVHKMAEDSIEDSELPDCDCDVS",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_053317344.1",
+   "organism": "Spea bombifrons",
+   "group": "Amphibians",
+   "gene": "SYNE1",
+   "length": 986,
+   "unique_nterm": "MVLRLLMSTFLVLAATIADLGTHQMAEDVTEDSDLPDCDCDVS",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_089550417.1",
+   "organism": "Staurois parvus",
+   "group": "Amphibians",
+   "gene": "SYNE1",
+   "length": 985,
+   "unique_nterm": "MVLLLLMSTFMVLAAAIADLGVHRMAEDSIEDSELPDCDCDVS",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_088330507.1",
+   "organism": "Taudactylus pleione",
+   "group": "Amphibians",
+   "gene": "SYNE1",
+   "length": 964,
+   "unique_nterm": "MVLLLLMSSFMILAAAIADLGAHKMAEDSTEDSELPDCDCDVS",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_031757385.1",
+   "organism": "Xenopus tropicalis",
+   "group": "Amphibians",
+   "gene": "syne1",
+   "length": 963,
+   "unique_nterm": "MVLFLLMSTFMVLAAAIADLGAHRMAEDDIEDSELPDCDCDVS",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_068533206.1",
+   "organism": "Anas acuta",
+   "group": "Birds",
+   "gene": "SYNE1",
+   "length": 980,
+   "unique_nterm": "MLENFMVVAEDLQAVRMAEDGSVDSDLPDCNCDIT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_038033543.1",
+   "organism": "Anas platyrhynchos",
+   "group": "Birds",
+   "gene": "SYNE1",
+   "length": 980,
+   "unique_nterm": "MLENFMVVAEDLQAVRMAEDGSVDSDLPDCNCDIT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_083686579.1",
+   "organism": "Anser anser",
+   "group": "Birds",
+   "gene": "SYNE1",
+   "length": 980,
+   "unique_nterm": "MLENFMVVAEDLQAMRMAEDGSVDSDLPDCNCDIT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_080444091.1",
+   "organism": "Anser brachyrhynchus",
+   "group": "Birds",
+   "gene": "SYNE1",
+   "length": 980,
+   "unique_nterm": "MLENFMVVAEDLQAMRMAEDGSVDSDLPDCNCDIT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_066850301.1",
+   "organism": "Anser cygnoides",
+   "group": "Birds",
+   "gene": "SYNE1",
+   "length": 980,
+   "unique_nterm": "MLENFMVVAEDLQAMRMAEDGSVDSDLPDCNCDIT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_068866753.1",
+   "organism": "Aphelocoma coerulescens",
+   "group": "Birds",
+   "gene": "SYNE1",
+   "length": 973,
+   "unique_nterm": "MVVVEDLHAVRMAEDSSVDSDLPDCNCDIT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_051471528.1",
+   "organism": "Apus apus",
+   "group": "Birds",
+   "gene": "SYNE1",
+   "length": 980,
+   "unique_nterm": "MLENFMVVAEDSHAVRMAEDSSVDSDLPDCNCDIT",
+   "junction": "RIKKLKETLVAV"
+  },
+  {
+   "accession": "XP_074752645.1",
+   "organism": "Athene noctua",
+   "group": "Birds",
+   "gene": "SYNE1",
+   "length": 980,
+   "unique_nterm": "MLENFMVVAEDLHAVRMAEDGSVDSDLPDCNCDIT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_084371658.1",
+   "organism": "Aythya ferina",
+   "group": "Birds",
+   "gene": "SYNE1",
+   "length": 980,
+   "unique_nterm": "MLENFMVVAEDLQAVRMAEDGSVDSDLPDCNCDIT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_082613770.1",
+   "organism": "Aythya marila",
+   "group": "Birds",
+   "gene": "SYNE1",
+   "length": 1016,
+   "unique_nterm": "MQHFLYSTHQQKGVCPLSFPHTKHSVCKLLDWKFFLMLENFMVVAEDLQAVRMAEDGSVDSDLPDCNCDIT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_075604510.1",
+   "organism": "Balearica regulorum gibbericeps",
+   "group": "Birds",
+   "gene": "SYNE1",
+   "length": 980,
+   "unique_nterm": "MLENFMVVAEDLHAVRMAEDGSVDSDLPDCNCDIT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_074892073.1",
+   "organism": "Buteo buteo",
+   "group": "Birds",
+   "gene": "SYNE1",
+   "length": 980,
+   "unique_nterm": "MLENFMVVAEDLHAVRMAEDGSVDSDLPDCNCDIT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_065488743.1",
+   "organism": "Caloenas nicobarica",
+   "group": "Birds",
+   "gene": "SYNE1",
+   "length": 980,
+   "unique_nterm": "MLENFMVVAEDLHAVRMAEDGSVDSDLPDCNCDIT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_030802549.1",
+   "organism": "Camarhynchus parvulus",
+   "group": "Birds",
+   "gene": "SYNE1",
+   "length": 973,
+   "unique_nterm": "MVVVEDLHAVRMAEDNSVDSDLPDCNCDIT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_066035177.1",
+   "organism": "Chamaea fasciata",
+   "group": "Birds",
+   "gene": "SYNE1",
+   "length": 973,
+   "unique_nterm": "MVVVEDLHAVRMAEDNGVDSELPDCNCDIT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_032540436.1",
+   "organism": "Chiroxiphia lanceolata",
+   "group": "Birds",
+   "gene": "SYNE1",
+   "length": 978,
+   "unique_nterm": "MLENFMVVAEDLRALRMAEDSSVDSDLPDCNCDIT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_062346021.1",
+   "organism": "Cinclus cinclus",
+   "group": "Birds",
+   "gene": "SYNE1",
+   "length": 973,
+   "unique_nterm": "MVVVEDLRAVRMAEDNNVDSDLPDCNCDIT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_027490051.1",
+   "organism": "Corapipo altera",
+   "group": "Birds",
+   "gene": "SYNE1",
+   "length": 978,
+   "unique_nterm": "MLENFMVVAEDLRALRMAEDGSVDSDLPDCNCDIT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_053918205.1",
+   "organism": "Cuculus canorus",
+   "group": "Birds",
+   "gene": "SYNE1",
+   "length": 975,
+   "unique_nterm": "MVVTENSHAVRMAEDSSVDSDLPDCNCDIT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_065588176.1",
+   "organism": "Cyrtonyx montezumae",
+   "group": "Birds",
+   "gene": "SYNE1",
+   "length": 975,
+   "unique_nterm": "MVVAEDLHAVRMAEDGSVDSDLPDCNCDIT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_040522257.2",
+   "organism": "Gallus gallus",
+   "group": "Birds",
+   "gene": "SYNE1",
+   "length": 980,
+   "unique_nterm": "MLENFMVVAEDLRAVRMAEDGSVDSDLPDCNCDIT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_054678875.1",
+   "organism": "Grus americana",
+   "group": "Birds",
+   "gene": "SYNE1",
+   "length": 980,
+   "unique_nterm": "MLENFMVVTEDLHAVRMAEDGSVDSDLPDCNCDIT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_081270624.1",
+   "organism": "Grus grus",
+   "group": "Birds",
+   "gene": "SYNE1",
+   "length": 980,
+   "unique_nterm": "MLENFMVVTEDLHAVRMAEDGSVDSDLPDCNCDIT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_069643138.1",
+   "organism": "Haliaeetus albicilla",
+   "group": "Birds",
+   "gene": "SYNE1",
+   "length": 980,
+   "unique_nterm": "MLENFMVVAEDLHAVRMEEDGSVDSDLPDCNCDIT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_071596693.1",
+   "organism": "Heliangelus exortis",
+   "group": "Birds",
+   "gene": "SYNE1",
+   "length": 974,
+   "unique_nterm": "MVVIKDLHAVKMAEDGNVDSDLPDCNCDIT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_054251225.1",
+   "organism": "Indicator indicator",
+   "group": "Birds",
+   "gene": "SYNE1",
+   "length": 975,
+   "unique_nterm": "MVVAEDLYAVRMAEDGSVDSDLPDCNCDIT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_042749532.1",
+   "organism": "Lagopus leucura",
+   "group": "Birds",
+   "gene": "SYNE1",
+   "length": 980,
+   "unique_nterm": "MLENFMVVAEDLRAVRMAEDGSVDSDLPDCNCDIT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_081964475.1",
+   "organism": "Larus argentatus",
+   "group": "Birds",
+   "gene": "SYNE1",
+   "length": 980,
+   "unique_nterm": "MLENFMVVAEDLHAVRMAEDGSVDSDLPDCNCDIT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_074436536.1",
+   "organism": "Larus michahellis",
+   "group": "Birds",
+   "gene": "SYNE1",
+   "length": 980,
+   "unique_nterm": "MLENFMVVAEDLHAVRMAEDGSVDSDLPDCNCDIT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_065536655.1",
+   "organism": "Lathamus discolor",
+   "group": "Birds",
+   "gene": "SYNE1",
+   "length": 975,
+   "unique_nterm": "MVVAEDLHAVKMAEDNSVDSDLPDCNCDIT",
+   "junction": "RIKKLKETLVAV"
+  },
+  {
+   "accession": "XP_086317235.1",
+   "organism": "Leptosomus discolor",
+   "group": "Birds",
+   "gene": "SYNE1",
+   "length": 975,
+   "unique_nterm": "MVVAEDLHAVRMAEDGSVDSDLPDCNCDIT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_084911956.1",
+   "organism": "Lichenostomus cassidix",
+   "group": "Birds",
+   "gene": "SYNE1",
+   "length": 973,
+   "unique_nterm": "MVVAEDLRAVRMADDSSVDSDLPDCNCDIT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_077638316.1",
+   "organism": "Lonchura striata",
+   "group": "Birds",
+   "gene": "SYNE1",
+   "length": 973,
+   "unique_nterm": "MVVVEDLHAVRMAEDNSVDSDLPDCNCDIT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_057231916.1",
+   "organism": "Malurus melanocephalus",
+   "group": "Birds",
+   "gene": "SYNE1",
+   "length": 973,
+   "unique_nterm": "MVVAEDLHAVRMAEDSSVDSDLPDCNCDIT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_051657601.1",
+   "organism": "Manacus candei",
+   "group": "Birds",
+   "gene": "SYNE1",
+   "length": 978,
+   "unique_nterm": "MLENFMVVAEDLCALRMAEDSSVDSDLPDCNCDIT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_029818580.1",
+   "organism": "Manacus vitellinus",
+   "group": "Birds",
+   "gene": "SYNE1",
+   "length": 978,
+   "unique_nterm": "MLENFMVVAEDLRALRMAEDSSVDSDLPDCNCDIT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_031408318.1",
+   "organism": "Meleagris gallopavo",
+   "group": "Birds",
+   "gene": "SYNE1",
+   "length": 980,
+   "unique_nterm": "MLENFMVVAEDLRAVRMAEDGSVDSDLPDCNCDIT",
+   "junction": "RVKKLKETLIAV"
+  },
+  {
+   "accession": "XP_063007384.1",
+   "organism": "Melospiza melodia melodia",
+   "group": "Birds",
+   "gene": "SYNE1",
+   "length": 973,
+   "unique_nterm": "MVVVEDLHPVRMAEDNSVDSDLPDCNCDIT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_037986818.1",
+   "organism": "Motacilla alba alba",
+   "group": "Birds",
+   "gene": "SYNE1",
+   "length": 973,
+   "unique_nterm": "MVVVEDLHAVRMAEDNSVDSDLPDCNCDIT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_027544294.1",
+   "organism": "Neopelma chrysocephalum",
+   "group": "Birds",
+   "gene": "SYNE1",
+   "length": 978,
+   "unique_nterm": "MLENFMVVAEDLHALRMAEDSSVDSDLPDCNCDIT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_087630074.1",
+   "organism": "Nipponia nippon",
+   "group": "Birds",
+   "gene": "SYNE1",
+   "length": 980,
+   "unique_nterm": "MLENFMVVAEDLHAVRMAEDGSVDSDLPDCNCDIT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_074018899.1",
+   "organism": "Numenius arquata",
+   "group": "Birds",
+   "gene": "SYNE1",
+   "length": 980,
+   "unique_nterm": "MLENFMVVAEDLHAARMAEDGSVDSDLPDCNCDIT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_041279944.1",
+   "organism": "Onychostruthus taczanowskii",
+   "group": "Birds",
+   "gene": "SYNE1",
+   "length": 973,
+   "unique_nterm": "MVVVEDLHAVRMAEDNSVDSDLPDCNCDIT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_075269928.1",
+   "organism": "Opisthocomus hoazin",
+   "group": "Birds",
+   "gene": "SYNE1",
+   "length": 975,
+   "unique_nterm": "MVAAEDLHAVRMAEDGSVDSDLPDCNCDIT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_035178852.1",
+   "organism": "Oxyura jamaicensis",
+   "group": "Birds",
+   "gene": "SYNE1",
+   "length": 957,
+   "unique_nterm": "MLENFMVVAEDLHAVRMAEDGNVDSDLPDCNCDIT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_039563296.1",
+   "organism": "Passer montanus",
+   "group": "Birds",
+   "gene": "SYNE1",
+   "length": 973,
+   "unique_nterm": "MVVVEDLHAVRMAEDSSVDSDLPDCNCDIT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_065691994.1",
+   "organism": "Patagioenas fasciata",
+   "group": "Birds",
+   "gene": "SYNE1",
+   "length": 980,
+   "unique_nterm": "MLENFMVVAEDLHAVRMAEDGSVDSDLPDCNCDIT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_075564690.1",
+   "organism": "Pelecanus crispus",
+   "group": "Birds",
+   "gene": "SYNE1",
+   "length": 975,
+   "unique_nterm": "MVVAEDLHAVRMAEDGSVDSDLPDCNCDIT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_089991737.1",
+   "organism": "Phasianus colchicus",
+   "group": "Birds",
+   "gene": "SYNE1",
+   "length": 1017,
+   "unique_nterm": "MQYFLYSTQQQREVCFFSCPHTKHSVCKLLKWKFFFLMLENFMVVAEDLRAVRMAEDGSVDSDLPDCNCDIT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_064505243.1",
+   "organism": "Pseudopipra pipra",
+   "group": "Birds",
+   "gene": "SYNE1",
+   "length": 978,
+   "unique_nterm": "MLENFMVVADDLRALRMAEDSSVDSDLPDCNCDIT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_041326031.1",
+   "organism": "Pyrgilauda ruficollis",
+   "group": "Birds",
+   "gene": "SYNE1",
+   "length": 973,
+   "unique_nterm": "MVVVEDLHAVRMAEDNSVDSDLPDCNCDIT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_062428378.1",
+   "organism": "Rhea pennata",
+   "group": "Birds",
+   "gene": "SYNE1",
+   "length": 958,
+   "unique_nterm": "MLENFMVVAEDLRAVGMAEDGGVDSDLPDCDCDIS",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_054053376.1",
+   "organism": "Rissa tridactyla",
+   "group": "Birds",
+   "gene": "SYNE1",
+   "length": 980,
+   "unique_nterm": "MLENFMVVAEDLHAVRMAEDGSVDSDLPDCNCDIT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_066171589.1",
+   "organism": "Sylvia atricapilla",
+   "group": "Birds",
+   "gene": "SYNE1",
+   "length": 973,
+   "unique_nterm": "MVVVEDLRAVRMAEDNSVDSDLPDCNCDIT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_072783055.1",
+   "organism": "Taeniopygia guttata",
+   "group": "Birds",
+   "gene": "SYNE1",
+   "length": 973,
+   "unique_nterm": "MVVVEDLHAVRMAEDNSVDSDLPDCNCDIT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_082337975.1",
+   "organism": "Vanellus vanellus",
+   "group": "Birds",
+   "gene": "SYNE1",
+   "length": 980,
+   "unique_nterm": "MLDNFMVVAEDLHAVRMAEDGSVDSDLPDCNCDIT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_026912421.2",
+   "organism": "Acinonyx jubatus",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 975,
+   "unique_nterm": "MVVVEDLCALRMAEDGCVDSDLPECNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_084630623.1",
+   "organism": "Acomys minous",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 952,
+   "unique_nterm": "MVVAEDLRAPRMAEDGSAEADLPDCDCDVS",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_084630622.1",
+   "organism": "Acomys minous",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 975,
+   "unique_nterm": "MVVAEDLRAPRMAEDGSAEADLPDCDCDVS",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_051020631.1",
+   "organism": "Acomys russatus",
+   "group": "Mammals",
+   "gene": "Syne1",
+   "length": 952,
+   "unique_nterm": "MVVAEDLRAPRMAEDGSAEADLPDCDCDVS",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_064216633.1",
+   "organism": "Aotus nancymaae",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 975,
+   "unique_nterm": "MVVAEDLRALRMAEDGCVDADLPDCNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_037013510.2",
+   "organism": "Artibeus jamaicensis",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 952,
+   "unique_nterm": "MVVAEALCAWRMAEDGCADVDLPECNCDVT",
+   "junction": "RIKKLKETLVAI"
+  },
+  {
+   "accession": "XP_076782869.1",
+   "organism": "Arvicanthis niloticus",
+   "group": "Mammals",
+   "gene": "Syne1",
+   "length": 998,
+   "unique_nterm": "MLTDRRPAPFVHQEHFRASGLDKGRDPLLTQEGLNLSFCRAGLFAGGSFMVVAEDLRAPKMAEDGSVDADLPDCDCDVS",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_076782868.1",
+   "organism": "Arvicanthis niloticus",
+   "group": "Mammals",
+   "gene": "Syne1",
+   "length": 1021,
+   "unique_nterm": "MLTDRRPAPFVHQEHFRASGLDKGRDPLLTQEGLNLSFCRAGLFAGGSFMVVAEDLRAPKMAEDGSVDADLPDCDCDVS",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_044780023.2",
+   "organism": "Bubalus bubalis",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 975,
+   "unique_nterm": "MVVAEDSCGPRMADDGCADADLPDCNCDVA",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_055391986.1",
+   "organism": "Bubalus kerabau",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 975,
+   "unique_nterm": "MVVAEDSCGPRMADDGCADADLPDCNCDVA",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_035153638.2",
+   "organism": "Callithrix jacchus",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 975,
+   "unique_nterm": "MVVAEDLRALRMAEDGCVDADLPDCNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_074224244.1",
+   "organism": "Camelus bactrianus",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 975,
+   "unique_nterm": "MVVAEDPCALRMAEDGGADADLPDCNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_077753267.1",
+   "organism": "Canis aureus",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 975,
+   "unique_nterm": "MVVAEDLCALRMAEDGCVDADLPECNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_072684319.1",
+   "organism": "Canis lupus baileyi",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 975,
+   "unique_nterm": "MVVAEDLCALRMAEDGCVDADLPECNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_021571701.1",
+   "organism": "Carlito syrichta",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 975,
+   "unique_nterm": "MVVTEDLCALRMAEDGCVDTDLPECNCDIT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_073928362.1",
+   "organism": "Castor canadensis",
+   "group": "Mammals",
+   "gene": "Syne1",
+   "length": 952,
+   "unique_nterm": "MVVVEDVCARRMAEDGCVDADLPDCDCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_023420325.1",
+   "organism": "Cavia porcellus",
+   "group": "Mammals",
+   "gene": "Syne1",
+   "length": 975,
+   "unique_nterm": "MVVVEDLRALRMAEDASVDADLPDCNCDIT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_013006518.1",
+   "organism": "Cavia porcellus",
+   "group": "Mammals",
+   "gene": "Syne1",
+   "length": 952,
+   "unique_nterm": "MVVVEDLRALRMAEDASVDADLPDCNCDIT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_037598093.1",
+   "organism": "Cebus imitator",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 975,
+   "unique_nterm": "MVVAEDLRALRMAEDGCVDADLPDCNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_027256824.1",
+   "organism": "Cricetulus griseus",
+   "group": "Mammals",
+   "gene": "Syne1",
+   "length": 950,
+   "unique_nterm": "MVVAEELCALRMAEDSSVDADLPECDCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_027293918.1",
+   "organism": "Cricetulus griseus",
+   "group": "Mammals",
+   "gene": "Syne1",
+   "length": 950,
+   "unique_nterm": "MVVAEELCALRMAEDSSVDADLPECDCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_062953062.1",
+   "organism": "Cynocephalus volans",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 970,
+   "unique_nterm": "MVVVEDLRALRMAEDGCVDADLPDCNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_045044847.2",
+   "organism": "Desmodus rotundus",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 975,
+   "unique_nterm": "MVVAEALCAWRMAEDGCVDADLPECNCDVT",
+   "junction": "RIKKLKETLVAI"
+  },
+  {
+   "accession": "XP_069866547.1",
+   "organism": "Dipodomys merriami",
+   "group": "Mammals",
+   "gene": "Syne1",
+   "length": 971,
+   "unique_nterm": "MVVVEDFRAARMAEDGSVDAELPDCNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_012882425.1",
+   "organism": "Dipodomys ordii",
+   "group": "Mammals",
+   "gene": "Syne1",
+   "length": 948,
+   "unique_nterm": "MVVVEDFRAARMAEDGSVDAELPDCNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_042556546.1",
+   "organism": "Dipodomys spectabilis",
+   "group": "Mammals",
+   "gene": "Syne1",
+   "length": 948,
+   "unique_nterm": "MVVVEDFRATRMAEDGSVDAELPDCNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_023488610.1",
+   "organism": "Equus caballus",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 975,
+   "unique_nterm": "MVVVEDLCALRMAEDGSEDADLPDCNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_070459115.1",
+   "organism": "Equus przewalskii",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 975,
+   "unique_nterm": "MVVVEDLCALRMAEDGSEDADLPDCNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_069344839.1",
+   "organism": "Eulemur rufifrons",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 975,
+   "unique_nterm": "MVVAEDLRALRMAEDGCVDADLPDCNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_044914175.1",
+   "organism": "Felis catus",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 975,
+   "unique_nterm": "MVVAEDLCALRMAEDGCVDSDLPECNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_090136117.1",
+   "organism": "Furipterus horrens",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 975,
+   "unique_nterm": "MVVVEALCALRMAEDGGADADLPDCNCDVT",
+   "junction": "RIKKLKETLVAI"
+  },
+  {
+   "accession": "XP_090136115.1",
+   "organism": "Furipterus horrens",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 864,
+   "unique_nterm": "MVVVEALCALRMAEDGGADADLPDCNCDVT",
+   "junction": "RIKKLKETLVAI"
+  },
+  {
+   "accession": "XP_044527656.1",
+   "organism": "Gracilinanus agilis",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 985,
+   "unique_nterm": "MVLLLPVEAFMVVLRDLCTVRMTEDGNVDSDLPDCNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_040304796.1",
+   "organism": "Herpailurus yagouaroundi",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 975,
+   "unique_nterm": "MVVAEDLCALRMAEDGCVDSDLPECNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_087049696.1",
+   "organism": "Heterocephalus glaber",
+   "group": "Mammals",
+   "gene": "Syne1",
+   "length": 952,
+   "unique_nterm": "MVVVEDLRALRMAEDASVDADLPDCNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_087049695.1",
+   "organism": "Heterocephalus glaber",
+   "group": "Mammals",
+   "gene": "Syne1",
+   "length": 975,
+   "unique_nterm": "MVVVEDLRALRMAEDASVDADLPDCNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "NP_001334631.1",
+   "organism": "Homo sapiens",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 975,
+   "unique_nterm": "MVVAEDLSALRMAEDSCVDADLPDCNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_077875009.1",
+   "organism": "Ictidomys tridecemlineatus",
+   "group": "Mammals",
+   "gene": "Syne1",
+   "length": 951,
+   "unique_nterm": "MVVAEDLRALRMAEDGCADADLPDCNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_077875008.1",
+   "organism": "Ictidomys tridecemlineatus",
+   "group": "Mammals",
+   "gene": "Syne1",
+   "length": 974,
+   "unique_nterm": "MVVAEDLRALRMAEDGCADADLPDCNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_045356023.1",
+   "organism": "Leopardus geoffroyi",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 975,
+   "unique_nterm": "MVVAEDLCGLRMAEDGCVDSDLPECNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_081685290.1",
+   "organism": "Leptonychotes weddellii",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 975,
+   "unique_nterm": "MVVAEDLCALRMAEDGCVDADLPECNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_032692268.1",
+   "organism": "Lontra canadensis",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 974,
+   "unique_nterm": "MVVADLCALRMAEDGCVDADLPECNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_045246278.1",
+   "organism": "Macaca fascicularis",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 975,
+   "unique_nterm": "MVVAEDLRALRMAEDGCVDADLPDCNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_050642815.1",
+   "organism": "Macaca thibetana thibetana",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 975,
+   "unique_nterm": "MVVAEDLRALRMAEDGCVDADLPDCNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_074043958.1",
+   "organism": "Macrotis lagotis",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 985,
+   "unique_nterm": "MVSLLAVEALMVVFQDLCPVRMAEDGSVDSDLPDCNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_036879125.2",
+   "organism": "Manis javanica",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 975,
+   "unique_nterm": "MVVAEDLCAVRMAEDGCVDADLPDCNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_057345079.1",
+   "organism": "Manis pentadactyla",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 975,
+   "unique_nterm": "MVVAEDLCAVRMAEDGCVDADLPDCNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_048656007.1",
+   "organism": "Marmota marmota marmota",
+   "group": "Mammals",
+   "gene": "Syne1",
+   "length": 972,
+   "unique_nterm": "MVVAEDLRALRMAEDGCADADLPDCNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_015357815.1",
+   "organism": "Marmota marmota marmota",
+   "group": "Mammals",
+   "gene": "Syne1",
+   "length": 949,
+   "unique_nterm": "MVVAEDLRALRMAEDGCADADLPDCNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_058429618.1",
+   "organism": "Marmota monax",
+   "group": "Mammals",
+   "gene": "Syne1",
+   "length": 974,
+   "unique_nterm": "MVVAEDLRALRMAEDGCADADLPDCNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_080662136.1",
+   "organism": "Martes martes",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 952,
+   "unique_nterm": "MVVAEDLCAPRMAEDGCVDADLPECNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_080662135.1",
+   "organism": "Martes martes",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 975,
+   "unique_nterm": "MVVAEDLCAPRMAEDGCVDADLPECNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_075858974.1",
+   "organism": "Microcebus murinus",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 973,
+   "unique_nterm": "MVVAEDLRALRMAEDDCVDADLPDCNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_045721721.1",
+   "organism": "Mirounga angustirostris",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 975,
+   "unique_nterm": "MVVAEDLCALRMAEDGCMDADLPECNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_034846922.1",
+   "organism": "Mirounga leonina",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 975,
+   "unique_nterm": "MVVAEDLCALRMAEDGCMDADLPECNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_036105250.1",
+   "organism": "Molossus molossus",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 952,
+   "unique_nterm": "MVVAGDPCALRMAEDSGVDADLPDCNCDVT",
+   "junction": "RIKKLKETLVAI"
+  },
+  {
+   "accession": "XP_021030751.1",
+   "organism": "Mus caroli",
+   "group": "Mammals",
+   "gene": "Syne1",
+   "length": 949,
+   "unique_nterm": "MVVAEDLRGPRMAEDGSVDADLPDCDCDVS",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_021030750.1",
+   "organism": "Mus caroli",
+   "group": "Mammals",
+   "gene": "Syne1",
+   "length": 972,
+   "unique_nterm": "MVVAEDLRGPRMAEDGSVDADLPDCDCDVS",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "NP_071310.2",
+   "organism": "Mus musculus",
+   "group": "Mammals",
+   "gene": "Syne1",
+   "length": 949,
+   "unique_nterm": "MVVAEDLHGPRMAEDSSVDADLPDCDCDVS",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_036011830.1",
+   "organism": "Mus musculus",
+   "group": "Mammals",
+   "gene": "Syne1",
+   "length": 972,
+   "unique_nterm": "MVVAEDLHGPRMAEDSSVDADLPDCDCDVS",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_021076996.1",
+   "organism": "Mus pahari",
+   "group": "Mammals",
+   "gene": "Syne1",
+   "length": 949,
+   "unique_nterm": "MVVAEDLRGPRMAEDGSVDADLPDCDCDVS",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_021076994.1",
+   "organism": "Mus pahari",
+   "group": "Mammals",
+   "gene": "Syne1",
+   "length": 972,
+   "unique_nterm": "MVVAEDLRGPRMAEDGSVDADLPDCDCDVS",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_080556017.1",
+   "organism": "Muscardinus avellanarius",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 951,
+   "unique_nterm": "MVVVEDLRAPSMAEDGCVDVDLPDCNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_080556016.1",
+   "organism": "Muscardinus avellanarius",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 974,
+   "unique_nterm": "MVVVEDLRAPSMAEDGCVDVDLPDCNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_085544165.2",
+   "organism": "Myodes glareolus",
+   "group": "Mammals",
+   "gene": "Syne1",
+   "length": 950,
+   "unique_nterm": "MVVAEDVRALRMAEDGSADADLPECDCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_085544159.2",
+   "organism": "Myodes glareolus",
+   "group": "Mammals",
+   "gene": "Syne1",
+   "length": 973,
+   "unique_nterm": "MVVAEDVRALRMAEDGSADADLPECDCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_058591682.1",
+   "organism": "Neofelis nebulosa",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 975,
+   "unique_nterm": "MVVAEDLRALRMGEDGCVDSDLPECNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_053446480.1",
+   "organism": "Nycticebus coucang",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 975,
+   "unique_nterm": "MVVAEDLRAPRMAEDGCADADLPDCNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_040821112.1",
+   "organism": "Ochotona curzoniae",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 948,
+   "unique_nterm": "MVVAENPRALRMAEDSGADADLPDCNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_040821111.1",
+   "organism": "Ochotona curzoniae",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 971,
+   "unique_nterm": "MVVAENPRALRMAEDSGADADLPDCNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_058519924.1",
+   "organism": "Ochotona princeps",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 948,
+   "unique_nterm": "MVVAENLRALRMAEDSEVDTDLPDCNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_058519874.1",
+   "organism": "Ochotona princeps",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 971,
+   "unique_nterm": "MVVAENLRALRMAEDSEVDTDLPDCNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_028903939.1",
+   "organism": "Ornithorhynchus anatinus",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 975,
+   "unique_nterm": "MVLVKDLCVTRMADDGGVDADLPECNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_089188700.1",
+   "organism": "Oryctolagus cuniculus",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 952,
+   "unique_nterm": "MVVAEDLRARRMAEDGCADADLPECNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_051711227.3",
+   "organism": "Oryctolagus cuniculus",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 975,
+   "unique_nterm": "MVVAEDLRARRMAEDGCADADLPECNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_024213326.1",
+   "organism": "Pan troglodytes",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 975,
+   "unique_nterm": "MVVAEDLSALRMAEDGCVDADLPDCNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_078303610.1",
+   "organism": "Panthera onca",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 975,
+   "unique_nterm": "MVVAEDLCALRMAEDGCVDSDLPECNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_053760346.1",
+   "organism": "Panthera pardus",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 975,
+   "unique_nterm": "MVVAEDLCALRMAEDGCVDSDLPECNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_076408949.1",
+   "organism": "Peromyscus maniculatus bairdii",
+   "group": "Mammals",
+   "gene": "Syne1",
+   "length": 950,
+   "unique_nterm": "MVVAEDLRSLRMAEDGSVDAELPECDCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_076408948.1",
+   "organism": "Peromyscus maniculatus bairdii",
+   "group": "Mammals",
+   "gene": "Syne1",
+   "length": 973,
+   "unique_nterm": "MVVAEDLRSLRMAEDGSVDAELPECDCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_068925757.1",
+   "organism": "Petaurus breviceps papuanus",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 985,
+   "unique_nterm": "MVLLLAVEAFMVVFQDLCTVRMAEDGSVDSDLPDCNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_028366800.1",
+   "organism": "Phyllostomus discolor",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 975,
+   "unique_nterm": "MVVAEAPCAWRMAEDGCVDADLPECNCDVT",
+   "junction": "RIKKLKETLVAI"
+  },
+  {
+   "accession": "XP_045698688.1",
+   "organism": "Phyllostomus hastatus",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 952,
+   "unique_nterm": "MVVAEAPCAWRMAEDGCADADLPECNCDVT",
+   "junction": "RIKKLKETLVAI"
+  },
+  {
+   "accession": "XP_084746304.1",
+   "organism": "Pipistrellus hanaki",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 952,
+   "unique_nterm": "MVVAEGLRALRMAEDGDVDADLPDCDCDVT",
+   "junction": "RIKKLKETLVAV"
+  },
+  {
+   "accession": "XP_084746303.1",
+   "organism": "Pipistrellus hanaki",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 975,
+   "unique_nterm": "MVVAEGLRALRMAEDGDVDADLPDCDCDVT",
+   "junction": "RIKKLKETLVAV"
+  },
+  {
+   "accession": "XP_080519729.1",
+   "organism": "Plecotus auritus",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 952,
+   "unique_nterm": "MVVAEGLRALRMAEDGGVDADLPDCDCDVT",
+   "junction": "RIKKLKETLVAV"
+  },
+  {
+   "accession": "XP_080519728.1",
+   "organism": "Plecotus auritus",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 975,
+   "unique_nterm": "MVVAEGLRALRMAEDGGVDADLPDCDCDVT",
+   "junction": "RIKKLKETLVAV"
+  },
+  {
+   "accession": "XP_054346725.2",
+   "organism": "Pongo pygmaeus",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 975,
+   "unique_nterm": "MVVAEDLSALRMAEDGCVDADLPDCNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_086564294.1",
+   "organism": "Puma concolor",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 975,
+   "unique_nterm": "MVVAEDLCALRMAEDGCVDSDLPECNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_087436814.1",
+   "organism": "Rattus norvegicus",
+   "group": "Mammals",
+   "gene": "Syne1",
+   "length": 949,
+   "unique_nterm": "MVVAEDLRALRMAEDGSVDADLPDCDCDVS",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_087436807.1",
+   "organism": "Rattus norvegicus",
+   "group": "Mammals",
+   "gene": "Syne1",
+   "length": 972,
+   "unique_nterm": "MVVAEDLRALRMAEDGSVDADLPDCDCDVS",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_063126704.1",
+   "organism": "Rattus norvegicus",
+   "group": "Mammals",
+   "gene": "Syne1",
+   "length": 972,
+   "unique_nterm": "MVVAEDLRALRMAEDGSVDADLPDCDCDVS",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_006227914.1",
+   "organism": "Rattus norvegicus",
+   "group": "Mammals",
+   "gene": "Syne1",
+   "length": 949,
+   "unique_nterm": "MVVAEDLRALRMAEDGSVDADLPDCDCDVS",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_080900822.1",
+   "organism": "Rhinolophus hipposideros",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 952,
+   "unique_nterm": "MVVAENLCAMRMAEDGCVDADLPDCNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_080900821.1",
+   "organism": "Rhinolophus hipposideros",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 975,
+   "unique_nterm": "MVVAENLCAMRMAEDGCVDADLPDCNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_074253364.1",
+   "organism": "Saimiri boliviensis",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 975,
+   "unique_nterm": "MVVAEDLRALRMAEDGCVDADLPDCNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_032114679.1",
+   "organism": "Sapajus apella",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 975,
+   "unique_nterm": "MVVAEDLRALRMAEDGCVDADLPDCNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_079004073.1",
+   "organism": "Sciurus vulgaris",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 951,
+   "unique_nterm": "MVVAEDLRAPKMAEDGCVDADLPDCNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_079004072.1",
+   "organism": "Sciurus vulgaris",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 974,
+   "unique_nterm": "MVVAEDLRAPKMAEDGCVDADLPDCNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_081151849.1",
+   "organism": "Spermophilus citellus",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 951,
+   "unique_nterm": "MVVAEDLRALRMAEDGCADADLPDCNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_081151848.1",
+   "organism": "Spermophilus citellus",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 974,
+   "unique_nterm": "MVVAEDLRALRMAEDGCADADLPDCNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_036907646.1",
+   "organism": "Sturnira hondurensis",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 952,
+   "unique_nterm": "MVVAEALCAWRMAEDGCVDADLPECNCDVT",
+   "junction": "RIKKLKETLVAI"
+  },
+  {
+   "accession": "XP_055123418.2",
+   "organism": "Symphalangus syndactylus",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 975,
+   "unique_nterm": "MVVAEDLSALRMAEDGCVDTDLPDCNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_084115752.1",
+   "organism": "Talpa europaea",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 952,
+   "unique_nterm": "MLVAEDLCALRMAEDGSEDADLPDCNCDIS",
+   "junction": "RIKKLKETLVAV"
+  },
+  {
+   "accession": "XP_084115751.1",
+   "organism": "Talpa europaea",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 975,
+   "unique_nterm": "MLVAEDLCALRMAEDGSEDADLPDCNCDIS",
+   "junction": "RIKKLKETLVAV"
+  },
+  {
+   "accession": "XP_086585069.1",
+   "organism": "Theropithecus gelada",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 952,
+   "unique_nterm": "MVVAEDLRALRMAEDGCVDADLPDCNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_025240306.1",
+   "organism": "Theropithecus gelada",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 975,
+   "unique_nterm": "MVVAEDLRALRMAEDGCVDADLPDCNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_023584813.1",
+   "organism": "Trichechus manatus latirostris",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 952,
+   "unique_nterm": "MVVAKELCAVRMAEDSGVDTDLPDCNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_036621894.1",
+   "organism": "Trichosurus vulpecula",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 985,
+   "unique_nterm": "MVLLLAVEAFMVVFQDLCTVRMAEDGSVDSDLPDCNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_027625674.1",
+   "organism": "Tupaia chinensis",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 975,
+   "unique_nterm": "MVVAEDLHASRMAEDGCVDTDLPDCNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_006140063.1",
+   "organism": "Tupaia chinensis",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 952,
+   "unique_nterm": "MVVAEDLHASRMAEDGCVDTDLPDCNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_026255731.2",
+   "organism": "Urocitellus parryii",
+   "group": "Mammals",
+   "gene": "Syne1",
+   "length": 951,
+   "unique_nterm": "MVVAEDLRALRMAEDGCADADLPDCNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_026255730.2",
+   "organism": "Urocitellus parryii",
+   "group": "Mammals",
+   "gene": "Syne1",
+   "length": 974,
+   "unique_nterm": "MVVAEDLRALRMAEDGCADADLPDCNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_087721719.1",
+   "organism": "Ursus americanus",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 975,
+   "unique_nterm": "MVVAEDLCAPRMAEDGCVDADLPECNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_044242374.3",
+   "organism": "Ursus arctos",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 975,
+   "unique_nterm": "MVVAEDLCAPRMAEDGCVDADLPECNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_041600123.1",
+   "organism": "Vulpes lagopus",
+   "group": "Mammals",
+   "gene": "SYNE1",
+   "length": 975,
+   "unique_nterm": "MVVAEDLCALRMAEDGCVDADLPECNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_033873712.3",
+   "organism": "Acipenser ruthenus",
+   "group": "Ray-finned fish",
+   "gene": "syne1a",
+   "length": 978,
+   "unique_nterm": "MVLHLRTETMAGCRDADSNLPDCDCDVS",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_055362111.1",
+   "organism": "Betta splendens",
+   "group": "Ray-finned fish",
+   "gene": "syne1a",
+   "length": 984,
+   "unique_nterm": "MVLDLGSDNMAGCSSEEDLPDCDCDVN",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_042565831.1",
+   "organism": "Clupea harengus",
+   "group": "Ray-finned fish",
+   "gene": "LOC105909494",
+   "length": 1011,
+   "unique_nterm": "MVLDLGTDKMAGSPSQGSPLPECDCDVN",
+   "junction": "RVKKLKETLLAV"
+  },
+  {
+   "accession": "XP_028970453.2",
+   "organism": "Esox lucius",
+   "group": "Ray-finned fish",
+   "gene": "syne1a",
+   "length": 998,
+   "unique_nterm": "MVLVLATDKMAGCPSEDSEDLPECDCDVN",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_074982922.1",
+   "organism": "Caretta caretta",
+   "group": "Reptiles",
+   "gene": "SYNE1",
+   "length": 975,
+   "unique_nterm": "MVVGEDLCGVRMAEDCSVDSDLPDCNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_074846464.1",
+   "organism": "Carettochelys insculpta",
+   "group": "Reptiles",
+   "gene": "SYNE1",
+   "length": 995,
+   "unique_nterm": "MQSTSLQFNSKFLVLVLEIFMVIGENLCAVRMAEDCSVDSDLPDCNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_023968280.2",
+   "organism": "Chrysemys picta bellii",
+   "group": "Reptiles",
+   "gene": "SYNE1",
+   "length": 952,
+   "unique_nterm": "MVVGEDLCAVRMAEDCSVDSDLPDCNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_089897694.1",
+   "organism": "Crocodylus siamensis",
+   "group": "Reptiles",
+   "gene": "SYNE1",
+   "length": 985,
+   "unique_nterm": "MFLFLILESFMVVAEDLCAVKMAEDCNVDSDLPDCNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_039385873.1",
+   "organism": "Mauremys reevesii",
+   "group": "Reptiles",
+   "gene": "SYNE1",
+   "length": 952,
+   "unique_nterm": "MVVGEDLCAVRMAEDCSVDSDLPDCNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_075780581.1",
+   "organism": "Pelodiscus sinensis",
+   "group": "Reptiles",
+   "gene": "SYNE1",
+   "length": 1000,
+   "unique_nterm": "MLACSTGCWTTSFWAASSWFLVLENFMVIGEDLCAVRMAEDCRVDSDLPDCNCDVT",
+   "junction": "RVKKLKETLVAV"
+  },
+  {
+   "accession": "XP_034621275.1",
+   "organism": "Trachemys scripta elegans",
+   "group": "Reptiles",
+   "gene": "SYNE1",
+   "length": 952,
+   "unique_nterm": "MVVGEDLCAVRMAEDCSVDSDLPDCNCDVT",
+   "junction": "RVKKLKETLVAV"
+  }
+ ],
+ "zebrafish_scans": {
+  "zebrafish_syne1a": {
+   "first_shared_exon": {
+    "giant": "ENSDART00000139350.4",
+    "exon_number": 128,
+    "exon": [
+     26342757,
+     26342919
+    ],
+    "residue": 7770,
+    "residue_aa": "R",
+    "upstream_contribution": 2,
+    "intron": [
+     26339512,
+     26342756
+    ],
+    "intron_len": 3245,
+    "prev_exon_number": 127,
+    "alpha2_vs_giant_identity": "606/953"
+   },
+   "candidates": [
+    {
+     "atg": 1711,
+     "donor": 1797,
+     "coding_nt": 86,
+     "peptide": "MVLDMGTDNMAGCPGQDSDLPECDCDIN",
+     "donor_seq": "GCAGGAAA",
+     "donor_type": "GC",
+     "kozak": "GGCTCAATGG",
+     "scores": {
+      "human": 56,
+      "mouse": 64,
+      "rat": 62
+     },
+     "best": 64,
+     "genomic": [
+      26341223,
+      26341308
+     ]
+    },
+    {
+     "atg": 1711,
+     "donor": 1860,
+     "coding_nt": 149,
+     "peptide": "MVLDMGTDNMAGCPGQDSDLPECDCDINRQENIHLIVINILQILFLEVG",
+     "donor_seq": "GTATTATT",
+     "donor_type": "GT",
+     "kozak": "GGCTCAATGG",
+     "scores": {
+      "human": 56,
+      "mouse": 64,
+      "rat": 62
+     },
+     "best": 64,
+     "genomic": [
+      26341223,
+      26341371
+     ]
+    },
+    {
+     "atg": 1546,
+     "donor": 1797,
+     "coding_nt": 251,
+     "peptide": "MPALGNSLHTHSYTAHTLRRAAKQHRTLLSRLKRRGISTGWKFFFILAHSIGYGSMVLDMGTDNMAGCPGQDSDLPECDCDIN",
+     "donor_seq": "GCAGGAAA",
+     "donor_type": "GC",
+     "kozak": "CTGCTCATGC",
+     "scores": {
+      "human": 56,
+      "mouse": 64,
+      "rat": 62
+     },
+     "best": 64,
+     "genomic": [
+      26341058,
+      26341308
+     ]
+    },
+    {
+     "atg": 1546,
+     "donor": 1860,
+     "coding_nt": 314,
+     "peptide": "MPALGNSLHTHSYTAHTLRRAAKQHRTLLSRLKRRGISTGWKFFFILAHSIGYGSMVLDMGTDNMAGCPGQDSDLPECDCDINRQENIHLIVINILQILFLEVG",
+     "donor_seq": "GTATTATT",
+     "donor_type": "GT",
+     "kozak": "CTGCTCATGC",
+     "scores": {
+      "human": 56,
+      "mouse": 64,
+      "rat": 62
+     },
+     "best": 64,
+     "genomic": [
+      26341058,
+      26341371
+     ]
+    },
+    {
+     "atg": 1738,
+     "donor": 1797,
+     "coding_nt": 59,
+     "peptide": "MAGCPGQDSDLPECDCDIN",
+     "donor_seq": "GCAGGAAA",
+     "donor_type": "GC",
+     "kozak": "GATAACATGG",
+     "scores": {
+      "human": 54,
+      "mouse": 61,
+      "rat": 60
+     },
+     "best": 61,
+     "genomic": [
+      26341250,
+      26341308
+     ]
+    },
+    {
+     "atg": 1723,
+     "donor": 1797,
+     "coding_nt": 74,
+     "peptide": "MGTDNMAGCPGQDSDLPECDCDIN",
+     "donor_seq": "GCAGGAAA",
+     "donor_type": "GC",
+     "kozak": "CTGGATATGG",
+     "scores": {
+      "human": 54,
+      "mouse": 61,
+      "rat": 60
+     },
+     "best": 61,
+     "genomic": [
+      26341235,
+      26341308
+     ]
+    },
+    {
+     "atg": 1738,
+     "donor": 1860,
+     "coding_nt": 122,
+     "peptide": "MAGCPGQDSDLPECDCDINRQENIHLIVINILQILFLEVG",
+     "donor_seq": "GTATTATT",
+     "donor_type": "GT",
+     "kozak": "GATAACATGG",
+     "scores": {
+      "human": 54,
+      "mouse": 61,
+      "rat": 60
+     },
+     "best": 61,
+     "genomic": [
+      26341250,
+      26341371
+     ]
+    },
+    {
+     "atg": 1723,
+     "donor": 1860,
+     "coding_nt": 137,
+     "peptide": "MGTDNMAGCPGQDSDLPECDCDINRQENIHLIVINILQILFLEVG",
+     "donor_seq": "GTATTATT",
+     "donor_type": "GT",
+     "kozak": "CTGGATATGG",
+     "scores": {
+      "human": 54,
+      "mouse": 61,
+      "rat": 60
+     },
+     "best": 61,
+     "genomic": [
+      26341235,
+      26341371
+     ]
+    },
+    {
+     "atg": 185,
+     "donor": 409,
+     "coding_nt": 224,
+     "peptide": "MASLDLTGTVAFPAVRTGSFSHVWCGLHCGLCVGECHSLSLSHSHSCALDQCDSCCPHLLVDCSGHAFIWIVWI",
+     "donor_seq": "GTTGCTCA",
+     "donor_type": "GT",
+     "kozak": "GACACCATGG",
+     "scores": {
+      "human": 29,
+      "mouse": 19,
+      "rat": 18
+     },
+     "best": 29,
+     "genomic": [
+      26339697,
+      26339920
+     ]
+    },
+    {
+     "atg": 185,
+     "donor": 412,
+     "coding_nt": 227,
+     "peptide": "MASLDLTGTVAFPAVRTGSFSHVWCGLHCGLCVGECHSLSLSHSHSCALDQCDSCCPHLLVDCSGHAFIWIVWIG",
+     "donor_seq": "GCTCATGG",
+     "donor_type": "GC",
+     "kozak": "GACACCATGG",
+     "scores": {
+      "human": 29,
+      "mouse": 19,
+      "rat": 18
+     },
+     "best": 29,
+     "genomic": [
+      26339697,
+      26339923
+     ]
+    },
+    {
+     "atg": 185,
+     "donor": 424,
+     "coding_nt": 239,
+     "peptide": "MASLDLTGTVAFPAVRTGSFSHVWCGLHCGLCVGECHSLSLSHSHSCALDQCDSCCPHLLVDCSGHAFIWIVWIGLLMV",
+     "donor_seq": "GTATACAC",
+     "donor_type": "GT",
+     "kozak": "GACACCATGG",
+     "scores": {
+      "human": 29,
+      "mouse": 19,
+      "rat": 18
+     },
+     "best": 29,
+     "genomic": [
+      26339697,
+      26339935
+     ]
+    },
+    {
+     "atg": 131,
+     "donor": 409,
+     "coding_nt": 278,
+     "peptide": "MACGWKGNRLQQHFKHDTMASLDLTGTVAFPAVRTGSFSHVWCGLHCGLCVGECHSLSLSHSHSCALDQCDSCCPHLLVDCSGHAFIWIVWI",
+     "donor_seq": "GTTGCTCA",
+     "donor_type": "GT",
+     "kozak": "ATGCCAATGG",
+     "scores": {
+      "human": 29,
+      "mouse": 19,
+      "rat": 18
+     },
+     "best": 29,
+     "genomic": [
+      26339643,
+      26339920
+     ]
+    },
+    {
+     "atg": 131,
+     "donor": 412,
+     "coding_nt": 281,
+     "peptide": "MACGWKGNRLQQHFKHDTMASLDLTGTVAFPAVRTGSFSHVWCGLHCGLCVGECHSLSLSHSHSCALDQCDSCCPHLLVDCSGHAFIWIVWIG",
+     "donor_seq": "GCTCATGG",
+     "donor_type": "GC",
+     "kozak": "ATGCCAATGG",
+     "scores": {
+      "human": 29,
+      "mouse": 19,
+      "rat": 18
+     },
+     "best": 29,
+     "genomic": [
+      26339643,
+      26339923
+     ]
+    },
+    {
+     "atg": 125,
+     "donor": 409,
+     "coding_nt": 284,
+     "peptide": "MPMACGWKGNRLQQHFKHDTMASLDLTGTVAFPAVRTGSFSHVWCGLHCGLCVGECHSLSLSHSHSCALDQCDSCCPHLLVDCSGHAFIWIVWI",
+     "donor_seq": "GTTGCTCA",
+     "donor_type": "GT",
+     "kozak": "TCTGTCATGC",
+     "scores": {
+      "human": 29,
+      "mouse": 19,
+      "rat": 18
+     },
+     "best": 29,
+     "genomic": [
+      26339637,
+      26339920
+     ]
+    },
+    {
+     "atg": 125,
+     "donor": 412,
+     "coding_nt": 287,
+     "peptide": "MPMACGWKGNRLQQHFKHDTMASLDLTGTVAFPAVRTGSFSHVWCGLHCGLCVGECHSLSLSHSHSCALDQCDSCCPHLLVDCSGHAFIWIVWIG",
+     "donor_seq": "GCTCATGG",
+     "donor_type": "GC",
+     "kozak": "TCTGTCATGC",
+     "scores": {
+      "human": 29,
+      "mouse": 19,
+      "rat": 18
+     },
+     "best": 29,
+     "genomic": [
+      26339637,
+      26339923
+     ]
+    }
+   ],
+   "n_candidates": 139,
+   "nt_similarity": {
+    "human": {
+     "score": 330,
+     "identity": "134/222",
+     "intron_range": [
+      0,
+      1797
+     ]
+    },
+    "mouse": {
+     "score": 401,
+     "identity": "172/300",
+     "intron_range": [
+      1535,
+      1796
+     ]
+    },
+    "rat": {
+     "score": 343,
+     "identity": "168/306",
+     "intron_range": [
+      0,
+      1796
+     ]
+    }
+   }
+  },
+  "zebrafish_syne1b": {
+   "first_shared_exon": {
+    "giant": "ENSDART00000148520.3",
+    "exon_number": 128,
+    "exon": [
+     7885599,
+     7885761
+    ],
+    "residue": 7788,
+    "residue_aa": "R",
+    "upstream_contribution": 2,
+    "intron": [
+     7885762,
+     7888303
+    ],
+    "intron_len": 2542,
+    "prev_exon_number": 127,
+    "alpha2_vs_giant_identity": "680/950"
+   },
+   "candidates": [
+    {
+     "atg": 1723,
+     "donor": 1773,
+     "coding_nt": 50,
+     "peptide": "MPRAGPELPECCKYSR",
+     "donor_seq": "GCCTCCCT",
+     "donor_type": "GC",
+     "kozak": "TTGCCTATGC",
+     "scores": {
+      "human": 24,
+      "mouse": 25,
+      "rat": 25
+     },
+     "best": 25,
+     "genomic": [
+      7886531,
+      7886580
+     ]
+    },
+    {
+     "atg": 1714,
+     "donor": 1773,
+     "coding_nt": 59,
+     "peptide": "MLPMPRAGPELPECCKYSR",
+     "donor_seq": "GCCTCCCT",
+     "donor_type": "GC",
+     "kozak": "ATGCCTATGT",
+     "scores": {
+      "human": 24,
+      "mouse": 25,
+      "rat": 25
+     },
+     "best": 25,
+     "genomic": [
+      7886531,
+      7886589
+     ]
+    },
+    {
+     "atg": 1723,
+     "donor": 1782,
+     "coding_nt": 59,
+     "peptide": "MPRAGPELPECCKYSRSPP",
+     "donor_seq": "GCGACAGA",
+     "donor_type": "GC",
+     "kozak": "TTGCCTATGC",
+     "scores": {
+      "human": 24,
+      "mouse": 25,
+      "rat": 25
+     },
+     "best": 25,
+     "genomic": [
+      7886522,
+      7886580
+     ]
+    },
+    {
+     "atg": 1708,
+     "donor": 1773,
+     "coding_nt": 65,
+     "peptide": "MPMLPMPRAGPELPECCKYSR",
+     "donor_seq": "GCCTCCCT",
+     "donor_type": "GC",
+     "kozak": "TAGCGTATGC",
+     "scores": {
+      "human": 24,
+      "mouse": 25,
+      "rat": 25
+     },
+     "best": 25,
+     "genomic": [
+      7886531,
+      7886595
+     ]
+    },
+    {
+     "atg": 1714,
+     "donor": 1782,
+     "coding_nt": 68,
+     "peptide": "MLPMPRAGPELPECCKYSRSPP",
+     "donor_seq": "GCGACAGA",
+     "donor_type": "GC",
+     "kozak": "ATGCCTATGT",
+     "scores": {
+      "human": 24,
+      "mouse": 25,
+      "rat": 25
+     },
+     "best": 25,
+     "genomic": [
+      7886522,
+      7886589
+     ]
+    },
+    {
+     "atg": 1708,
+     "donor": 1782,
+     "coding_nt": 74,
+     "peptide": "MPMLPMPRAGPELPECCKYSRSPP",
+     "donor_seq": "GCGACAGA",
+     "donor_type": "GC",
+     "kozak": "TAGCGTATGC",
+     "scores": {
+      "human": 24,
+      "mouse": 25,
+      "rat": 25
+     },
+     "best": 25,
+     "genomic": [
+      7886522,
+      7886595
+     ]
+    },
+    {
+     "atg": 1723,
+     "donor": 1767,
+     "coding_nt": 44,
+     "peptide": "MPRAGPELPECCKY",
+     "donor_seq": "GCGCTCGC",
+     "donor_type": "GC",
+     "kozak": "TTGCCTATGC",
+     "scores": {
+      "human": 24,
+      "mouse": 24,
+      "rat": 24
+     },
+     "best": 24,
+     "genomic": [
+      7886537,
+      7886580
+     ]
+    },
+    {
+     "atg": 1714,
+     "donor": 1767,
+     "coding_nt": 53,
+     "peptide": "MLPMPRAGPELPECCKY",
+     "donor_seq": "GCGCTCGC",
+     "donor_type": "GC",
+     "kozak": "ATGCCTATGT",
+     "scores": {
+      "human": 24,
+      "mouse": 24,
+      "rat": 24
+     },
+     "best": 24,
+     "genomic": [
+      7886537,
+      7886589
+     ]
+    },
+    {
+     "atg": 1708,
+     "donor": 1767,
+     "coding_nt": 59,
+     "peptide": "MPMLPMPRAGPELPECCKY",
+     "donor_seq": "GCGCTCGC",
+     "donor_type": "GC",
+     "kozak": "TAGCGTATGC",
+     "scores": {
+      "human": 24,
+      "mouse": 24,
+      "rat": 24
+     },
+     "best": 24,
+     "genomic": [
+      7886537,
+      7886595
+     ]
+    },
+    {
+     "atg": 1688,
+     "donor": 1792,
+     "coding_nt": 104,
+     "peptide": "MYSALSVCLCCLCHGPALSCLSVVNTRARLPRDR",
+     "donor_seq": "GCATAGGA",
+     "donor_type": "GC",
+     "kozak": "CCCTGGATGT",
+     "scores": {
+      "human": 15,
+      "mouse": 24,
+      "rat": 14
+     },
+     "best": 24,
+     "genomic": [
+      7886512,
+      7886615
+     ]
+    },
+    {
+     "atg": 71,
+     "donor": 121,
+     "coding_nt": 50,
+     "peptide": "MPSVQFDISVHHGALT",
+     "donor_seq": "GCTTTCTA",
+     "donor_type": "GC",
+     "kozak": "ATTATCATGC",
+     "scores": {
+      "human": 16,
+      "mouse": 19,
+      "rat": 19
+     },
+     "best": 19,
+     "genomic": [
+      7888183,
+      7888232
+     ]
+    },
+    {
+     "atg": 1831,
+     "donor": 2016,
+     "coding_nt": 185,
+     "peptide": "MIITEQNCSRLHRGAQKKQLILTPLVLILTQKNVCNAHAVYLLSLNLHCAAVSLPYKYVHH",
+     "donor_seq": "GTACATTA",
+     "donor_type": "GT",
+     "kozak": "CCGGTTATGA",
+     "scores": {
+      "human": 18,
+      "mouse": 16,
+      "rat": 16
+     },
+     "best": 18,
+     "genomic": [
+      7886288,
+      7886472
+     ]
+    },
+    {
+     "atg": 1831,
+     "donor": 1863,
+     "coding_nt": 32,
+     "peptide": "MIITEQNCSR",
+     "donor_seq": "GCATCGCG",
+     "donor_type": "GC",
+     "kozak": "CCGGTTATGA",
+     "scores": {
+      "human": 16,
+      "mouse": 16,
+      "rat": 16
+     },
+     "best": 16,
+     "genomic": [
+      7886441,
+      7886472
+     ]
+    },
+    {
+     "atg": 1831,
+     "donor": 1956,
+     "coding_nt": 125,
+     "peptide": "MIITEQNCSRLHRGAQKKQLILTPLVLILTQKNVCNAHAVY",
+     "donor_seq": "GTTGTCAT",
+     "donor_type": "GT",
+     "kozak": "CCGGTTATGA",
+     "scores": {
+      "human": 16,
+      "mouse": 16,
+      "rat": 16
+     },
+     "best": 16,
+     "genomic": [
+      7886348,
+      7886472
+     ]
+    },
+    {
+     "atg": 1831,
+     "donor": 1959,
+     "coding_nt": 128,
+     "peptide": "MIITEQNCSRLHRGAQKKQLILTPLVLILTQKNVCNAHAVYL",
+     "donor_seq": "GTCATTAA",
+     "donor_type": "GT",
+     "kozak": "CCGGTTATGA",
+     "scores": {
+      "human": 16,
+      "mouse": 16,
+      "rat": 16
+     },
+     "best": 16,
+     "genomic": [
+      7886345,
+      7886472
+     ]
+    }
+   ],
+   "n_candidates": 44,
+   "nt_similarity": {
+    "human": {
+     "score": 269,
+     "identity": "138/248",
+     "intron_range": [
+      578,
+      801
+     ]
+    },
+    "mouse": {
+     "score": 330,
+     "identity": "157/275",
+     "intron_range": [
+      661,
+      896
+     ]
+    },
+    "rat": {
+     "score": 316,
+     "identity": "159/288",
+     "intron_range": [
+      0,
+      929
+     ]
+    }
+   }
+  },
+  "zebrafish_syne1a_GRCz12tu": {
+   "first_shared_exon": {
+    "giant": "XM_073933275.1",
+    "exon_number": 135,
+    "exon": [
+     29057295,
+     29057457
+    ],
+    "residue": 7791,
+    "residue_aa": "R",
+    "upstream_contribution": 2,
+    "intron": [
+     29054050,
+     29057294
+    ],
+    "intron_len": 3245,
+    "prev_exon_number": 134,
+    "alpha2_vs_giant_identity": "606/953"
+   },
+   "candidates": [
+    {
+     "atg": 1711,
+     "donor": 1797,
+     "coding_nt": 86,
+     "peptide": "MVLDMGTDNMAGCPGQDSDLPECDCDIN",
+     "donor_seq": "GCAGGAAA",
+     "donor_type": "GC",
+     "kozak": "GGCTCAATGG",
+     "scores": {
+      "human": 56,
+      "mouse": 64,
+      "rat": 62
+     },
+     "best": 64,
+     "genomic": [
+      29055761,
+      29055846
+     ]
+    },
+    {
+     "atg": 1711,
+     "donor": 1860,
+     "coding_nt": 149,
+     "peptide": "MVLDMGTDNMAGCPGQDSDLPECDCDINRQENIHLIVINILQILFLEVG",
+     "donor_seq": "GTATTATT",
+     "donor_type": "GT",
+     "kozak": "GGCTCAATGG",
+     "scores": {
+      "human": 56,
+      "mouse": 64,
+      "rat": 62
+     },
+     "best": 64,
+     "genomic": [
+      29055761,
+      29055909
+     ]
+    },
+    {
+     "atg": 1546,
+     "donor": 1797,
+     "coding_nt": 251,
+     "peptide": "MPALGNSLHTHSYTAHTLRRAAKQHRTLLSRLKRRGISTGWKFFFILAHSIGYGSMVLDMGTDNMAGCPGQDSDLPECDCDIN",
+     "donor_seq": "GCAGGAAA",
+     "donor_type": "GC",
+     "kozak": "CTGCTCATGC",
+     "scores": {
+      "human": 56,
+      "mouse": 64,
+      "rat": 62
+     },
+     "best": 64,
+     "genomic": [
+      29055596,
+      29055846
+     ]
+    },
+    {
+     "atg": 1546,
+     "donor": 1860,
+     "coding_nt": 314,
+     "peptide": "MPALGNSLHTHSYTAHTLRRAAKQHRTLLSRLKRRGISTGWKFFFILAHSIGYGSMVLDMGTDNMAGCPGQDSDLPECDCDINRQENIHLIVINILQILFLEVG",
+     "donor_seq": "GTATTATT",
+     "donor_type": "GT",
+     "kozak": "CTGCTCATGC",
+     "scores": {
+      "human": 56,
+      "mouse": 64,
+      "rat": 62
+     },
+     "best": 64,
+     "genomic": [
+      29055596,
+      29055909
+     ]
+    },
+    {
+     "atg": 1738,
+     "donor": 1797,
+     "coding_nt": 59,
+     "peptide": "MAGCPGQDSDLPECDCDIN",
+     "donor_seq": "GCAGGAAA",
+     "donor_type": "GC",
+     "kozak": "GATAACATGG",
+     "scores": {
+      "human": 54,
+      "mouse": 61,
+      "rat": 60
+     },
+     "best": 61,
+     "genomic": [
+      29055788,
+      29055846
+     ]
+    },
+    {
+     "atg": 1723,
+     "donor": 1797,
+     "coding_nt": 74,
+     "peptide": "MGTDNMAGCPGQDSDLPECDCDIN",
+     "donor_seq": "GCAGGAAA",
+     "donor_type": "GC",
+     "kozak": "CTGGATATGG",
+     "scores": {
+      "human": 54,
+      "mouse": 61,
+      "rat": 60
+     },
+     "best": 61,
+     "genomic": [
+      29055773,
+      29055846
+     ]
+    },
+    {
+     "atg": 1738,
+     "donor": 1860,
+     "coding_nt": 122,
+     "peptide": "MAGCPGQDSDLPECDCDINRQENIHLIVINILQILFLEVG",
+     "donor_seq": "GTATTATT",
+     "donor_type": "GT",
+     "kozak": "GATAACATGG",
+     "scores": {
+      "human": 54,
+      "mouse": 61,
+      "rat": 60
+     },
+     "best": 61,
+     "genomic": [
+      29055788,
+      29055909
+     ]
+    },
+    {
+     "atg": 1723,
+     "donor": 1860,
+     "coding_nt": 137,
+     "peptide": "MGTDNMAGCPGQDSDLPECDCDINRQENIHLIVINILQILFLEVG",
+     "donor_seq": "GTATTATT",
+     "donor_type": "GT",
+     "kozak": "CTGGATATGG",
+     "scores": {
+      "human": 54,
+      "mouse": 61,
+      "rat": 60
+     },
+     "best": 61,
+     "genomic": [
+      29055773,
+      29055909
+     ]
+    },
+    {
+     "atg": 185,
+     "donor": 409,
+     "coding_nt": 224,
+     "peptide": "MASLDLTGTVAFPAVRTGSFSHVWCGLHCGLCVGECHSLSLSHSHSCALDQCDSCCPHLLVDCSGHAFIWIVWI",
+     "donor_seq": "GTTGCTCA",
+     "donor_type": "GT",
+     "kozak": "GACACCATGG",
+     "scores": {
+      "human": 29,
+      "mouse": 19,
+      "rat": 18
+     },
+     "best": 29,
+     "genomic": [
+      29054235,
+      29054458
+     ]
+    },
+    {
+     "atg": 185,
+     "donor": 412,
+     "coding_nt": 227,
+     "peptide": "MASLDLTGTVAFPAVRTGSFSHVWCGLHCGLCVGECHSLSLSHSHSCALDQCDSCCPHLLVDCSGHAFIWIVWIG",
+     "donor_seq": "GCTCATGG",
+     "donor_type": "GC",
+     "kozak": "GACACCATGG",
+     "scores": {
+      "human": 29,
+      "mouse": 19,
+      "rat": 18
+     },
+     "best": 29,
+     "genomic": [
+      29054235,
+      29054461
+     ]
+    },
+    {
+     "atg": 185,
+     "donor": 424,
+     "coding_nt": 239,
+     "peptide": "MASLDLTGTVAFPAVRTGSFSHVWCGLHCGLCVGECHSLSLSHSHSCALDQCDSCCPHLLVDCSGHAFIWIVWIGLLMV",
+     "donor_seq": "GTATACAC",
+     "donor_type": "GT",
+     "kozak": "GACACCATGG",
+     "scores": {
+      "human": 29,
+      "mouse": 19,
+      "rat": 18
+     },
+     "best": 29,
+     "genomic": [
+      29054235,
+      29054473
+     ]
+    },
+    {
+     "atg": 131,
+     "donor": 409,
+     "coding_nt": 278,
+     "peptide": "MACGWKGNRLQQHFKHDTMASLDLTGTVAFPAVRTGSFSHVWCGLHCGLCVGECHSLSLSHSHSCALDQCDSCCPHLLVDCSGHAFIWIVWI",
+     "donor_seq": "GTTGCTCA",
+     "donor_type": "GT",
+     "kozak": "ATGCCAATGG",
+     "scores": {
+      "human": 29,
+      "mouse": 19,
+      "rat": 18
+     },
+     "best": 29,
+     "genomic": [
+      29054181,
+      29054458
+     ]
+    },
+    {
+     "atg": 131,
+     "donor": 412,
+     "coding_nt": 281,
+     "peptide": "MACGWKGNRLQQHFKHDTMASLDLTGTVAFPAVRTGSFSHVWCGLHCGLCVGECHSLSLSHSHSCALDQCDSCCPHLLVDCSGHAFIWIVWIG",
+     "donor_seq": "GCTCATGG",
+     "donor_type": "GC",
+     "kozak": "ATGCCAATGG",
+     "scores": {
+      "human": 29,
+      "mouse": 19,
+      "rat": 18
+     },
+     "best": 29,
+     "genomic": [
+      29054181,
+      29054461
+     ]
+    },
+    {
+     "atg": 125,
+     "donor": 409,
+     "coding_nt": 284,
+     "peptide": "MPMACGWKGNRLQQHFKHDTMASLDLTGTVAFPAVRTGSFSHVWCGLHCGLCVGECHSLSLSHSHSCALDQCDSCCPHLLVDCSGHAFIWIVWI",
+     "donor_seq": "GTTGCTCA",
+     "donor_type": "GT",
+     "kozak": "TCTGTCATGC",
+     "scores": {
+      "human": 29,
+      "mouse": 19,
+      "rat": 18
+     },
+     "best": 29,
+     "genomic": [
+      29054175,
+      29054458
+     ]
+    },
+    {
+     "atg": 125,
+     "donor": 412,
+     "coding_nt": 287,
+     "peptide": "MPMACGWKGNRLQQHFKHDTMASLDLTGTVAFPAVRTGSFSHVWCGLHCGLCVGECHSLSLSHSHSCALDQCDSCCPHLLVDCSGHAFIWIVWIG",
+     "donor_seq": "GCTCATGG",
+     "donor_type": "GC",
+     "kozak": "TCTGTCATGC",
+     "scores": {
+      "human": 29,
+      "mouse": 19,
+      "rat": 18
+     },
+     "best": 29,
+     "genomic": [
+      29054175,
+      29054461
+     ]
+    }
+   ],
+   "n_candidates": 139,
+   "nt_similarity": {
+    "human": {
+     "score": 330,
+     "identity": "134/222",
+     "intron_range": [
+      0,
+      1797
+     ]
+    },
+    "mouse": {
+     "score": 401,
+     "identity": "172/300",
+     "intron_range": [
+      1535,
+      1796
+     ]
+    },
+    "rat": {
+     "score": 343,
+     "identity": "168/306",
+     "intron_range": [
+      0,
+      1796
+     ]
+    }
+   }
+  },
+  "zebrafish_syne1b_GRCz12tu": {
+   "first_shared_exon": {
+    "giant": "XM_087227815.1",
+    "exon_number": 130,
+    "exon": [
+     9031481,
+     9031643
+    ],
+    "residue": 7864,
+    "residue_aa": "R",
+    "upstream_contribution": 2,
+    "intron": [
+     9031644,
+     9034185
+    ],
+    "intron_len": 2542,
+    "prev_exon_number": 129,
+    "alpha2_vs_giant_identity": "695/951"
+   },
+   "candidates": [
+    {
+     "atg": 1723,
+     "donor": 1773,
+     "coding_nt": 50,
+     "peptide": "MPRAGPELPECCKYSR",
+     "donor_seq": "GCCTCCCT",
+     "donor_type": "GC",
+     "kozak": "TTGCCTATGC",
+     "scores": {
+      "human": 24,
+      "mouse": 25,
+      "rat": 25
+     },
+     "best": 25,
+     "genomic": [
+      9032413,
+      9032462
+     ]
+    },
+    {
+     "atg": 1714,
+     "donor": 1773,
+     "coding_nt": 59,
+     "peptide": "MLPMPRAGPELPECCKYSR",
+     "donor_seq": "GCCTCCCT",
+     "donor_type": "GC",
+     "kozak": "ATGCCTATGT",
+     "scores": {
+      "human": 24,
+      "mouse": 25,
+      "rat": 25
+     },
+     "best": 25,
+     "genomic": [
+      9032413,
+      9032471
+     ]
+    },
+    {
+     "atg": 1723,
+     "donor": 1782,
+     "coding_nt": 59,
+     "peptide": "MPRAGPELPECCKYSRSPP",
+     "donor_seq": "GCGACAGA",
+     "donor_type": "GC",
+     "kozak": "TTGCCTATGC",
+     "scores": {
+      "human": 24,
+      "mouse": 25,
+      "rat": 25
+     },
+     "best": 25,
+     "genomic": [
+      9032404,
+      9032462
+     ]
+    },
+    {
+     "atg": 1708,
+     "donor": 1773,
+     "coding_nt": 65,
+     "peptide": "MPMLPMPRAGPELPECCKYSR",
+     "donor_seq": "GCCTCCCT",
+     "donor_type": "GC",
+     "kozak": "TAGCGTATGC",
+     "scores": {
+      "human": 24,
+      "mouse": 25,
+      "rat": 25
+     },
+     "best": 25,
+     "genomic": [
+      9032413,
+      9032477
+     ]
+    },
+    {
+     "atg": 1714,
+     "donor": 1782,
+     "coding_nt": 68,
+     "peptide": "MLPMPRAGPELPECCKYSRSPP",
+     "donor_seq": "GCGACAGA",
+     "donor_type": "GC",
+     "kozak": "ATGCCTATGT",
+     "scores": {
+      "human": 24,
+      "mouse": 25,
+      "rat": 25
+     },
+     "best": 25,
+     "genomic": [
+      9032404,
+      9032471
+     ]
+    },
+    {
+     "atg": 1708,
+     "donor": 1782,
+     "coding_nt": 74,
+     "peptide": "MPMLPMPRAGPELPECCKYSRSPP",
+     "donor_seq": "GCGACAGA",
+     "donor_type": "GC",
+     "kozak": "TAGCGTATGC",
+     "scores": {
+      "human": 24,
+      "mouse": 25,
+      "rat": 25
+     },
+     "best": 25,
+     "genomic": [
+      9032404,
+      9032477
+     ]
+    },
+    {
+     "atg": 1723,
+     "donor": 1767,
+     "coding_nt": 44,
+     "peptide": "MPRAGPELPECCKY",
+     "donor_seq": "GCGCTCGC",
+     "donor_type": "GC",
+     "kozak": "TTGCCTATGC",
+     "scores": {
+      "human": 24,
+      "mouse": 24,
+      "rat": 24
+     },
+     "best": 24,
+     "genomic": [
+      9032419,
+      9032462
+     ]
+    },
+    {
+     "atg": 1714,
+     "donor": 1767,
+     "coding_nt": 53,
+     "peptide": "MLPMPRAGPELPECCKY",
+     "donor_seq": "GCGCTCGC",
+     "donor_type": "GC",
+     "kozak": "ATGCCTATGT",
+     "scores": {
+      "human": 24,
+      "mouse": 24,
+      "rat": 24
+     },
+     "best": 24,
+     "genomic": [
+      9032419,
+      9032471
+     ]
+    },
+    {
+     "atg": 1708,
+     "donor": 1767,
+     "coding_nt": 59,
+     "peptide": "MPMLPMPRAGPELPECCKY",
+     "donor_seq": "GCGCTCGC",
+     "donor_type": "GC",
+     "kozak": "TAGCGTATGC",
+     "scores": {
+      "human": 24,
+      "mouse": 24,
+      "rat": 24
+     },
+     "best": 24,
+     "genomic": [
+      9032419,
+      9032477
+     ]
+    },
+    {
+     "atg": 1688,
+     "donor": 1792,
+     "coding_nt": 104,
+     "peptide": "MYSALSVCLCCLCHGPALSCLSVVNTRARLPRDR",
+     "donor_seq": "GCATAGGA",
+     "donor_type": "GC",
+     "kozak": "CCCTGGATGT",
+     "scores": {
+      "human": 15,
+      "mouse": 24,
+      "rat": 14
+     },
+     "best": 24,
+     "genomic": [
+      9032394,
+      9032497
+     ]
+    },
+    {
+     "atg": 71,
+     "donor": 121,
+     "coding_nt": 50,
+     "peptide": "MPSVQFDISVHHGALT",
+     "donor_seq": "GCTTTCTA",
+     "donor_type": "GC",
+     "kozak": "ATTATCATGC",
+     "scores": {
+      "human": 16,
+      "mouse": 19,
+      "rat": 19
+     },
+     "best": 19,
+     "genomic": [
+      9034065,
+      9034114
+     ]
+    },
+    {
+     "atg": 1831,
+     "donor": 2016,
+     "coding_nt": 185,
+     "peptide": "MIITEQNCSRLHRGAQKKQLILTPLVLILTQKNVCNAHAVYLLSLNLHCAAVSLPYKYVHH",
+     "donor_seq": "GTACATTA",
+     "donor_type": "GT",
+     "kozak": "CCGGTTATGA",
+     "scores": {
+      "human": 18,
+      "mouse": 16,
+      "rat": 16
+     },
+     "best": 18,
+     "genomic": [
+      9032170,
+      9032354
+     ]
+    },
+    {
+     "atg": 1831,
+     "donor": 1863,
+     "coding_nt": 32,
+     "peptide": "MIITEQNCSR",
+     "donor_seq": "GCATCGCG",
+     "donor_type": "GC",
+     "kozak": "CCGGTTATGA",
+     "scores": {
+      "human": 16,
+      "mouse": 16,
+      "rat": 16
+     },
+     "best": 16,
+     "genomic": [
+      9032323,
+      9032354
+     ]
+    },
+    {
+     "atg": 1831,
+     "donor": 1956,
+     "coding_nt": 125,
+     "peptide": "MIITEQNCSRLHRGAQKKQLILTPLVLILTQKNVCNAHAVY",
+     "donor_seq": "GTTGTCAT",
+     "donor_type": "GT",
+     "kozak": "CCGGTTATGA",
+     "scores": {
+      "human": 16,
+      "mouse": 16,
+      "rat": 16
+     },
+     "best": 16,
+     "genomic": [
+      9032230,
+      9032354
+     ]
+    },
+    {
+     "atg": 1831,
+     "donor": 1959,
+     "coding_nt": 128,
+     "peptide": "MIITEQNCSRLHRGAQKKQLILTPLVLILTQKNVCNAHAVYL",
+     "donor_seq": "GTCATTAA",
+     "donor_type": "GT",
+     "kozak": "CCGGTTATGA",
+     "scores": {
+      "human": 16,
+      "mouse": 16,
+      "rat": 16
+     },
+     "best": 16,
+     "genomic": [
+      9032227,
+      9032354
+     ]
+    }
+   ],
+   "n_candidates": 44,
+   "nt_similarity": {
+    "human": {
+     "score": 269,
+     "identity": "138/248",
+     "intron_range": [
+      578,
+      801
+     ]
+    },
+    "mouse": {
+     "score": 330,
+     "identity": "157/275",
+     "intron_range": [
+      661,
+      896
+     ]
+    },
+    "rat": {
+     "score": 316,
+     "identity": "159/288",
+     "intron_range": [
+      0,
+      929
+     ]
+    }
+   }
+  }
+ }
+}

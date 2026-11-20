@@ -1,0 +1,4 @@
+# downloaded API responses (re-created by scripts/01_fetch_data.py)
+syne1_alpha2/data/cache/
+__pycache__/
+*.pyc

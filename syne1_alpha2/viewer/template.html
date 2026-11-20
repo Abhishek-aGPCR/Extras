@@ -1,0 +1,1364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SYNE1 α2 Isoform Browser</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Space+Grotesk:wght@500;600;700&display=swap">
+<style>
+/* Layout: app shell. A gene + isoform rail on the left, a tabbed workbench on the right,
+   and the zebrafish result pinned above both. Colour carries meaning: crimson = nesprin-1α2
+   (muscle), teal = giant isoform, slate = other isoforms, amber = predicted / caution. */
+:root {
+  --bg: #f2f4f6; --surface: #ffffff; --surface-2: #e9edf1; --surface-3: #dfe5eb;
+  --ink: #15202b; --ink-2: #485767; --ink-3: #758393; --line: #d2d9e1; --focus: #2353c4;
+  --accent: #b0124c; --accent-strong: #8c0a3b; --accent-soft: #f6d3df; --accent-ink: #ffffff;
+  --teal: #0a7b74; --teal-soft: #c7e6e2; --slate: #607083; --slate-soft: #d6dee7;
+  --amber: #9a5b00; --amber-soft: #f6e3c4; --good: #19764a; --warn: #9a5b00;
+  --band-alpha2: rgba(176, 18, 76, 0.13); --band-intron: rgba(96, 112, 131, 0.12);
+  --nt-a: #157a45; --nt-c: #2353c4; --nt-g: #955a00; --nt-t: #bb2d36;
+  --aa-hyd: #dbe5fa; --aa-pos: #f8d6d8; --aa-neg: #efd8f6; --aa-pol: #d3f0de; --aa-cys: #fbe2c2;
+  --aa-gly: #f3ebc0; --aa-pro: #e6efc0; --aa-aro: #cdeeee; --aa-ink: #15202b;
+  --font-sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-display: "Space Grotesk", "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
+  --radius: 6px;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0d1218; --surface: #141b23; --surface-2: #1b242e; --surface-3: #232e3a;
+    --ink: #e3e9ef; --ink-2: #a5b2c0; --ink-3: #74828f; --line: #2a3541; --focus: #8bb0ff;
+    --accent: #ff5f93; --accent-strong: #ff8db2; --accent-soft: #4d1b2e; --accent-ink: #1b0811;
+    --teal: #3fc6ba; --teal-soft: #15403c; --slate: #95a5b7; --slate-soft: #2a3542;
+    --amber: #f1ab48; --amber-soft: #43300f; --good: #5dd496; --warn: #f1ab48;
+    --band-alpha2: rgba(255, 95, 147, 0.17); --band-intron: rgba(149, 165, 183, 0.14);
+    --nt-a: #5ad393; --nt-c: #8bb0ff; --nt-g: #f1b85a; --nt-t: #ff8287;
+    --aa-hyd: #20345c; --aa-pos: #5a2427; --aa-neg: #47264f; --aa-pol: #1d4630; --aa-cys: #4f3517;
+    --aa-gly: #463d17; --aa-pro: #3a4317; --aa-aro: #17403f; --aa-ink: #e3e9ef;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0d1218; --surface: #141b23; --surface-2: #1b242e; --surface-3: #232e3a;
+  --ink: #e3e9ef; --ink-2: #a5b2c0; --ink-3: #74828f; --line: #2a3541; --focus: #8bb0ff;
+  --accent: #ff5f93; --accent-strong: #ff8db2; --accent-soft: #4d1b2e; --accent-ink: #1b0811;
+  --teal: #3fc6ba; --teal-soft: #15403c; --slate: #95a5b7; --slate-soft: #2a3542;
+  --amber: #f1ab48; --amber-soft: #43300f; --good: #5dd496; --warn: #f1ab48;
+  --band-alpha2: rgba(255, 95, 147, 0.17); --band-intron: rgba(149, 165, 183, 0.14);
+  --nt-a: #5ad393; --nt-c: #8bb0ff; --nt-g: #f1b85a; --nt-t: #ff8287;
+  --aa-hyd: #20345c; --aa-pos: #5a2427; --aa-neg: #47264f; --aa-pol: #1d4630; --aa-cys: #4f3517;
+  --aa-gly: #463d17; --aa-pro: #3a4317; --aa-aro: #17403f; --aa-ink: #e3e9ef;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  background: var(--bg); color: var(--ink); font: 14px/1.5 var(--font-sans);
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0 32px;
+}
+[hidden] { display: none !important; }
+a { color: var(--focus); text-underline-offset: 2px; }
+button, input, select, textarea { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+h1, h2, h3, h4 { font-family: var(--font-display); text-wrap: balance; margin: 0; letter-spacing: -0.01em; }
+code, .mono { font-family: var(--font-mono); }
+.gene { font-style: italic; }
+.muted { color: var(--ink-2); }
+.small { font-size: 12.5px; }
+.num { font-variant-numeric: tabular-nums; }
+
+/* ---------- header ---------- */
+.topbar { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  padding-block: 18px 12px; border-bottom: 1px solid var(--line); }
+.brand h1 { font-size: 22px; font-weight: 700; }
+.brand h1 .greek { color: var(--accent); }
+.brand p { margin: 2px 0 0; color: var(--ink-2); font-size: 13px; max-width: 70ch; }
+.top-actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+
+.btn { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--line); background: var(--surface);
+  color: var(--ink); border-radius: var(--radius); padding: 5px 10px; font-size: 13px; cursor: pointer; line-height: 1.3;
+  text-decoration: none; white-space: nowrap; }
+.btn:hover { border-color: var(--ink-3); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); font-weight: 600; }
+.btn.primary:hover { background: var(--accent-strong); border-color: var(--accent-strong); }
+.btn.small { padding: 3px 8px; font-size: 12px; }
+.btn[aria-pressed="true"] { background: var(--ink); color: var(--surface); border-color: var(--ink); }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+.seg button { border: 0; background: var(--surface); padding: 5px 10px; font-size: 13px; cursor: pointer; color: var(--ink-2); }
+.seg button + button { border-left: 1px solid var(--line); }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--surface); }
+
+/* ---------- key result ---------- */
+.keyresult { margin-top: 14px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px 18px; align-items: center;
+  background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: var(--radius);
+  padding: 12px 14px; }
+.keyresult .eyebrow { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); font-weight: 600; }
+.keyresult .coord { font-family: var(--font-mono); font-size: 15px; font-weight: 600; word-break: break-all; }
+.keyresult .peptide { font-family: var(--font-mono); font-size: 13px; color: var(--ink-2); word-break: break-all; }
+.keyresult .actions { display: flex; flex-wrap: wrap; gap: 6px; justify-content: flex-end; }
+@media (max-width: 760px) { .keyresult { grid-template-columns: minmax(0, 1fr); } .keyresult .actions { justify-content: flex-start; } }
+
+/* ---------- shell ---------- */
+.layout { display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 16px; margin-top: 16px; align-items: start; }
+@media (max-width: 980px) { .layout { grid-template-columns: minmax(0, 1fr); } }
+.sidebar { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px; min-width: 0; }
+.panel > h2 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.07em; color: var(--ink-2); margin-bottom: 8px; font-weight: 600; }
+
+.viewlist { display: flex; flex-direction: column; gap: 4px; }
+.viewbtn { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 8px; text-align: left; width: 100%;
+  border: 1px solid transparent; background: transparent; border-radius: var(--radius); padding: 6px 8px; cursor: pointer; }
+.viewbtn:hover { background: var(--surface-2); }
+.viewbtn[aria-current="true"] { background: var(--surface-2); border-color: var(--line); }
+.viewbtn .sp { font-weight: 600; }
+.viewbtn .asm { font-size: 11.5px; color: var(--ink-3); font-family: var(--font-mono); }
+.viewbtn .status { grid-row: span 2; align-self: center; }
+.pill { display: inline-block; font-size: 11px; line-height: 1.2; padding: 2px 7px; border-radius: 999px; white-space: nowrap;
+  border: 1px solid var(--line); color: var(--ink-2); background: var(--surface); }
+.pill.a2 { background: var(--accent-soft); border-color: transparent; color: var(--accent-strong); font-weight: 600; }
+.pill.pred { background: var(--amber-soft); border-color: transparent; color: var(--amber); font-weight: 600; }
+.pill.none { background: var(--surface-2); border-color: transparent; color: var(--ink-3); }
+.pill.giant { background: var(--teal-soft); border-color: transparent; color: var(--teal); }
+
+.txtools { display: flex; gap: 6px; margin-bottom: 8px; }
+.txtools input { flex: 1; min-width: 0; border: 1px solid var(--line); border-radius: var(--radius); padding: 5px 8px; background: var(--surface); }
+.txlist { display: flex; flex-direction: column; gap: 10px; max-height: 62vh; overflow: auto; padding-right: 2px; }
+@media (max-width: 980px) { .txlist { max-height: 40vh; } }
+.txgroup h3 { font-size: 12px; font-family: var(--font-sans); font-weight: 600; color: var(--ink-2); display: flex; align-items: center;
+  justify-content: space-between; gap: 6px; margin-bottom: 4px; }
+.txgroup h3 .sw { width: 10px; height: 10px; border-radius: 2px; display: inline-block; margin-right: 6px; vertical-align: -1px; }
+.txgroup h3 button { border: 0; background: none; color: var(--focus); font-size: 11.5px; cursor: pointer; padding: 0; }
+.txitem { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 0 6px; padding: 4px 6px; border-radius: 4px; align-items: start; }
+.txitem:hover { background: var(--surface-2); }
+.txitem.focused { background: var(--surface-2); box-shadow: inset 3px 0 0 var(--ink); }
+.txitem input { margin: 3px 0 0; }
+.txitem .tname { border: 0; background: none; padding: 0; text-align: left; cursor: pointer; font-family: var(--font-mono); font-size: 12.5px;
+  font-weight: 500; color: var(--ink); overflow-wrap: anywhere; }
+.txitem .tmeta { grid-column: 2; font-size: 11.5px; color: var(--ink-2); }
+.txitem .tchips { grid-column: 2; display: flex; flex-wrap: wrap; gap: 3px; margin-top: 2px; }
+.chip { font-size: 10.5px; padding: 0 5px; border-radius: 3px; background: var(--surface-2); color: var(--ink-2); border: 1px solid var(--line); }
+.chip.pred { background: var(--amber-soft); color: var(--amber); border-color: transparent; }
+.chip.tag { background: var(--surface-3); color: var(--ink); border-color: transparent; }
+
+/* ---------- tabs ---------- */
+.main { min-width: 0; }
+.tabs { display: flex; gap: 2px; border-bottom: 1px solid var(--line); overflow-x: auto; scrollbar-width: thin; }
+.tabs button { border: 0; background: none; padding: 9px 12px; font-size: 13.5px; font-weight: 500; color: var(--ink-2); cursor: pointer;
+  border-bottom: 2px solid transparent; margin-bottom: -1px; white-space: nowrap; }
+.tabs button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--accent); }
+.tabpanel { padding-top: 14px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.toolbar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.toolbar .sep { width: 1px; align-self: stretch; background: var(--line); }
+.toolbar label { font-size: 12.5px; color: var(--ink-2); display: inline-flex; align-items: center; gap: 6px; }
+.toolbar input[type="text"], .toolbar input[type="number"], .toolbar select, .field input, .field select, .field textarea {
+  border: 1px solid var(--line); border-radius: var(--radius); padding: 4px 8px; background: var(--surface); min-width: 0; }
+.ctx { font-size: 13px; color: var(--ink-2); }
+.ctx strong { color: var(--ink); }
+
+/* ---------- structure ---------- */
+.canvaswrap { position: relative; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+#structCanvas { display: block; width: 100%; touch-action: pan-y; cursor: grab; }
+#structCanvas.dragging { cursor: grabbing; }
+.tooltip { position: absolute; pointer-events: none; z-index: 5; background: var(--ink); color: var(--surface); font-size: 12px; line-height: 1.4;
+  padding: 6px 8px; border-radius: 4px; max-width: 320px; box-shadow: 0 4px 14px rgba(0,0,0,.18); }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 12px; color: var(--ink-2); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend i { display: inline-block; width: 18px; height: 10px; border-radius: 2px; }
+.detail { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px; min-width: 0; }
+.detail h3 { font-size: 15px; margin-bottom: 6px; }
+.kv { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 3px 14px; font-size: 13px; }
+.kv dt { color: var(--ink-2); }
+.kv dd { margin: 0; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.seqbox { font-family: var(--font-mono); font-size: 12.5px; line-height: 1.55; background: var(--surface-2); border-radius: 4px; padding: 8px 10px;
+  word-break: break-all; white-space: pre-wrap; max-height: 220px; overflow: auto; }
+.seqbox .lc { color: var(--ink-3); }
+.seqbox .cds { color: var(--accent-strong); font-weight: 600; }
+
+/* ---------- sequence viewer ---------- */
+.vscroll { position: relative; height: min(62vh, 640px); overflow: auto; background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--radius); font-family: var(--font-mono); font-size: 13px; }
+.vscroll .spacer { width: 1px; }
+.vscroll .lines { position: absolute; left: 0; top: 0; padding: 0 10px; min-width: 100%; }
+.srow { white-space: pre; display: flex; gap: 12px; }
+.srow .spos { color: var(--ink-3); text-align: right; min-width: 11ch; user-select: none; flex: none; }
+.srow .sseq { flex: none; }
+.srow .sstack { display: flex; flex-direction: column; }
+.srow .aaline { color: var(--accent-strong); font-weight: 600; }
+.s-i { color: var(--ink-3); }
+.s-o { color: var(--ink-2); text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 3px; }
+.s-c { color: var(--ink); font-weight: 600; }
+.s-u { color: var(--teal); }
+.s-e0 { background: var(--surface-2); }
+.s-e1 { background: transparent; }
+.s-h { background: var(--accent-soft) !important; color: var(--accent-strong) !important; }
+.s-m { outline: 1px solid var(--amber); background: var(--amber-soft) !important; color: var(--ink) !important; }
+.b-A { color: var(--nt-a); } .b-C { color: var(--nt-c); } .b-G { color: var(--nt-g); } .b-T { color: var(--nt-t); }
+.matches { display: flex; flex-wrap: wrap; gap: 4px; max-height: 84px; overflow: auto; }
+.matches button { font-family: var(--font-mono); font-size: 11.5px; border: 1px solid var(--line); background: var(--surface); border-radius: 3px; padding: 1px 6px; cursor: pointer; }
+
+/* ---------- tables ---------- */
+.tablewrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); }
+table { border-collapse: collapse; width: 100%; font-size: 13px; font-variant-numeric: tabular-nums; }
+th, td { padding: 6px 10px; border-bottom: 1px solid var(--line); text-align: left; white-space: nowrap; }
+th { background: var(--surface-2); font-weight: 600; color: var(--ink-2); font-size: 12px; position: sticky; top: 0; }
+tr.hl td { background: var(--accent-soft); }
+tr.dv td { background: var(--teal-soft); }
+td.r, th.r { text-align: right; }
+td .heat { display: inline-block; min-width: 46px; text-align: right; padding: 0 6px; border-radius: 3px; }
+
+/* ---------- alignments ---------- */
+.alnlist { display: flex; flex-wrap: wrap; gap: 6px; }
+.alnlist button { text-align: left; border: 1px solid var(--line); background: var(--surface); border-radius: var(--radius); padding: 6px 10px; cursor: pointer; max-width: 100%; }
+.alnlist button[aria-pressed="true"] { border-color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
+.alnlist .t { font-weight: 600; font-size: 13px; }
+.alnlist .d { font-size: 11.5px; color: var(--ink-2); }
+.alnview { position: relative; height: min(64vh, 680px); overflow: auto; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+  font-family: var(--font-mono); font-size: 12.5px; line-height: 18px; }
+.alnview .lines { position: absolute; left: 0; top: 0; padding: 6px 10px; }
+.ablock { padding-bottom: 12px; }
+.arow { display: flex; white-space: pre; height: 18px; }
+.arow .an { width: var(--namew, 30ch); flex: none; overflow: hidden; text-overflow: ellipsis; color: var(--ink-2); padding-right: 1ch; }
+.arow .as { flex: none; }
+.arow .ae { color: var(--ink-3); padding-left: 1ch; flex: none; }
+.arow.ruler .as, .arow.cons .as { color: var(--ink-3); }
+.arow.annot .as { color: var(--accent); }
+.arow .grp { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 5px; vertical-align: 0; }
+.r-hyd { background: var(--aa-hyd); color: var(--aa-ink); } .r-pos { background: var(--aa-pos); color: var(--aa-ink); }
+.r-neg { background: var(--aa-neg); color: var(--aa-ink); } .r-pol { background: var(--aa-pol); color: var(--aa-ink); }
+.r-cys { background: var(--aa-cys); color: var(--aa-ink); } .r-gly { background: var(--aa-gly); color: var(--aa-ink); }
+.r-pro { background: var(--aa-pro); color: var(--aa-ink); } .r-aro { background: var(--aa-aro); color: var(--aa-ink); }
+.n-A { background: var(--aa-pol); } .n-C { background: var(--aa-hyd); } .n-G { background: var(--aa-cys); } .n-T { background: var(--aa-pos); }
+.r-id { color: var(--ink-3); }
+.r-gap { color: var(--ink-3); }
+.r-hl { box-shadow: inset 0 -2px 0 var(--accent); }
+
+/* ---------- aligner ---------- */
+.pairgrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+@media (max-width: 760px) { .pairgrid { grid-template-columns: minmax(0, 1fr); } }
+.field { display: flex; flex-direction: column; gap: 4px; font-size: 12.5px; color: var(--ink-2); min-width: 0; }
+.field textarea { font-family: var(--font-mono); font-size: 12px; min-height: 70px; resize: vertical; width: 100%; }
+.fieldrow { display: flex; gap: 8px; flex-wrap: wrap; }
+.fieldrow .field { flex: 1 1 120px; }
+.pairout { font-family: var(--font-mono); font-size: 12.5px; line-height: 1.45; white-space: pre; overflow: auto; background: var(--surface);
+  border: 1px solid var(--line); border-radius: var(--radius); padding: 10px; max-height: 60vh; }
+.stats { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 13px; }
+.stats b { font-variant-numeric: tabular-nums; }
+.notice { font-size: 13px; padding: 8px 10px; border-radius: var(--radius); background: var(--amber-soft); color: var(--ink); }
+
+/* ---------- evidence ---------- */
+.prose { max-width: 78ch; }
+.prose p { margin: 0 0 10px; }
+.evidence { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 10px; }
+.ev { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px; min-width: 0; }
+.ev h4 { font-size: 14px; margin-bottom: 4px; }
+.ev .metric { font-family: var(--font-mono); font-size: 12.5px; color: var(--ink-2); overflow-wrap: anywhere; }
+.ev .verdict { font-size: 11px; text-transform: uppercase; letter-spacing: 0.07em; font-weight: 600; }
+.ev .verdict.support { color: var(--good); } .ev .verdict.caution { color: var(--warn); }
+.figure { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 10px; overflow-x: auto; }
+.figure svg { display: block; min-width: 640px; width: 100%; height: auto; }
+.section-title { font-size: 17px; margin-top: 6px; }
+ol.refs { padding-left: 20px; margin: 0; } ol.refs li { margin-bottom: 6px; }
+.toast { position: fixed; right: max(16px, env(safe-area-inset-right, 0px)); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); z-index: 20; background: var(--ink); color: var(--surface);
+  padding: 8px 12px; border-radius: var(--radius); font-size: 13px; box-shadow: 0 6px 20px rgba(0,0,0,.2); }
+.copyfallback { position: fixed; inset: 10% 10% auto 10%; z-index: 30; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px; box-shadow: 0 8px 30px rgba(0,0,0,.25); }
+.copyfallback textarea { width: 100%; height: 200px; font-family: var(--font-mono); font-size: 12px; }
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; transition: none !important; } }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <h1>SYNE1 <span class="greek">α2</span> Isoform Browser</h1>
+    <p>Nesprin-1 giant, muscle-specific nesprin-1α2 and other isoforms in human, mouse, rat and zebrafish (<span class="gene">syne1a</span>, <span class="gene">syne1b</span>), with the zebrafish α2 first exon located in this analysis.</p>
+  </div>
+  <div class="top-actions">
+    <span class="small muted" id="buildInfo"></span>
+    <button class="btn small" id="themeBtn" type="button" title="Switch colour theme">Theme: system</button>
+  </div>
+</header>
+
+<section class="keyresult" id="keyresult" aria-label="Key result"></section>
+
+<div class="layout">
+  <aside class="sidebar">
+    <div class="panel">
+      <h2>Gene and assembly</h2>
+      <div class="viewlist" id="viewList"></div>
+    </div>
+    <div class="panel">
+      <h2>Isoforms</h2>
+      <div class="txtools">
+        <input id="txFilter" type="text" placeholder="Filter by accession, name, length" aria-label="Filter isoforms">
+        <button class="btn small" id="txAll" type="button" title="Show every isoform in the structure view">All</button>
+        <button class="btn small" id="txDefault" type="button" title="Back to the default selection">Key</button>
+      </div>
+      <div class="txlist" id="txList"></div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <nav class="tabs" role="tablist" aria-label="Views">
+      <button role="tab" id="t-structure" aria-controls="tab-structure" aria-selected="true" data-tab="structure">Gene structure</button>
+      <button role="tab" id="t-sequence" aria-controls="tab-sequence" aria-selected="false" data-tab="sequence">Sequence</button>
+      <button role="tab" id="t-exons" aria-controls="tab-exons" aria-selected="false" data-tab="exons">Exons</button>
+      <button role="tab" id="t-alignments" aria-controls="tab-alignments" aria-selected="false" data-tab="alignments">Alignments</button>
+      <button role="tab" id="t-aligner" aria-controls="tab-aligner" aria-selected="false" data-tab="aligner">Pairwise aligner</button>
+      <button role="tab" id="t-evidence" aria-controls="tab-evidence" aria-selected="false" data-tab="evidence">Zebrafish α2 evidence</button>
+    </nav>
+
+    <!-- Gene structure -->
+    <section class="tabpanel" id="tab-structure" role="tabpanel" aria-labelledby="t-structure">
+      <div class="toolbar">
+        <button class="btn small" type="button" data-zoom="alpha2">α2 region</button>
+        <button class="btn small" type="button" data-zoom="exon1">Exon 1α2</button>
+        <button class="btn small" type="button" data-zoom="focus">Focused isoform</button>
+        <button class="btn small" type="button" data-zoom="gene">Whole gene</button>
+        <span class="sep"></span>
+        <button class="btn small" type="button" data-zoom="in" aria-label="Zoom in">Zoom +</button>
+        <button class="btn small" type="button" data-zoom="out" aria-label="Zoom out">Zoom −</button>
+        <button class="btn small" type="button" data-zoom="left" aria-label="Pan left">◀</button>
+        <button class="btn small" type="button" data-zoom="right" aria-label="Pan right">▶</button>
+        <span class="sep"></span>
+        <label for="gotoRegion">Go to <input id="gotoRegion" type="text" placeholder="26341000-26343000" size="18"></label>
+      </div>
+      <div class="ctx" id="winInfo"></div>
+      <div class="canvaswrap" id="structWrap">
+        <canvas id="structCanvas" aria-label="Exon-intron structure of the selected isoforms"></canvas>
+        <div class="tooltip" id="structTip" hidden></div>
+      </div>
+      <div class="legend" id="structLegend"></div>
+      <div class="detail" id="exonDetail"></div>
+    </section>
+
+    <!-- Sequence -->
+    <section class="tabpanel" id="tab-sequence" role="tabpanel" aria-labelledby="t-sequence" hidden>
+      <div class="ctx" id="seqCtx"></div>
+      <div class="toolbar">
+        <div class="seg" role="group" aria-label="Sequence type" id="seqMode">
+          <button type="button" data-mode="genomic">Genomic</button><button type="button" data-mode="mrna">mRNA</button><button type="button" data-mode="cds">CDS</button><button type="button" data-mode="protein">Protein</button>
+        </div>
+        <label for="seqRange" data-genomic-only>Range
+          <select id="seqRange">
+            <option value="transcript">Focused isoform span</option>
+            <option value="alpha2">α2 region</option>
+            <option value="exon">Selected exon ± 150 bp</option>
+            <option value="locus">Whole locus</option>
+            <option value="custom">Custom…</option>
+          </select></label>
+        <input id="seqCustom" type="text" placeholder="start-end" size="20" hidden aria-label="Custom genomic range">
+        <label for="seqOrient" data-genomic-only>Strand
+          <select id="seqOrient"><option value="gene">Gene orientation</option><option value="plus">+ strand</option></select></label>
+        <label for="seqWidth">Width
+          <select id="seqWidth"><option>60</option><option>80</option><option selected>100</option><option>120</option></select></label>
+        <label data-tr-only><input type="checkbox" id="seqTrans" checked> Translation</label>
+        <label data-genomic-only><input type="checkbox" id="seqBases"> Colour bases</label>
+      </div>
+      <div class="toolbar">
+        <label for="seqSearch">Find <input id="seqSearch" type="text" placeholder="motif, IUPAC or /regex/" size="22"></label>
+        <label data-genomic-only><input type="checkbox" id="seqBoth"> both strands</label>
+        <span class="small muted" id="seqHits"></span>
+        <span class="sep"></span>
+        <label for="seqGoto">Go to <input id="seqGoto" type="text" placeholder="position" size="12"></label>
+        <span class="sep"></span>
+        <button class="btn small" type="button" id="seqCopy">Copy FASTA</button>
+        <button class="btn small" type="button" id="seqSave">Save .fa</button>
+      </div>
+      <div class="matches" id="seqMatchList"></div>
+      <div class="vscroll" id="seqView" tabindex="0" aria-label="Sequence"><div class="spacer"></div><div class="lines"></div></div>
+      <div class="legend" id="seqLegend"></div>
+    </section>
+
+    <!-- Exons -->
+    <section class="tabpanel" id="tab-exons" role="tabpanel" aria-labelledby="t-exons" hidden>
+      <div class="ctx" id="exonCtx"></div>
+      <div class="tablewrap" id="exonTable"></div>
+      <h3 class="section-title">α2 exons across species</h3>
+      <p class="small muted prose">Each row is an exon of human nesprin-1α2 (NM_001347702.2). The matching exon of the mouse, rat and predicted zebrafish α2 isoforms is the one that shares most alignment columns in the α2 protein alignment; identity is the percent identity of the encoded residues to human.</p>
+      <div class="tablewrap" id="crossTable"></div>
+    </section>
+
+    <!-- Alignments -->
+    <section class="tabpanel" id="tab-alignments" role="tabpanel" aria-labelledby="t-alignments" hidden>
+      <div class="alnlist" id="alnList"></div>
+      <div class="toolbar">
+        <label for="alnWidth">Block width <select id="alnWidth"><option>60</option><option selected>80</option><option>100</option><option>120</option></select></label>
+        <label for="alnColor">Colour <select id="alnColor">
+          <option value="cons" selected>Conserved residues</option><option value="all">All residues</option>
+          <option value="ident">Identity to first row (dots)</option><option value="none">None</option></select></label>
+        <span class="sep"></span>
+        <button class="btn small" type="button" id="alnCopy">Copy FASTA</button>
+        <button class="btn small" type="button" id="alnSave">Save .fa</button>
+        <button class="btn small" type="button" id="alnToPair">Open first two in aligner</button>
+      </div>
+      <div class="ctx" id="alnCtx"></div>
+      <div class="alnview" id="alnView" tabindex="0" aria-label="Alignment"><div class="spacer"></div><div class="lines"></div></div>
+    </section>
+
+    <!-- Pairwise aligner -->
+    <section class="tabpanel" id="tab-aligner" role="tabpanel" aria-labelledby="t-aligner" hidden>
+      <div class="toolbar" id="pairPresets"></div>
+      <div class="pairgrid">
+        <div class="panel" id="pairA"></div>
+        <div class="panel" id="pairB"></div>
+      </div>
+      <div class="toolbar">
+        <label for="pairMode">Mode <select id="pairMode">
+          <option value="global">Global (Needleman–Wunsch)</option><option value="local">Local (Smith–Waterman)</option>
+          <option value="semi">Semi-global (free end gaps)</option></select></label>
+        <label for="pairOpen">Gap open <input id="pairOpen" type="number" value="10" min="0" step="0.5" style="width:5em"></label>
+        <label for="pairExt">Gap extend <input id="pairExt" type="number" value="1" min="0" step="0.1" style="width:5em"></label>
+        <label for="pairDNA">DNA scores <input id="pairDNA" type="text" value="5/-4" size="5" title="match/mismatch"></label>
+        <button class="btn primary" type="button" id="pairRun">Align</button>
+        <button class="btn small" type="button" id="pairCopy">Copy result</button>
+      </div>
+      <div class="stats" id="pairStats"></div>
+      <div class="pairout" id="pairOut">Running the example alignment…</div>
+    </section>
+
+    <!-- Evidence -->
+    <section class="tabpanel" id="tab-evidence" role="tabpanel" aria-labelledby="t-evidence" hidden>
+      <div id="evidence"></div>
+    </section>
+  </main>
+</div>
+<div class="toast" id="toast" hidden></div>
+
+<script id="app-data" type="application/json">__DATA_JSON__</script>
+<script>
+(function () {
+'use strict';
+const DATA = JSON.parse(document.getElementById('app-data').textContent);
+
+/* =====================================================================
+   utilities
+   ===================================================================== */
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+const fmt = n => Number(n).toLocaleString('en-US');
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const clamp = (x, a, b) => Math.max(a, Math.min(b, x));
+const COMP = { A: 'T', C: 'G', G: 'C', T: 'A', N: 'N', R: 'Y', Y: 'R', K: 'M', M: 'K', S: 'S', W: 'W', B: 'V', V: 'B', D: 'H', H: 'D',
+  a: 't', c: 'g', g: 'c', t: 'a', n: 'n' };
+function revcomp(s) { const o = new Array(s.length); for (let i = 0, j = s.length - 1; j >= 0; i++, j--) o[i] = COMP[s[j]] || 'N'; return o.join(''); }
+const CODON = {}; (function () { const b = 'TCAG', aa = 'FFLLSSSSYY**CC*WLLLLPPPPHHQQRRRRIIIMTTTTNNKKSSRRVVVVAAAADDEEGGGG'; let k = 0;
+  for (const x of b) for (const y of b) for (const z of b) CODON[x + y + z] = aa[k++]; })();
+function translate(nt) { let p = ''; for (let i = 0; i + 2 < nt.length; i += 3) p += CODON[nt.substr(i, 3)] || 'X'; return p; }
+function fasta(name, seq, w = 60) { let o = '>' + name + '\n'; for (let i = 0; i < seq.length; i += w) o += seq.slice(i, i + w) + '\n'; return o; }
+function css(name) { return getComputedStyle(document.documentElement).getPropertyValue(name).trim(); }
+function toast(msg) { const t = $('#toast'); t.textContent = msg; t.hidden = false; clearTimeout(toast._t); toast._t = setTimeout(() => { t.hidden = true; }, 1800); }
+function copyText(text, label) {
+  const done = () => toast((label || 'Text') + ' copied');
+  const fallback = () => {
+    const box = document.createElement('div'); box.className = 'copyfallback';
+    box.innerHTML = '<p class="small">Copying is blocked here. Select the text and copy it with your keyboard.</p><textarea readonly></textarea><div style="margin-top:8px"><button class="btn small" type="button">Close</button></div>';
+    box.querySelector('textarea').value = text; document.body.appendChild(box); box.querySelector('textarea').select();
+    box.querySelector('button').onclick = () => box.remove();
+  };
+  try { navigator.clipboard.writeText(text).then(done, fallback); } catch (e) { fallback(); }
+}
+function saveText(filename, text) {
+  try { const url = URL.createObjectURL(new Blob([text], { type: 'text/plain' })); const a = document.createElement('a'); a.href = url; a.download = filename;
+    document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 2000); }
+  catch (e) { copyText(text, 'FASTA'); }
+}
+function lsGet(k, d) { try { const v = localStorage.getItem(k); return v == null ? d : v; } catch (e) { return d; } }
+function lsSet(k, v) { try { localStorage.setItem(k, v); } catch (e) { /* storage unavailable */ } }
+function bsearchIntervals(iv, g) { // iv sorted [[s,e],...] non-overlapping; return index or -1
+  let lo = 0, hi = iv.length - 1;
+  while (lo <= hi) { const m = (lo + hi) >> 1; if (g < iv[m][0]) hi = m - 1; else if (g > iv[m][1]) lo = m + 1; else return m; }
+  return -1;
+}
+function niceStep(raw) { const p = Math.pow(10, Math.floor(Math.log10(raw))); for (const m of [1, 2, 2.5, 5, 10]) if (m * p >= raw) return m * p; return 10 * p; }
+const SPECIES_URL = { Human: 'Homo_sapiens', Mouse: 'Mus_musculus', Rat: 'Rattus_norvegicus', Zebrafish: 'Danio_rerio' };
+function browserLinks(v, a, b) {
+  const out = [];
+  if (/^GCF_/.test(v.ucsc_db)) {
+    out.push({ label: 'NCBI', href: `https://www.ncbi.nlm.nih.gov/nuccore/${v.ncbi_acc}?report=graph&from=${a}&to=${b}` });
+  } else {
+    out.push({ label: 'UCSC ' + v.ucsc_db, href: `https://genome.ucsc.edu/cgi-bin/hgTracks?db=${v.ucsc_db}&position=chr${v.chrom}:${a}-${b}` });
+    out.push({ label: 'Ensembl', href: `https://www.ensembl.org/${SPECIES_URL[v.species]}/Location/View?r=${v.chrom}:${a}-${b}` });
+  }
+  return out;
+}
+const linkHTML = (l, cls = 'btn small') => `<a class="${cls}" href="${esc(l.href)}" target="_blank" rel="noopener">${esc(l.label)} ↗</a>`;
+
+/* =====================================================================
+   data preparation
+   ===================================================================== */
+const CAT_ORDER = ['alpha2', 'giant', 'short_kash', 'nterm', 'other'];
+const CAT_LABEL = { alpha2: 'Nesprin-1α2 (muscle)', giant: 'Giant (full length)', short_kash: 'Other short KASH isoforms',
+  nterm: 'N-terminal, KASH-less', other: 'Other / alternative ends' };
+const VIEWS = DATA.views; const VIEW = {};
+for (const v of VIEWS) {
+  VIEW[v.key] = v; v.txById = {};
+  v.transcripts.forEach((t, i) => { t._i = i; v.txById[t.id] = t; prepTx(v, t); });
+}
+function prepTx(v, t) {
+  t.sorted = t.exons.slice().sort((a, b) => a[0] - b[0]);
+  t.start = t.sorted[0][0]; t.end = t.sorted[t.sorted.length - 1][1];
+  t.cum = [0]; for (const [s, e] of t.exons) t.cum.push(t.cum[t.cum.length - 1] + (e - s + 1));
+  t.len = t.cum[t.cum.length - 1];
+  if (t.cds) {
+    const startG = t.strand === 1 ? t.cds[0] : t.cds[1], endG = t.strand === 1 ? t.cds[1] : t.cds[0];
+    t.cdsTx = [g2tx(t, startG), g2tx(t, endG)];
+  }
+}
+function g2tx(t, g) { // genomic -> 0-based transcript index (or -1)
+  for (let k = 0; k < t.exons.length; k++) { const [s, e] = t.exons[k];
+    if (g >= s && g <= e) return t.cum[k] + (t.strand === 1 ? g - s : e - g); }
+  return -1;
+}
+function tx2g(t, i) { // 0-based transcript index -> genomic
+  let k = 0; while (k < t.exons.length && t.cum[k + 1] <= i) k++;
+  if (k >= t.exons.length) return null; const [s, e] = t.exons[k]; const off = i - t.cum[k];
+  return t.strand === 1 ? s + off : e - off;
+}
+function exonOfTx(t, i) { let lo = 0, hi = t.exons.length - 1; while (lo < hi) { const m = (lo + hi + 1) >> 1; if (t.cum[m] <= i) lo = m; else hi = m - 1; } return lo; }
+function sub(v, a, b, strand = 1) { const s = v.seq.slice(a - v.region.start, b - v.region.start + 1); return strand === 1 ? s : revcomp(s); }
+const seqCache = new Map();
+function mrnaOf(v, t) { const k = v.key + '|m|' + t.id; if (!seqCache.has(k)) seqCache.set(k, t.exons.map(([s, e]) => sub(v, s, e, t.strand)).join('')); return seqCache.get(k); }
+function cdsOf(v, t) { if (!t.cdsTx) return ''; const k = v.key + '|c|' + t.id; if (!seqCache.has(k)) seqCache.set(k, mrnaOf(v, t).slice(t.cdsTx[0], t.cdsTx[1] + 1)); return seqCache.get(k); }
+function protOf(v, t) { if (t.protein) return t.protein; const p = translate(cdsOf(v, t)); return p.replace(/\*$/, ''); }
+function exonInfo(v, t) {
+  const out = []; let cdsBefore = 0;
+  t.exons.forEach(([s, e], k) => {
+    const r = { n: k + 1, s, e, len: e - s + 1, tx: [t.cum[k] + 1, t.cum[k + 1]] };
+    if (t.cdsTx) {
+      const a = Math.max(t.cum[k], t.cdsTx[0]), b = Math.min(t.cum[k + 1] - 1, t.cdsTx[1]);
+      if (a <= b) {
+        r.cdsLen = b - a + 1; r.phase0 = cdsBefore % 3; r.phase1 = (cdsBefore + r.cdsLen) % 3;
+        r.aa = [Math.floor(cdsBefore / 3) + 1, Math.floor((cdsBefore + r.cdsLen - 1) / 3) + 1];
+        r.kind = r.cdsLen === r.len ? 'CDS' : (t.cum[k] < t.cdsTx[0] ? (b === t.cum[k + 1] - 1 ? "5'UTR + CDS" : "5'UTR + CDS + 3'UTR") : "CDS + 3'UTR");
+        cdsBefore += r.cdsLen;
+      } else r.kind = t.cum[k + 1] - 1 < t.cdsTx[0] ? "5'UTR" : "3'UTR";
+    } else r.kind = 'non-coding';
+    const g = v.txById[v.giant_ref];
+    if (g && g !== t) { const j = g.exons.findIndex(x => x[0] === s && x[1] === e); r.giantExon = j >= 0 ? j + 1 : null;
+      if (j < 0) { const ov = g.exons.findIndex(x => x[0] <= e && x[1] >= s); r.giantOverlap = ov >= 0 ? ov + 1 : null; } }
+    r.alpha2Unique = t.category === 'alpha2' && k === 0;
+    out.push(r);
+  });
+  return out;
+}
+
+/* =====================================================================
+   state, theme, navigation
+   ===================================================================== */
+const state = { view: null, focus: {}, shown: {}, win: {}, tab: 'structure', selExon: {}, seq: { mode: 'genomic', range: 'transcript', orient: 'gene', width: 100, trans: true, bases: false, both: false, search: '' } };
+function defaultShown(v) {
+  const s = new Set();
+  if (v.transcripts.length <= 14) { v.transcripts.forEach(t => s.add(t.id)); return s; }
+  for (const t of v.transcripts) {
+    if (t.category === 'alpha2' || t.id === v.giant_ref || t.category === 'short_kash' ||
+      (t.tags || []).some(x => /MANE|REFSEQ_SELECT|canonical/i.test(x))) s.add(t.id);
+  }
+  for (const t of v.transcripts) { if (s.size >= 14) break; if (/^NM_/.test(t.id)) s.add(t.id); }
+  return s;
+}
+function defaultFocus(v) { const a = v.transcripts.find(t => t.category === 'alpha2'); return (a || v.txById[v.giant_ref] || v.transcripts[0]).id; }
+function alpha2Window(v) { return v.alpha2_window || [v.region.start, v.region.end]; }
+function focusTx() { const v = state.view; return v.txById[state.focus[v.key]]; }
+
+let themeMode = lsGet('syne1-theme', 'system');
+function applyTheme() {
+  if (themeMode === 'light' || themeMode === 'dark') document.documentElement.setAttribute('data-theme', themeMode);
+  else document.documentElement.removeAttribute('data-theme');
+  $('#themeBtn').textContent = 'Theme: ' + themeMode;
+  redrawStructure();
+}
+$('#themeBtn').addEventListener('click', () => { themeMode = { system: 'light', light: 'dark', dark: 'system' }[themeMode]; lsSet('syne1-theme', themeMode); applyTheme(); });
+try { window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', redrawStructure); } catch (e) { /* old browsers */ }
+
+function setView(key, opts = {}) {
+  const v = VIEW[key]; state.view = v;
+  if (!state.shown[key]) state.shown[key] = defaultShown(v);
+  if (!state.focus[key]) state.focus[key] = defaultFocus(v);
+  if (!state.win[key]) { const [a, b] = alpha2Window(v); state.win[key] = [a, b]; }
+  lsSet('syne1-view', key);
+  renderViewList(); renderTxList(); onFocusChange(opts.keepTab);
+}
+function setFocus(id) { state.focus[state.view.key] = id; state.shown[state.view.key].add(id); renderTxList(); onFocusChange(true); }
+function onFocusChange() {
+  renderContext(); redrawStructure(); renderExonDetail();
+  if (state.tab === 'sequence') renderSequence(true); else seqDirty = true;
+  if (state.tab === 'exons') renderExons(); else exonsDirty = true;
+}
+let seqDirty = true, exonsDirty = true;
+function setTab(name, push = true) {
+  state.tab = name;
+  $$('.tabs [role="tab"]').forEach(b => b.setAttribute('aria-selected', String(b.dataset.tab === name)));
+  $$('.tabpanel').forEach(p => { p.hidden = p.id !== 'tab-' + name; });
+  if (push && location.hash !== '#' + name) { try { history.replaceState(null, '', '#' + name); } catch (e) { location.hash = name; } }
+  if (name === 'structure') redrawStructure();
+  if (name === 'sequence' && seqDirty) renderSequence(true);
+  if (name === 'exons' && exonsDirty) renderExons();
+  if (name === 'alignments') renderAlignment();
+  if (name === 'evidence' && !evidenceDone) renderEvidence();
+}
+$$('.tabs [role="tab"]').forEach(b => b.addEventListener('click', () => setTab(b.dataset.tab)));
+window.addEventListener('hashchange', () => { const h = location.hash.slice(1); if (h && $('#tab-' + h)) setTab(h, false); });
+
+/* =====================================================================
+   sidebar
+   ===================================================================== */
+function viewStatus(v) {
+  if (v.alpha2_status === 'annotated') return '<span class="pill a2">α2 annotated</span>';
+  if (v.alpha2_status === 'predicted') return '<span class="pill pred">α2 found here</span>';
+  return '<span class="pill none">no α2 exon</span>';
+}
+function renderViewList() {
+  $('#viewList').innerHTML = VIEWS.map(v => `<button class="viewbtn" type="button" data-view="${v.key}" aria-current="${v === state.view}">
+      <span class="sp">${esc(v.species)} · <span class="gene">${esc(v.symbol)}</span></span><span class="status">${viewStatus(v)}</span>
+      <span class="asm">${esc(v.assembly)}${v.ucsc_db && !/^GCF/.test(v.ucsc_db) ? ' · ' + esc(v.ucsc_db) : ''} · chr${esc(v.chrom)}</span></button>`).join('');
+  $$('#viewList .viewbtn').forEach(b => b.addEventListener('click', () => setView(b.dataset.view)));
+}
+function txMeta(t) {
+  const p = t.protein_len || (t.protein ? t.protein.length : 0);
+  return [t.isoform_name || (t.name && t.name !== t.id ? t.name : ''), p ? fmt(p) + ' aa' : 'non-coding', t.exons.length + ' exons'].filter(Boolean).join(' · ');
+}
+function txChips(t) {
+  const c = [];
+  c.push(t.predicted ? '<span class="chip pred">predicted here</span>' : `<span class="chip">${esc(t.source.replace(/ \(.*\)/, ''))}</span>`);
+  for (const tag of (t.tags || [])) if (!/predicted|muscle-specific/.test(tag)) c.push(`<span class="chip tag">${esc(tag.replace(/_/g, ' '))}</span>`);
+  if (t.mismatch) c.push(`<span class="chip" title="${esc(t.mismatch)}">protein ≠ genome</span>`);
+  return c.join('');
+}
+function renderTxList() {
+  const v = state.view, q = $('#txFilter').value.trim().toLowerCase(), shown = state.shown[v.key], focus = state.focus[v.key];
+  const groups = CAT_ORDER.map(cat => ({ cat, items: v.transcripts.filter(t => t.category === cat && (!q || (t.id + ' ' + txMeta(t) + ' ' + t.source + ' ' + (t.tags || []).join(' ')).toLowerCase().includes(q))) })).filter(g => g.items.length);
+  const sw = { alpha2: 'var(--accent)', giant: 'var(--teal)', short_kash: 'var(--slate)', nterm: 'var(--slate)', other: 'var(--slate)' };
+  $('#txList').innerHTML = groups.map(g => `<div class="txgroup"><h3><span><span class="sw" style="background:${sw[g.cat]}"></span>${esc(CAT_LABEL[g.cat])} (${g.items.length})</span>
+      <button type="button" data-grp="${g.cat}">${g.items.every(t => shown.has(t.id)) ? 'hide' : 'show'} all</button></h3>
+      ${g.items.map(t => `<div class="txitem${t.id === focus ? ' focused' : ''}">
+        <input type="checkbox" id="show-${esc(t.id)}" data-show="${esc(t.id)}" ${shown.has(t.id) ? 'checked' : ''} aria-label="Show ${esc(t.id)} in the structure view">
+        <button class="tname" type="button" data-focus="${esc(t.id)}" title="Focus ${esc(t.id)}">${esc(t.predicted ? t.name : t.id)}</button>
+        <div class="tmeta">${esc(txMeta(t))}</div><div class="tchips">${txChips(t)}</div></div>`).join('')}</div>`).join('') ||
+    '<p class="small muted">No isoform matches the filter.</p>';
+  $$('#txList [data-show]').forEach(cb => cb.addEventListener('change', () => { cb.checked ? shown.add(cb.dataset.show) : shown.delete(cb.dataset.show); redrawStructure(); if (state.seq.mode === 'genomic') seqRender(); }));
+  $$('#txList [data-focus]').forEach(b => b.addEventListener('click', () => setFocus(b.dataset.focus)));
+  $$('#txList [data-grp]').forEach(b => b.addEventListener('click', () => {
+    const items = v.transcripts.filter(t => t.category === b.dataset.grp); const all = items.every(t => shown.has(t.id));
+    items.forEach(t => all ? shown.delete(t.id) : shown.add(t.id)); renderTxList(); redrawStructure(); }));
+}
+$('#txFilter').addEventListener('input', renderTxList);
+$('#txAll').addEventListener('click', () => { const v = state.view; v.transcripts.forEach(t => state.shown[v.key].add(t.id)); renderTxList(); redrawStructure(); });
+$('#txDefault').addEventListener('click', () => { const v = state.view; state.shown[v.key] = defaultShown(v); state.shown[v.key].add(state.focus[v.key]); renderTxList(); redrawStructure(); });
+
+function renderContext() {
+  const v = state.view, t = focusTx();
+  const p = t.protein_len || (t.protein || '').length;
+  const html = `<strong>${esc(v.species)} <span class="gene">${esc(v.symbol)}</span></strong> (${esc(v.assembly)}) · focused isoform <strong class="mono">${esc(t.id)}</strong> · ${esc(CAT_LABEL[t.category])} · ${t.exons.length} exons · ${p ? fmt(p) + ' aa' : 'non-coding'} · ${t.strand === 1 ? '+' : '−'} strand`;
+  $('#seqCtx').innerHTML = html; $('#exonCtx').innerHTML = html;
+}
+
+/* =====================================================================
+   gene structure (canvas)
+   ===================================================================== */
+const S = { hits: [], drag: null, raf: 0, labelW: 0, plot: [0, 1], axisH: 44 };
+function structRows() {
+  const v = state.view, shown = state.shown[v.key];
+  return v.transcripts.filter(t => shown.has(t.id)).sort((a, b) => (CAT_ORDER.indexOf(a.category) - CAT_ORDER.indexOf(b.category)) || (a._i - b._i));
+}
+function redrawStructure() { if (!state.view || $('#tab-structure').hidden) return; cancelAnimationFrame(S.raf); S.raf = requestAnimationFrame(drawStructure); }
+function drawStructure() {
+  const v = state.view, cv = $('#structCanvas'), wrap = $('#structWrap');
+  const W = wrap.clientWidth; if (!W) return;
+  const rows = structRows(), rowH = 24, axisH = S.axisH, pad = 10;
+  const narrow = W < 620; const labelW = narrow ? 0 : Math.min(250, Math.round(W * 0.27));
+  const extra = narrow ? 14 : 0; const H = axisH + pad + rows.length * (rowH + extra) + pad;
+  const dpr = window.devicePixelRatio || 1;
+  cv.style.height = H + 'px'; cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+  const ctx = cv.getContext('2d'); ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, W, H);
+  const C = { ink: css('--ink'), ink2: css('--ink-2'), ink3: css('--ink-3'), line: css('--line'), accent: css('--accent'), accentSoft: css('--accent-soft'),
+    teal: css('--teal'), slate: css('--slate'), amber: css('--amber'), bandA: css('--band-alpha2'), bandI: css('--band-intron'), surface: css('--surface'), surface2: css('--surface-2') };
+  const sans = css('--font-sans'), mono = css('--font-mono');
+  let [ws, we] = state.win[v.key];
+  const x0 = labelW + 12, x1 = W - 12; S.plot = [x0, x1]; S.labelW = labelW;
+  const sx = g => x0 + (g - ws) / (we - ws + 1) * (x1 - x0);
+  // highlight bands
+  ctx.font = `600 11px ${sans}`;
+  for (const h of v.highlights || []) {
+    if (h.end < ws || h.start > we) continue;
+    const a = sx(Math.max(h.start, ws)), b = sx(Math.min(h.end + 1, we + 1));
+    ctx.fillStyle = h.kind === 'intron' ? C.bandI : C.bandA; ctx.fillRect(a, 18, Math.max(2, b - a), H - 18);
+    if (h.kind !== 'cds') { ctx.fillStyle = h.kind === 'intron' ? C.ink2 : C.accent; const lw = ctx.measureText(h.label).width;
+      ctx.fillText(h.label, clamp((a + b) / 2 - lw / 2, x0, x1 - lw), 13); }
+  }
+  // axis
+  ctx.strokeStyle = C.line; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(x0, axisH - 8.5); ctx.lineTo(x1, axisH - 8.5); ctx.stroke();
+  const step = niceStep((we - ws + 1) / Math.max(1, (x1 - x0) / 110)); ctx.fillStyle = C.ink3; ctx.font = `11px ${mono}`;
+  for (let g = Math.ceil(ws / step) * step; g <= we; g += step) {
+    const x = Math.round(sx(g)) + 0.5; ctx.beginPath(); ctx.moveTo(x, axisH - 12); ctx.lineTo(x, axisH - 5); ctx.stroke();
+    const lab = fmt(g); const lw = ctx.measureText(lab).width; if (x - lw / 2 > x0 - 2 && x + lw / 2 < x1 + 2) ctx.fillText(lab, x - lw / 2, axisH - 15);
+  }
+  if (labelW) { ctx.fillStyle = C.ink2; ctx.font = `600 11px ${sans}`; ctx.fillText(`chr${v.chrom} (${v.assembly})`, 8, axisH - 15); }
+  // rows
+  S.hits = []; const focusId = state.focus[v.key];
+  rows.forEach((t, i) => {
+    const y = axisH + pad + i * (rowH + extra); const cy = y + extra + rowH / 2;
+    const col = t.category === 'alpha2' ? C.accent : t.category === 'giant' ? C.teal : C.slate;
+    // label
+    ctx.font = `${t.id === focusId ? '600 ' : ''}12px ${mono}`; ctx.fillStyle = t.id === focusId ? C.ink : C.ink2;
+    const lab = t.predicted ? t.name : t.id;
+    if (labelW) { let s = lab; while (ctx.measureText(s).width > labelW - 4 && s.length > 4) s = s.slice(0, -2); if (s !== lab) s = s.slice(0, -1) + '…'; ctx.fillText(s, 8, cy + 4); }
+    else { ctx.font = `11px ${mono}`; ctx.fillText(lab, x0, y + 10); }
+    if (t.id === focusId) { ctx.fillStyle = C.ink; ctx.fillRect(0, cy - 8, 3, 16); }
+    // intron line
+    const ts = Math.max(t.start, ws), te = Math.min(t.end, we);
+    if (te >= ts) {
+      ctx.strokeStyle = col; ctx.lineWidth = 1; ctx.globalAlpha = 0.7; ctx.beginPath(); ctx.moveTo(sx(ts), cy + 0.5); ctx.lineTo(sx(te + 1), cy + 0.5); ctx.stroke();
+      const span = sx(te + 1) - sx(ts); if (span > 60) { ctx.beginPath(); for (let x = sx(ts) + 20; x < sx(te + 1) - 10; x += 48) { const d = t.strand === 1 ? 3 : -3; ctx.moveTo(x - d, cy - 3); ctx.lineTo(x + d, cy + 0.5); ctx.lineTo(x - d, cy + 4); } ctx.stroke(); }
+      ctx.globalAlpha = 1;
+    }
+    // exons
+    t.exons.forEach(([s, e], k) => {
+      if (e < ws || s > we) return;
+      const unique = t.category === 'alpha2' && k === 0;
+      const parts = []; // [a,b,thick]
+      if (t.cds) { const c0 = t.cds[0], c1 = t.cds[1];
+        if (e < c0 || s > c1) parts.push([s, e, false]);
+        else { if (s < c0) parts.push([s, c0 - 1, false]); parts.push([Math.max(s, c0), Math.min(e, c1), true]); if (e > c1) parts.push([c1 + 1, e, false]); }
+      } else parts.push([s, e, false]);
+      let hx0 = Infinity, hx1 = -Infinity;
+      for (const [a, b, thick] of parts) {
+        if (b < ws || a > we) continue;
+        let xa = sx(Math.max(a, ws)), xb = sx(Math.min(b, we) + 1); if (xb - xa < 1.2) { const m = (xa + xb) / 2; xa = m - 0.6; xb = m + 0.6; }
+        const hh = thick ? 13 : 7;
+        const fill = unique ? C.accent : (t.category === 'alpha2' ? C.accentSoft : col);
+        ctx.fillStyle = fill; ctx.fillRect(xa, cy - hh / 2, xb - xa, hh);
+        if (t.category === 'alpha2' && !unique) { ctx.strokeStyle = C.accent; ctx.lineWidth = 1; ctx.strokeRect(xa + 0.5, cy - hh / 2 + 0.5, Math.max(0.5, xb - xa - 1), hh - 1); }
+        if (t.predicted && unique) { ctx.setLineDash([3, 2]); ctx.strokeStyle = C.amber; ctx.lineWidth = 1.5; ctx.strokeRect(xa - 2, cy - 9, xb - xa + 4, 18); ctx.setLineDash([]); ctx.lineWidth = 1; }
+        hx0 = Math.min(hx0, xa); hx1 = Math.max(hx1, xb);
+      }
+      if (hx1 > hx0) S.hits.push({ x0: hx0 - 2, x1: hx1 + 2, y0: cy - 9, y1: cy + 9, t, k });
+    });
+  });
+  const span = we - ws + 1;
+  $('#winInfo').innerHTML = `Showing <strong class="mono">chr${esc(v.chrom)}:${fmt(ws)}-${fmt(we)}</strong> (${fmt(span)} bp) · ${rows.length} of ${v.transcripts.length} isoforms · drag to pan, Ctrl/⌘ + scroll or pinch to zoom · ` +
+    browserLinks(v, ws, we).map(l => linkHTML(l, '')).join(' · ');
+}
+function setWin(a, b) {
+  const v = state.view; const L = v.region.end - v.region.start + 1; let w = clamp(b - a, 60, L - 1);
+  a = clamp(Math.round(a), v.region.start, v.region.end - w); state.win[v.key] = [a, Math.round(a + w)]; redrawStructure();
+}
+function zoom(f, centerG) { const [a, b] = state.win[state.view.key]; const c = centerG == null ? (a + b) / 2 : centerG; const w = (b - a) * f; const r = (c - a) / (b - a || 1); setWin(c - w * r, c - w * r + w); }
+$$('[data-zoom]').forEach(b => b.addEventListener('click', () => {
+  const v = state.view, t = focusTx(), z = b.dataset.zoom, [a, c] = state.win[v.key], w = c - a;
+  if (z === 'in') zoom(0.5); else if (z === 'out') zoom(2);
+  else if (z === 'left') setWin(a - w * 0.4, c - w * 0.4); else if (z === 'right') setWin(a + w * 0.4, c + w * 0.4);
+  else if (z === 'gene') setWin(v.region.start, v.region.end);
+  else if (z === 'alpha2') { const [p, q] = alpha2Window(v); setWin(p, q); }
+  else if (z === 'focus') { const m = Math.max(200, (t.end - t.start) * 0.04); setWin(t.start - m, t.end + m); }
+  else if (z === 'exon1') { const h = (v.highlights || []).find(x => x.kind === 'alpha2') || (v.highlights || [])[0]; if (h) { const m = Math.max(400, (h.end - h.start) * 3); setWin(h.start - m, h.end + m); } }
+}));
+$('#gotoRegion').addEventListener('keydown', e => {
+  if (e.key !== 'Enter') return; const m = e.target.value.replace(/[, ]/g, '').match(/(\d+)\D+(\d+)/);
+  if (m) setWin(+m[1], +m[2]); else { const n = parseInt(e.target.value.replace(/\D/g, ''), 10); if (n) setWin(n - 500, n + 500); }
+});
+(function bindCanvas() {
+  const cv = $('#structCanvas'), tip = $('#structTip');
+  const gAt = x => { const [ws, we] = state.win[state.view.key]; return ws + (x - S.plot[0]) / (S.plot[1] - S.plot[0]) * (we - ws + 1); };
+  cv.addEventListener('pointerdown', e => { S.drag = { x: e.clientX, y: e.clientY, win: state.win[state.view.key].slice(), moved: false }; cv.setPointerCapture(e.pointerId); cv.classList.add('dragging'); });
+  cv.addEventListener('pointermove', e => {
+    const r = cv.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
+    if (S.drag) { const dx = e.clientX - S.drag.x; if (Math.abs(dx) > 3) S.drag.moved = true;
+      if (S.drag.moved) { const [a, b] = S.drag.win; const dg = dx / (S.plot[1] - S.plot[0]) * (b - a); setWin(a - dg, b - dg); tip.hidden = true; } return; }
+    const h = S.hits.find(h => x >= h.x0 && x <= h.x1 && y >= h.y0 && y <= h.y1);
+    if (!h) { tip.hidden = true; return; }
+    const info = exonInfo(state.view, h.t)[h.k];
+    tip.innerHTML = `<b>${esc(h.t.predicted ? h.t.name : h.t.id)}</b><br>exon ${info.n}/${h.t.exons.length}${info.alpha2Unique ? ' · <b>exon 1α2 (unique)</b>' : ''}<br>${fmt(info.s)}-${fmt(info.e)} · ${fmt(info.len)} bp · ${esc(info.kind)}` +
+      (info.aa ? `<br>aa ${fmt(info.aa[0])}-${fmt(info.aa[1])} · phase ${info.phase0}→${info.phase1}` : '') + (info.giantExon ? `<br>= giant exon ${info.giantExon}` : '');
+    tip.hidden = false; const tw = tip.offsetWidth; tip.style.left = clamp(x + 12, 4, r.width - tw - 4) + 'px'; tip.style.top = (y + 14) + 'px';
+  });
+  const end = e => {
+    if (!S.drag) return; const r = cv.getBoundingClientRect(); const moved = S.drag.moved; S.drag = null; cv.classList.remove('dragging');
+    if (!moved) { const x = e.clientX - r.left, y = e.clientY - r.top; const h = S.hits.find(h => x >= h.x0 && x <= h.x1 && y >= h.y0 && y <= h.y1);
+      if (h) { state.selExon[state.view.key] = { id: h.t.id, k: h.k }; if (h.t.id !== state.focus[state.view.key]) setFocus(h.t.id); else renderExonDetail(); } }
+  };
+  cv.addEventListener('pointerup', end); cv.addEventListener('pointercancel', () => { S.drag = null; cv.classList.remove('dragging'); });
+  cv.addEventListener('pointerleave', () => { if (!S.drag) tip.hidden = true; });
+  cv.addEventListener('wheel', e => { if (!(e.ctrlKey || e.metaKey || e.altKey)) return; e.preventDefault(); const r = cv.getBoundingClientRect();
+    zoom(Math.exp(e.deltaY * 0.0025), gAt(e.clientX - r.left)); }, { passive: false });
+  window.addEventListener('resize', redrawStructure);
+})();
+function renderLegend() {
+  $('#structLegend').innerHTML = `<span><i style="background:var(--accent)"></i>exon 1α2 (unique first exon)</span>
+    <span><i style="background:var(--accent-soft);border:1px solid var(--accent)"></i>α2 exons shared with the giant isoform</span>
+    <span><i style="background:var(--teal)"></i>giant isoform</span><span><i style="background:var(--slate)"></i>other isoforms</span>
+    <span><i style="border:1px dashed var(--amber)"></i>predicted in this analysis</span><span><i style="background:var(--band-alpha2)"></i>α2 exon band</span>
+    <span><i style="background:var(--band-intron)"></i>homologous intron (syne1b, no exon found)</span><span>thick = coding, thin = UTR</span>`;
+}
+function renderExonDetail() {
+  const v = state.view, t = focusTx(); let sel = state.selExon[v.key];
+  if (!sel || sel.id !== t.id) { sel = { id: t.id, k: 0 }; state.selExon[v.key] = sel; }
+  const info = exonInfo(v, t)[sel.k]; if (!info) { $('#exonDetail').innerHTML = ''; return; }
+  const fl = 25; const st = t.strand;
+  const up = st === 1 ? sub(v, info.s - fl, info.s - 1, 1) : sub(v, info.e + 1, info.e + fl, -1);
+  const dn = st === 1 ? sub(v, info.e + 1, info.e + fl, 1) : sub(v, info.s - fl, info.s - 1, -1);
+  const ex = sub(v, info.s, info.e, st);
+  let exHTML = esc(ex);
+  if (t.cdsTx && info.cdsLen && info.cdsLen < info.len) { const a = Math.max(0, t.cdsTx[0] - t.cum[sel.k]), b = Math.min(info.len, t.cdsTx[1] - t.cum[sel.k] + 1);
+    exHTML = esc(ex.slice(0, a)) + '<span class="cds">' + esc(ex.slice(a, b)) + '</span>' + esc(ex.slice(b)); }
+  else if (info.cdsLen) exHTML = '<span class="cds">' + exHTML + '</span>';
+  const prot = protOf(v, t);
+  $('#exonDetail').innerHTML = `<h3>Exon ${info.n} of ${t.exons.length} · <span class="mono">${esc(t.predicted ? t.name : t.id)}</span>${info.alpha2Unique ? ' · <span class="pill a2">exon 1α2</span>' : ''}</h3>
+    <div class="evidence" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr))">
+      <dl class="kv"><dt>Coordinates</dt><dd class="mono">chr${esc(v.chrom)}:${fmt(info.s)}-${fmt(info.e)} (${st === 1 ? '+' : '−'})</dd>
+      <dt>Length</dt><dd>${fmt(info.len)} bp</dd><dt>Content</dt><dd>${esc(info.kind)}${info.cdsLen ? ` (${info.cdsLen} coding nt)` : ''}</dd>
+      ${info.aa ? `<dt>Protein</dt><dd>aa ${fmt(info.aa[0])}–${fmt(info.aa[1])}, phase ${info.phase0} → ${info.phase1}</dd>` : ''}
+      <dt>Giant isoform</dt><dd>${t.category === 'giant' ? '(this is a giant isoform)' : info.giantExon ? 'identical to giant exon ' + info.giantExon : info.giantOverlap ? 'overlaps giant exon ' + info.giantOverlap + ' (different ends)' : 'not in the giant isoform'}</dd>
+      <dt>Transcript</dt><dd>positions ${fmt(info.tx[0])}–${fmt(info.tx[1])}</dd></dl>
+      <div><div class="toolbar" style="margin-bottom:6px">${browserLinks(v, info.s, info.e).map(l => linkHTML(l)).join(' ')}
+        <button class="btn small" type="button" id="exCopy">Copy exon</button><button class="btn small" type="button" id="exSeq">Show in sequence</button>
+        <button class="btn small" type="button" id="exPrev" ${sel.k === 0 ? 'disabled' : ''}>← exon</button><button class="btn small" type="button" id="exNext" ${sel.k >= t.exons.length - 1 ? 'disabled' : ''}>exon →</button></div>
+      <div class="seqbox"><span class="lc">${esc(up.toLowerCase())}</span>${exHTML}<span class="lc">${esc(dn.toLowerCase())}</span></div>
+      ${info.aa ? `<div class="small muted" style="margin-top:6px">Encoded residues: <span class="mono">${esc(prot.slice(info.aa[0] - 1, info.aa[1]))}</span></div>` : ''}</div></div>`;
+  $('#exCopy').onclick = () => copyText(fasta(`${t.id}_exon${info.n} chr${v.chrom}:${info.s}-${info.e}(${st === 1 ? '+' : '-'}) ${v.assembly}`, ex), 'Exon');
+  $('#exSeq').onclick = () => { state.seq.mode = 'genomic'; state.seq.range = 'exon'; $('#seqRange').value = 'exon'; setTab('sequence'); renderSequence(true); };
+  $('#exPrev').onclick = () => { sel.k--; renderExonDetail(); }; $('#exNext').onclick = () => { sel.k++; renderExonDetail(); };
+}
+
+/* =====================================================================
+   sequence viewer (virtualised)
+   ===================================================================== */
+const SEQ = { D: '', rows: 0, lh: 20, kind: '', mapPos: null, cls: null, matches: [], aa: null, name: '' };
+function seqRangeFor(v, t) {
+  const r = state.seq.range;
+  if (r === 'locus') return [v.region.start, v.region.end];
+  if (r === 'alpha2') return alpha2Window(v);
+  if (r === 'exon') { const sel = state.selExon[v.key]; const k = sel && sel.id === t.id ? sel.k : 0; const [s, e] = t.exons[k]; return [Math.max(v.region.start, s - 150), Math.min(v.region.end, e + 150)]; }
+  if (r === 'custom') { const m = ($('#seqCustom').value || '').replace(/[, ]/g, '').match(/(\d+)\D+(\d+)/);
+    if (m) return [clamp(Math.min(+m[1], +m[2]), v.region.start, v.region.end), clamp(Math.max(+m[1], +m[2]), v.region.start, v.region.end)]; }
+  return [Math.max(v.region.start, t.start - 100), Math.min(v.region.end, t.end + 100)];
+}
+function iupacRegex(q, isDNA) {
+  if (/^\/.+\/$/.test(q)) { try { return new RegExp(q.slice(1, -1), 'gi'); } catch (e) { return null; } }
+  q = q.toUpperCase().replace(/\s/g, ''); if (!q) return null;
+  const map = isDNA ? { R: '[AG]', Y: '[CT]', S: '[GC]', W: '[AT]', K: '[GT]', M: '[AC]', B: '[CGT]', D: '[AGT]', H: '[ACT]', V: '[ACG]', N: '.', U: 'T' } : { X: '.' };
+  try { return new RegExp(q.split('').map(c => map[c] || c.replace(/[^A-Z*]/g, '')).join(''), 'gi'); } catch (e) { return null; }
+}
+function renderSequence(reset) {
+  const v = state.view, t = focusTx(), m = state.seq.mode; seqDirty = false;
+  $$('#seqMode button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.mode === m)));
+  $$('[data-genomic-only]').forEach(el => { el.hidden = m !== 'genomic'; }); $('#seqCustom').hidden = !(m === 'genomic' && state.seq.range === 'custom');
+  $$('[data-tr-only]').forEach(el => { el.hidden = !(m === 'mrna' || m === 'cds'); });
+  let D = '', mapPos, name;
+  if (m === 'genomic') {
+    const [a, b] = seqRangeFor(v, t); const orient = state.seq.orient === 'gene' ? t.strand : 1;
+    D = sub(v, a, b, orient); mapPos = orient === 1 ? (k => a + k) : (k => b - k);
+    name = `${v.symbol}_${v.assembly}_chr${v.chrom}:${a}-${b}(${orient === 1 ? '+' : '-'})`;
+    // feature intervals in display index space
+    const toD = g => orient === 1 ? g - a : b - g;
+    const ivs = (arr) => arr.map(([s, e]) => { const p = toD(s), q = toD(e); return [Math.min(p, q), Math.max(p, q)]; }).filter(x => x[1] >= 0 && x[0] < D.length).sort((x, y) => x[0] - y[0]);
+    const shown = state.shown[v.key];
+    const others = []; for (const u of v.transcripts) if (u !== t && shown.has(u.id)) for (const ex of u.exons) others.push(ex);
+    const merged = []; ivs(others).forEach(iv => { const l = merged[merged.length - 1]; if (l && iv[0] <= l[1] + 1) l[1] = Math.max(l[1], iv[1]); else merged.push(iv.slice()); });
+    SEQ.f = { exon: ivs(t.exons), cds: t.cds ? ivs([t.cds]) : [], other: merged, hl: ivs((v.highlights || []).filter(h => h.kind !== 'intron').map(h => [h.start, h.end])) };
+  } else if (m === 'mrna') { D = mrnaOf(v, t); mapPos = k => k + 1; name = `${t.id}_mRNA (derived from ${v.assembly})`; }
+  else if (m === 'cds') { D = cdsOf(v, t); mapPos = k => k + 1; name = `${t.id}_CDS (derived from ${v.assembly})`; }
+  else { D = protOf(v, t); mapPos = k => k + 1; name = `${t.id}_protein ${t.protein_id || ''}`.trim(); }
+  SEQ.D = D; SEQ.mapPos = mapPos; SEQ.name = name; SEQ.kind = m;
+  // search
+  const q = $('#seqSearch').value.trim(); SEQ.matches = [];
+  const re = iupacRegex(q, m !== 'protein');
+  if (re && D) {
+    let mm; re.lastIndex = 0; while ((mm = re.exec(D)) && SEQ.matches.length < 5000) { if (!mm[0].length) { re.lastIndex++; continue; } SEQ.matches.push([mm.index, mm.index + mm[0].length - 1, '+']); }
+    if (m === 'genomic' && state.seq.both) { const R = revcomp(D); re.lastIndex = 0; while ((mm = re.exec(R)) && SEQ.matches.length < 5000) { if (!mm[0].length) { re.lastIndex++; continue; } const s = D.length - (mm.index + mm[0].length); SEQ.matches.push([s, s + mm[0].length - 1, '−']); } }
+    SEQ.matches.sort((x, y) => x[0] - y[0]);
+  }
+  $('#seqHits').textContent = q ? (re ? `${fmt(SEQ.matches.length)}${SEQ.matches.length >= 5000 ? '+' : ''} matches` : 'invalid pattern') : `${fmt(D.length)} ${m === 'protein' ? 'aa' : 'nt'}`;
+  $('#seqMatchList').innerHTML = SEQ.matches.slice(0, 120).map((x, i) => `<button type="button" data-mi="${i}">${fmt(mapPos(x[0]))}${x[2] === '−' ? ' (−)' : ''}</button>`).join('');
+  $$('#seqMatchList button').forEach(b => b.addEventListener('click', () => seqScrollTo(SEQ.matches[+b.dataset.mi][0])));
+  // per-mode helpers
+  SEQ.two = (m === 'mrna' || m === 'cds') && state.seq.trans && !!t.cdsTx;
+  SEQ.lh = SEQ.two ? 38 : 20; SEQ.width = state.seq.width; SEQ.rows = Math.ceil(D.length / SEQ.width) || 1; SEQ.t = t; SEQ.v = v;
+  if (m === 'cds') { SEQ.cdsExonStarts = []; let acc = 0; t.exons.forEach((ex, k) => { const a = Math.max(t.cum[k], t.cdsTx ? t.cdsTx[0] : 0), b = Math.min(t.cum[k + 1] - 1, t.cdsTx ? t.cdsTx[1] : -1); if (a <= b) { SEQ.cdsExonStarts.push([acc, k]); acc += b - a + 1; } }); }
+  if (m === 'protein') { SEQ.aaExon = []; (t.exon_aa || []).forEach((r, k) => { if (r) SEQ.aaExon.push([r[0] - 1, k]); }); }
+  const box = $('#seqView'); box.querySelector('.spacer').style.height = (SEQ.rows * SEQ.lh + 16) + 'px';
+  if (reset) box.scrollTop = 0;
+  seqRender(); renderSeqLegend();
+}
+function seqClass(k) {
+  const m = SEQ.kind, t = SEQ.t; let c;
+  if (m === 'genomic') {
+    const f = SEQ.f; const ex = bsearchIntervals(f.exon, k) >= 0; const cd = ex && bsearchIntervals(f.cds, k) >= 0;
+    c = ex ? (cd ? 's-c' : 's-u') : (bsearchIntervals(f.other, k) >= 0 ? 's-o' : 's-i');
+    if (f.hl.length && bsearchIntervals(f.hl, k) >= 0) c += ' s-h';
+  } else if (m === 'mrna') {
+    const e = exonOfTx(t, k); const cd = t.cdsTx && k >= t.cdsTx[0] && k <= t.cdsTx[1];
+    c = (cd ? 's-c' : 's-u') + ' s-e' + (e % 2); if (t.category === 'alpha2' && e === 0) c += ' s-h';
+  } else if (m === 'cds') {
+    let e = 0; for (const [st, kk] of SEQ.cdsExonStarts) if (st <= k) e = kk; c = 's-c s-e' + (e % 2); if (t.category === 'alpha2' && e === 0) c += ' s-h';
+  } else {
+    let e = 0; for (const [st, kk] of SEQ.aaExon) if (st <= k) e = kk; c = 's-c s-e' + (e % 2); if (t.category === 'alpha2' && e === 0) c += ' s-h';
+  }
+  return c;
+}
+function inMatch(k) { const a = SEQ.matches; let lo = 0, hi = a.length - 1; while (lo <= hi) { const md = (lo + hi) >> 1; if (k < a[md][0]) hi = md - 1; else if (k > a[md][1]) lo = md + 1; else return true; }
+  // overlapping matches: linear check around
+  for (let i = Math.max(0, lo - 3); i < Math.min(a.length, lo + 3); i++) if (k >= a[i][0] && k <= a[i][1]) return true; return false; }
+function seqRender() {
+  const box = $('#seqView'), lines = box.querySelector('.lines'); if (!SEQ.D) { lines.innerHTML = '<div class="srow">No sequence (isoform has no CDS).</div>'; return; }
+  const W = SEQ.width, lh = SEQ.lh, first = Math.max(0, Math.floor(box.scrollTop / lh) - 10), last = Math.min(SEQ.rows, Math.ceil((box.scrollTop + box.clientHeight) / lh) + 10);
+  const D = SEQ.D, m = SEQ.kind, t = SEQ.t, bases = state.seq.bases && m === 'genomic';
+  let html = '';
+  for (let r = first; r < last; r++) {
+    const s0 = r * W, s1 = Math.min(D.length, s0 + W); let seqH = '', aaH = '', run = '', runCls = null;
+    const flush = () => { if (run) seqH += runCls ? `<span class="${runCls}">${run}</span>` : run; run = ''; };
+    for (let k = s0; k < s1; k++) {
+      if (k > s0 && (k - s0) % 10 === 0) { flush(); runCls = null; seqH += ' '; if (SEQ.two) aaH += ' '; }
+      let cls = seqClass(k); if (SEQ.matches.length && inMatch(k)) cls += ' s-m';
+      let ch = D[k]; if (m === 'genomic' && cls.indexOf('s-i') === 0) ch = ch.toLowerCase();
+      if (bases) cls += ' b-' + D[k].toUpperCase();
+      if (cls !== runCls) { flush(); runCls = cls; } run += ch;
+      if (SEQ.two) { let aa = ' ';
+        const off = m === 'cds' ? k : k - t.cdsTx[0];
+        if (m === 'cds' || (k >= t.cdsTx[0] && k <= t.cdsTx[1])) { if (off % 3 === 1) { const cod = (m === 'cds' ? D : D).substr(k - 1, 3); aa = CODON[cod] || 'X'; } }
+        aaH += aa; }
+    }
+    flush();
+    const pos = fmt(SEQ.mapPos(s0));
+    html += SEQ.two ? `<div class="srow" style="height:${lh}px"><span class="spos">${pos}</span><span class="sstack"><span class="sseq">${seqH}</span><span class="aaline">${aaH}</span></span></div>`
+      : `<div class="srow" style="height:${lh}px"><span class="spos">${pos}</span><span class="sseq">${seqH}</span></div>`;
+  }
+  lines.style.transform = `translateY(${first * lh + 8}px)`; lines.innerHTML = html;
+}
+function seqScrollTo(k) { const box = $('#seqView'); box.scrollTop = Math.max(0, Math.floor(k / SEQ.width) * SEQ.lh - box.clientHeight / 3); seqRender(); }
+function renderSeqLegend() {
+  const m = SEQ.kind; let h = '';
+  if (m === 'genomic') h = `<span><b class="mono s-c">ACGT</b> exon, coding</span><span><b class="mono s-u">ACGT</b> exon, UTR</span><span><b class="mono s-o">ACGT</b> exon of another shown isoform</span><span><b class="mono s-i">acgt</b> intron / intergenic</span><span><b class="mono s-h">ACGT</b> exon 1α2</span>`;
+  else h = `<span><b class="mono s-e0" style="padding:0 3px">alternating</b> shading marks exons</span><span><b class="mono s-h">exon 1α2</b> unique α2 sequence</span>` + (m !== 'protein' ? `<span><b class="mono s-u">acgt</b> UTR</span><span><b class="mono aaline">M</b> amino acid under the codon's middle base</span>` : '');
+  h += `<span><b class="mono s-m">match</b> search hit</span><span>sequence derived from the ${esc(SEQ.v.assembly)} genome${SEQ.kind === 'protein' && SEQ.t.protein_id ? '; protein as deposited (' + esc(SEQ.t.protein_id) + ')' : ''}</span>`;
+  $('#seqLegend').innerHTML = h;
+}
+$('#seqView').addEventListener('scroll', () => { cancelAnimationFrame(SEQ.raf); SEQ.raf = requestAnimationFrame(seqRender); });
+$$('#seqMode button').forEach(b => b.addEventListener('click', () => { state.seq.mode = b.dataset.mode; renderSequence(true); }));
+$('#seqRange').addEventListener('change', e => { state.seq.range = e.target.value; renderSequence(true); });
+$('#seqCustom').addEventListener('change', () => renderSequence(true));
+$('#seqOrient').addEventListener('change', e => { state.seq.orient = e.target.value; renderSequence(true); });
+$('#seqWidth').addEventListener('change', e => { state.seq.width = +e.target.value; renderSequence(false); });
+$('#seqTrans').addEventListener('change', e => { state.seq.trans = e.target.checked; renderSequence(false); });
+$('#seqBases').addEventListener('change', e => { state.seq.bases = e.target.checked; seqRender(); });
+$('#seqBoth').addEventListener('change', e => { state.seq.both = e.target.checked; renderSequence(false); });
+let seqSearchT; $('#seqSearch').addEventListener('input', () => { clearTimeout(seqSearchT); seqSearchT = setTimeout(() => { renderSequence(false); if (SEQ.matches.length) seqScrollTo(SEQ.matches[0][0]); }, 250); });
+$('#seqGoto').addEventListener('keydown', e => { if (e.key !== 'Enter') return; const n = parseInt(e.target.value.replace(/\D/g, ''), 10); if (!n) return;
+  // genomic view: display index of coordinate n (works for + and − orientation); other views: 1-based position
+  const k = SEQ.kind === 'genomic' ? Math.abs(n - SEQ.mapPos(0)) : n - 1;
+  seqScrollTo(clamp(k, 0, SEQ.D.length - 1)); });
+$('#seqCopy').addEventListener('click', () => copyText(fasta(SEQ.name, SEQ.D), 'Sequence'));
+$('#seqSave').addEventListener('click', () => saveText(SEQ.name.replace(/[^\w.:-]+/g, '_') + '.fa', fasta(SEQ.name, SEQ.D)));
+
+/* =====================================================================
+   exon tables
+   ===================================================================== */
+function renderExons() {
+  exonsDirty = false; const v = state.view, t = focusTx(); const rows = exonInfo(v, t);
+  const isDV = (r) => (v.dv23 || []).some(d => d[0] === r.s && d[1] === r.e);
+  $('#exonTable').innerHTML = `<table><thead><tr><th>#</th><th class="r">Start</th><th class="r">End</th><th class="r">Length</th><th>Content</th><th class="r">Phase</th><th class="r">Residues</th><th>Giant isoform (${esc(v.giant_ref)})</th><th>Links</th></tr></thead><tbody>` +
+    rows.map(r => `<tr class="${r.alpha2Unique ? 'hl' : isDV(r) ? 'dv' : ''}"><td>${r.n}${r.alpha2Unique ? ' · <b>1α2</b>' : ''}${isDV(r) ? ' · DV23' : ''}</td><td class="r mono">${fmt(r.s)}</td><td class="r mono">${fmt(r.e)}</td><td class="r">${fmt(r.len)}</td><td>${esc(r.kind)}</td>
+      <td class="r">${r.aa ? r.phase0 + '→' + r.phase1 : '–'}</td><td class="r">${r.aa ? fmt(r.aa[0]) + '–' + fmt(r.aa[1]) : '–'}</td>
+      <td>${t.category === 'giant' ? '—' : r.giantExon ? 'exon ' + r.giantExon : r.giantOverlap ? 'overlaps exon ' + r.giantOverlap : '<b>absent</b>'}</td>
+      <td>${browserLinks(v, r.s, r.e).map(l => linkHTML(l, '')).join(' · ')}</td></tr>`).join('') + '</tbody></table>';
+  const T = DATA.alignments.alpha2_exon_table;
+  const heat = x => { const a = clamp((x - 30) / 70, 0, 1); return `background: color-mix(in srgb, var(--teal) ${Math.round(a * 45)}%, transparent)`; };
+  const cell = (r, sp) => { const c = r[sp]; return c ? `<td class="r">${c.exon}</td><td class="r">${fmt(c.len)}</td><td class="r"><span class="heat" style="${heat(c.identity)}">${c.identity.toFixed(1)}%</span></td>` : '<td></td><td></td><td></td>'; };
+  $('#crossTable').innerHTML = `<table><thead><tr><th>Human α2 exon</th><th class="r">bp</th><th>Human giant exon</th><th class="r">Mouse #</th><th class="r">bp</th><th class="r">id.</th><th class="r">Rat #</th><th class="r">bp</th><th class="r">id.</th><th class="r">Zebrafish #</th><th class="r">bp</th><th class="r">id.</th></tr></thead><tbody>` +
+    T.map(r => `<tr class="${r.exon === 1 ? 'hl' : r.human.giant === 'DV23' ? 'dv' : ''}"><td>${r.exon}${r.exon === 1 ? ' · <b>1α2</b>' : ''}</td><td class="r">${r.human.len}</td><td>${esc(r.human.giant || '')}</td>${cell(r, 'mouse')}${cell(r, 'rat')}${cell(r, 'zebrafish')}</tr>`).join('') + '</tbody></table>';
+}
+
+/* =====================================================================
+   alignment viewer
+   ===================================================================== */
+const AL = { key: null, rows: [], width: 80, color: 'cons', lh: 18, blocks: 0, bh: 0 };
+const AA_CLASS = {}; ['AILMFWV', 'KR', 'DE', 'NQST', 'C', 'G', 'P', 'HY'].forEach((g, i) => { for (const c of g) AA_CLASS[c] = ['r-hyd', 'r-pos', 'r-neg', 'r-pol', 'r-cys', 'r-gly', 'r-pro', 'r-aro'][i]; });
+const STRONG = ['STA', 'NEQK', 'NHQK', 'NDEQ', 'QHRK', 'MILV', 'MILF', 'HY', 'FYW'], WEAK = ['CSA', 'ATV', 'SAG', 'STNK', 'STPA', 'SGND', 'SNDEQK', 'NDEQHK', 'NEQHRK', 'FVLIM', 'HFY'];
+function alnList() { return Object.entries(DATA.alignments).filter(([k, a]) => a && a.rows); }
+function renderAlnList() {
+  $('#alnList').innerHTML = alnList().map(([k, a]) => `<button type="button" data-aln="${k}" aria-pressed="${k === AL.key}"><div class="t">${esc(a.short || k)}</div><div class="d">${a.rows.length} sequences × ${fmt(a.rows[0][1].length)} columns</div></button>`).join('');
+  $$('#alnList button').forEach(b => b.addEventListener('click', () => { AL.key = b.dataset.aln; renderAlnList(); renderAlignment(true); }));
+}
+function consensus(rows) {
+  const L = rows[0][1].length, cons = [], fr = [], sym = [];
+  const isDNA = /dna|codon/.test(AL.type);
+  for (let i = 0; i < L; i++) {
+    const cnt = {}; let n = 0; for (const [, s] of rows) { const c = s[i].toUpperCase(); if (c !== '-' && c !== '.') { cnt[c] = (cnt[c] || 0) + 1; n++; } }
+    let best = '-', bc = 0; for (const c in cnt) if (cnt[c] > bc) { best = c; bc = cnt[c]; }
+    cons.push(best); fr.push(bc / rows.length);
+    const col = rows.map(r => r[1][i].toUpperCase());
+    if (col.every(c => c === col[0] && c !== '-')) sym.push('*');
+    else if (!isDNA && !col.includes('-') && STRONG.some(g => col.every(c => g.includes(c)))) sym.push(':');
+    else if (!isDNA && !col.includes('-') && WEAK.some(g => col.every(c => g.includes(c)))) sym.push('.');
+    else sym.push(' ');
+  }
+  return { cons, fr, sym: sym.join('') };
+}
+function renderAlignment(reset) {
+  if (!AL.key) AL.key = 'alpha2_protein';
+  renderAlnList();
+  const a = DATA.alignments[AL.key]; AL.rows = a.rows; AL.type = a.type; AL.width = +$('#alnWidth').value; AL.color = $('#alnColor').value; AL.a = a;
+  AL.C = consensus(a.rows); const L = a.rows[0][1].length; AL.blocks = Math.ceil(L / AL.width);
+  AL.extra = (a.annotations ? 1 : 0); AL.bh = (a.rows.length + 2 + AL.extra) * AL.lh + 12;
+  AL.counts = a.rows.map(() => 0);
+  // residue offsets per block (number of non-gap residues before each block)
+  AL.offsets = a.rows.map(([, s]) => { const o = [0]; let c = 0; for (let b = 0; b < AL.blocks; b++) { const seg = s.slice(b * AL.width, (b + 1) * AL.width); c += seg.replace(/[-.]/g, '').length; o.push(c); } return o; });
+  const namew = Math.min(34, Math.max(12, ...a.rows.map(r => r[0].length))) + 2;
+  $('#alnView').style.setProperty('--namew', namew + 'ch');
+  $('#alnCtx').innerHTML = `<strong>${esc(a.title)}</strong>${a.note ? ' · ' + esc(a.note) : ''}`;
+  const box = $('#alnView'); box.querySelector('.spacer').style.height = (AL.blocks * AL.bh + 12) + 'px'; if (reset) box.scrollTop = 0;
+  alnRender();
+}
+function resClass(c, i, row0) {
+  if (c === '-' || c === '.') return 'r-gap';
+  const isDNA = /dna|codon/.test(AL.type); const mode = AL.color;
+  if (mode === 'none') return '';
+  if (mode === 'ident') return '';
+  const cls = isDNA ? 'n-' + c.toUpperCase() : (AA_CLASS[c.toUpperCase()] || '');
+  if (mode === 'all') return cls;
+  return (AL.C.cons[i] === c.toUpperCase() && AL.C.fr[i] >= 0.5) ? cls : '';
+}
+function alnRender() {
+  const box = $('#alnView'), lines = box.querySelector('.lines'); const a = AL.a; if (!a) return;
+  const first = Math.max(0, Math.floor(box.scrollTop / AL.bh) - 2), last = Math.min(AL.blocks, Math.ceil((box.scrollTop + box.clientHeight) / AL.bh) + 2);
+  const W = AL.width, row0 = a.rows[0][1]; let html = '';
+  const grpColor = { 'Ray-finned fish': 'var(--accent)', Amphibians: 'var(--amber)', Reptiles: 'var(--slate)', Birds: 'var(--teal)', Mammals: 'var(--focus)' };
+  for (let b = first; b < last; b++) {
+    const c0 = b * W, c1 = Math.min(row0.length, c0 + W);
+    let ruler = ''; for (let i = c0; i < c1; i++) { const col = i + 1; ruler += (col % 10 === 0) ? '|' : (col % 5 === 0 ? '·' : ' '); }
+    html += `<div class="ablock" style="height:${AL.bh}px"><div class="arow ruler"><span class="an">column ${fmt(c0 + 1)}</span><span class="as">${ruler}</span></div>`;
+    if (a.annotations) {
+      const an = a.annotations[a.rows[0][0]]; let s = '';
+      for (let i = c0; i < c1; i++) s += i < an.atg_col ? '·' : (i <= an.cds_end_col ? (i < an.atg_col + 3 ? '>' : '=') : (i < an.donor_col + 2 ? '^' : '~'));
+      html += `<div class="arow annot"><span class="an">5'UTR · CDS · GC donor</span><span class="as">${s}</span></div>`;
+    }
+    a.rows.forEach(([name, s], ri) => {
+      let out = '', run = '', rc = null;
+      const flush = () => { if (run) out += rc ? `<span class="${rc}">${esc(run)}</span>` : esc(run); run = ''; };
+      for (let i = c0; i < c1; i++) {
+        let ch = s[i]; let cls = resClass(ch, i, row0);
+        if (AL.color === 'ident' && ri > 0 && ch !== '-' && ch.toUpperCase() === row0[i].toUpperCase()) { ch = '.'; cls = 'r-id'; }
+        if (cls !== rc) { flush(); rc = cls; } run += ch;
+      }
+      flush();
+      const g = a.groups ? a.groups[name] : null;
+      html += `<div class="arow"><span class="an" title="${esc(name)}">${g ? `<span class="grp" style="background:${grpColor[g] || 'var(--ink-3)'}" title="${esc(g)}"></span>` : ''}${esc(name)}</span><span class="as">${out}</span><span class="ae">${fmt(AL.offsets[ri][b + 1])}</span></div>`;
+    });
+    html += `<div class="arow cons"><span class="an">conservation</span><span class="as">${esc(AL.C.sym.slice(c0, c1))}</span></div></div>`;
+  }
+  lines.style.transform = `translateY(${first * AL.bh}px)`; lines.innerHTML = html;
+}
+$('#alnView').addEventListener('scroll', () => { cancelAnimationFrame(AL.raf); AL.raf = requestAnimationFrame(alnRender); });
+$('#alnWidth').addEventListener('change', () => renderAlignment(true));
+$('#alnColor').addEventListener('change', () => renderAlignment(false));
+const alnFasta = () => AL.a.rows.map(([n, s]) => fasta(n, s)).join('');
+$('#alnCopy').addEventListener('click', () => copyText(alnFasta(), 'Alignment'));
+$('#alnSave').addEventListener('click', () => saveText(AL.key + '.fa', alnFasta()));
+$('#alnToPair').addEventListener('click', () => {
+  const [r1, r2] = AL.a.rows; PAIR.A = { src: 'custom', text: '>' + r1[0] + '\n' + r1[1].replace(/[-.]/g, '') }; PAIR.B = { src: 'custom', text: '>' + r2[0] + '\n' + r2[1].replace(/[-.]/g, '') };
+  renderPairSide('A'); renderPairSide('B'); setTab('aligner'); runPair();
+});
+
+/* =====================================================================
+   pairwise aligner (Web Worker)
+   ===================================================================== */
+const B62 = (function () {
+  const a = 'ARNDCQEGHILKMFPSTWYVBZX*';
+  const t = `4 -1 -2 -2 0 -1 -1 0 -2 -1 -1 -1 -1 -2 -1 1 0 -3 -2 0 -2 -1 0 -4
+-1 5 0 -2 -3 1 0 -2 0 -3 -2 2 -1 -3 -2 -1 -1 -3 -2 -3 -1 0 -1 -4
+-2 0 6 1 -3 0 0 0 1 -3 -3 0 -2 -3 -2 1 0 -4 -2 -3 3 0 -1 -4
+-2 -2 1 6 -3 0 2 -1 -1 -3 -4 -1 -3 -3 -1 0 -1 -4 -3 -3 4 1 -1 -4
+0 -3 -3 -3 9 -3 -4 -3 -3 -1 -1 -3 -1 -2 -3 -1 -1 -2 -2 -1 -3 -3 -2 -4
+-1 1 0 0 -3 5 2 -2 0 -3 -2 1 0 -3 -1 0 -1 -2 -1 -2 0 3 -1 -4
+-1 0 0 2 -4 2 5 -2 0 -3 -3 1 -2 -3 -1 0 -1 -3 -2 -2 1 4 -1 -4
+0 -2 0 -1 -3 -2 -2 6 -2 -4 -4 -2 -3 -3 -2 0 -2 -2 -3 -3 -1 -2 -1 -4
+-2 0 1 -1 -3 0 0 -2 8 -3 -3 -1 -2 -1 -2 -1 -2 -2 2 -3 0 0 -1 -4
+-1 -3 -3 -3 -1 -3 -3 -4 -3 4 2 -3 1 0 -3 -2 -1 -3 -1 3 -3 -3 -1 -4
+-1 -2 -3 -4 -1 -2 -3 -4 -3 2 4 -2 2 0 -3 -2 -1 -2 -1 1 -4 -3 -1 -4
+-1 2 0 -1 -3 1 1 -2 -1 -3 -2 5 -1 -3 -1 0 -1 -3 -2 -2 0 1 -1 -4
+-1 -1 -2 -3 -1 0 -2 -3 -2 1 2 -1 5 0 -2 -1 -1 -1 -1 1 -3 -1 -1 -4
+-2 -3 -3 -3 -2 -3 -3 -3 -1 0 0 -3 0 6 -4 -2 -2 1 3 -1 -3 -3 -1 -4
+-1 -2 -2 -1 -3 -1 -1 -2 -2 -3 -3 -1 -2 -4 7 -1 -1 -4 -3 -2 -2 -1 -2 -4
+1 -1 1 0 -1 0 0 0 -1 -2 -2 0 -1 -2 -1 4 1 -3 -2 -2 0 0 0 -4
+0 -1 0 -1 -1 -1 -1 -2 -2 -1 -1 -1 -1 -2 -1 1 5 -2 -2 0 -1 -1 0 -4
+-3 -3 -4 -4 -2 -2 -3 -2 -2 -3 -2 -3 -1 1 -4 -3 -2 11 2 -3 -4 -3 -2 -4
+-2 -2 -2 -3 -2 -1 -2 -3 2 -1 -1 -2 -1 3 -3 -2 -2 2 7 -1 -3 -2 -1 -4
+0 -3 -3 -3 -1 -2 -2 -3 -3 3 1 -2 1 -1 -2 -2 0 -3 -1 4 -3 -2 -1 -4
+-2 -1 3 4 -3 0 1 -1 0 -3 -4 0 -3 -3 -2 0 -1 -4 -3 -3 4 1 -1 -4
+-1 0 0 1 -3 3 4 -2 0 -3 -3 1 -1 -3 -1 0 -1 -3 -2 -2 1 4 -1 -4
+0 -1 -1 -1 -2 -1 -1 -1 -1 -1 -1 -1 -1 -1 -2 0 0 -2 -1 -1 -1 -1 -1 -4
+-4 -4 -4 -4 -4 -4 -4 -4 -4 -4 -4 -4 -4 -4 -4 -4 -4 -4 -4 -4 -4 -4 -4 1`.split('\n').map(r => r.trim().split(/\s+/).map(Number));
+  return { alphabet: a, rows: t };
+})();
+const WORKER_SRC = `
+self.onmessage = function (ev) {
+  const { a, b, mode, go, ge, matrix, alphabet } = ev.data;
+  const n = a.length, m = b.length, NEG = -1e9;
+  const idx = {}; for (let i = 0; i < alphabet.length; i++) idx[alphabet[i]] = i;
+  const unk = alphabet.indexOf('X') >= 0 ? idx['X'] : idx['N'];
+  const ai = new Int16Array(n), bi = new Int16Array(m);
+  for (let i = 0; i < n; i++) ai[i] = idx[a[i]] !== undefined ? idx[a[i]] : unk;
+  for (let j = 0; j < m; j++) bi[j] = idx[b[j]] !== undefined ? idx[b[j]] : unk;
+  const K = alphabet.length, S = new Float64Array(K * K); for (let x = 0; x < K; x++) for (let y = 0; y < K; y++) S[x * K + y] = matrix[x][y];
+  // traceback: bits 0-1 H source (0 stop,1 diag,2 E,3 F), bit 2 E extends, bit 3 F extends
+  const tb = new Uint8Array((n + 1) * (m + 1));
+  let Hp = new Float64Array(m + 1), Hc = new Float64Array(m + 1), Fp = new Float64Array(m + 1), Fc = new Float64Array(m + 1);
+  const local = mode === 'local', semi = mode === 'semi';
+  Hp[0] = 0; for (let j = 1; j <= m; j++) { Hp[j] = (local || semi) ? 0 : -(go + (j - 1) * ge); Fp[j] = NEG; tb[j] = (local || semi) ? 0 : 2 | (j > 1 ? 4 : 0); }
+  let best = local ? 0 : NEG, bi_ = 0, bj = 0;
+  for (let i = 1; i <= n; i++) {
+    Hc[0] = (local || semi) ? 0 : -(go + (i - 1) * ge); Fc[0] = NEG; tb[i * (m + 1)] = (local || semi) ? 0 : 3 | (i > 1 ? 8 : 0);
+    let E = NEG; const row = ai[i - 1] * K;
+    for (let j = 1; j <= m; j++) {
+      let t = 0;
+      const eo = Hc[j - 1] - go, ee = E - ge; if (ee > eo) { E = ee; t |= 4; } else E = eo;
+      const fo = Hp[j] - go, fe = Fp[j] - ge; let F; if (fe > fo) { F = fe; t |= 8; } else F = fo; Fc[j] = F;
+      const d = Hp[j - 1] + S[row + bi[j - 1]];
+      let h = d, src = 1; if (E > h) { h = E; src = 2; } if (F > h) { h = F; src = 3; }
+      if (local && h <= 0) { h = 0; src = 0; }
+      Hc[j] = h; tb[i * (m + 1) + j] = t | src;
+      if (local && h > best) { best = h; bi_ = i; bj = j; }
+    }
+    if (semi && Hc[m] > best) { best = Hc[m]; bi_ = i; bj = m; }
+    let tmp = Hp; Hp = Hc; Hc = tmp; tmp = Fp; Fp = Fc; Fc = tmp;
+  }
+  if (semi) { for (let j = 0; j <= m; j++) if (Hp[j] > best) { best = Hp[j]; bi_ = n; bj = j; } }
+  if (mode === 'global') { best = Hp[m]; bi_ = n; bj = m; }
+  // traceback
+  let i = bi_, j = bj, state = 0; const A = [], B = [];
+  if (semi) { for (let x = n; x > i; x--) { A.push(a[x - 1]); B.push('-'); } for (let y = m; y > j; y--) { A.push('-'); B.push(b[y - 1]); } }
+  let endI = i, endJ = j;
+  while (i > 0 || j > 0) {
+    const t = tb[i * (m + 1) + j];
+    if (state === 0) {
+      const src = t & 3;
+      if (src === 0) { if (local || semi || (i === 0 && j === 0)) break; }
+      if (i === 0) { state = 2; continue; } if (j === 0) { state = 3; continue; }
+      if (src === 1) { A.push(a[i - 1]); B.push(b[j - 1]); i--; j--; }
+      else if (src === 2) state = 2; else if (src === 3) state = 3; else break;
+    } else if (state === 2) { A.push('-'); B.push(b[j - 1]); const ext = (t & 4) && j > 1; j--; if (!ext) state = 0; }
+    else { A.push(a[i - 1]); B.push('-'); const ext = (t & 8) && i > 1; i--; if (!ext) state = 0; }
+  }
+  if (semi) { for (let x = i; x > 0; x--) { A.push(a[x - 1]); B.push('-'); } for (let y = j; y > 0; y--) { A.push('-'); B.push(b[y - 1]); } i = 0; j = 0; }
+  self.postMessage({ score: best, A: A.reverse().join(''), B: B.reverse().join(''), startA: i + 1, startB: j + 1, endA: endI, endB: endJ });
+};`;
+let worker = null; try { worker = new Worker(URL.createObjectURL(new Blob([WORKER_SRC], { type: 'text/javascript' }))); } catch (e) { worker = null; }
+const PAIR = { A: null, B: null, last: null };
+const SEQTYPES = [['protein', 'Protein'], ['cds', 'CDS'], ['mrna', 'mRNA'], ['exon', 'Exon'], ['genomic', 'Genomic range']];
+function pairSourceSeq(P) {
+  if (P.src === 'custom') { const lines = (P.text || '').split(/\n/); const name = (lines[0] || '').startsWith('>') ? lines[0].slice(1).trim() : 'custom';
+    const seq = lines.filter(l => !l.startsWith('>')).join('').toUpperCase().replace(/[^A-Z*]/g, ''); return { name, seq }; }
+  const v = VIEW[P.view], t = v.txById[P.tx];
+  if (P.type === 'protein') return { name: `${v.species} ${v.symbol} ${t.predicted ? t.name : t.id} protein`, seq: protOf(v, t) };
+  if (P.type === 'cds') return { name: `${v.species} ${v.symbol} ${t.id} CDS`, seq: cdsOf(v, t) };
+  if (P.type === 'mrna') return { name: `${v.species} ${v.symbol} ${t.id} mRNA`, seq: mrnaOf(v, t) };
+  if (P.type === 'exon') { const k = clamp((P.exon || 1) - 1, 0, t.exons.length - 1); const [s, e] = t.exons[k]; return { name: `${v.species} ${v.symbol} ${t.id} exon ${k + 1}`, seq: sub(v, s, e, t.strand) }; }
+  const m = (P.range || '').replace(/[, ]/g, '').match(/(\d+)\D+(\d+)/); if (!m) return { name: 'range', seq: '' };
+  const a = clamp(Math.min(+m[1], +m[2]), v.region.start, v.region.end), b = clamp(Math.max(+m[1], +m[2]), v.region.start, v.region.end);
+  return { name: `${v.species} ${v.symbol} chr${v.chrom}:${a}-${b} (${t.strand === 1 ? '+' : '−'})`, seq: sub(v, a, b, t.strand) };
+}
+function renderPairSide(side) {
+  const P = PAIR[side], el = $('#pair' + side);
+  const viewOpts = VIEWS.map(v => `<option value="${v.key}" ${P.view === v.key ? 'selected' : ''}>${esc(v.species)} ${esc(v.symbol)} (${esc(v.assembly)})</option>`).join('');
+  const v = VIEW[P.view] || VIEWS[0];
+  const txOpts = CAT_ORDER.map(cat => { const items = v.transcripts.filter(t => t.category === cat); if (!items.length) return '';
+    return `<optgroup label="${esc(CAT_LABEL[cat])}">` + items.map(t => `<option value="${esc(t.id)}" ${P.tx === t.id ? 'selected' : ''}>${esc(t.predicted ? t.name : t.id)} · ${t.protein_len || (t.protein || '').length || '–'} aa</option>`).join('') + '</optgroup>'; }).join('');
+  el.innerHTML = `<h2>Sequence ${side}</h2>
+    <div class="seg" role="group" aria-label="Source ${side}" style="margin-bottom:8px"><button type="button" data-src="db" aria-pressed="${P.src !== 'custom'}">From this browser</button><button type="button" data-src="custom" aria-pressed="${P.src === 'custom'}">Paste</button></div>
+    ${P.src === 'custom' ? `<div class="field"><label for="pc${side}">FASTA or raw sequence</label><textarea id="pc${side}">${esc(P.text || '')}</textarea></div>` : `
+    <div class="fieldrow"><div class="field"><label for="pv${side}">Gene</label><select id="pv${side}">${viewOpts}</select></div>
+      <div class="field"><label for="pt${side}">Isoform</label><select id="pt${side}">${txOpts}</select></div></div>
+    <div class="fieldrow"><div class="field"><label for="py${side}">Sequence</label><select id="py${side}">${SEQTYPES.map(([k, l]) => `<option value="${k}" ${P.type === k ? 'selected' : ''}>${l}</option>`).join('')}</select></div>
+      ${P.type === 'exon' ? `<div class="field"><label for="pe${side}">Exon number</label><input id="pe${side}" type="number" min="1" value="${P.exon || 1}"></div>` : ''}
+      ${P.type === 'genomic' ? `<div class="field"><label for="pr${side}">Range (start-end)</label><input id="pr${side}" type="text" value="${esc(P.range || '')}"></div>` : ''}</div>`}
+    <div class="small muted" id="pinfo${side}"></div>`;
+  $$('[data-src]', el).forEach(b => b.addEventListener('click', () => { P.src = b.dataset.src === 'custom' ? 'custom' : 'db'; if (P.src === 'custom' && !P.text) { const s = pairSourceSeq(Object.assign({}, P, { src: 'db' })); P.text = '>' + s.name + '\n' + s.seq; } renderPairSide(side); }));
+  const on = (id, f) => { const x = $('#' + id); if (x) x.addEventListener('change', f); };
+  on('pv' + side, e => { P.view = e.target.value; P.tx = defaultFocus(VIEW[P.view]); renderPairSide(side); });
+  on('pt' + side, e => { P.tx = e.target.value; renderPairSide(side); });
+  on('py' + side, e => { P.type = e.target.value; if (P.type === 'genomic' && !P.range) { const t = VIEW[P.view].txById[P.tx]; P.range = `${t.exons[0][0]}-${t.exons[0][1]}`; } renderPairSide(side); });
+  on('pe' + side, e => { P.exon = +e.target.value; updatePairInfo(side); });
+  on('pr' + side, e => { P.range = e.target.value; updatePairInfo(side); });
+  const ta = $('#pc' + side); if (ta) ta.addEventListener('input', e => { P.text = e.target.value; updatePairInfo(side); });
+  updatePairInfo(side);
+}
+function updatePairInfo(side) { const s = pairSourceSeq(PAIR[side]); $('#pinfo' + side).textContent = `${s.name} · ${fmt(s.seq.length)} ${/^[ACGTN]+$/.test(s.seq.slice(0, 200)) ? 'nt' : 'residues'}`; }
+function runPair() {
+  const A = pairSourceSeq(PAIR.A), B = pairSourceSeq(PAIR.B);
+  if (!A.seq || !B.seq) { $('#pairOut').textContent = 'Both sequences need content.'; return; }
+  const isDNA = /^[ACGTUN]+$/.test(A.seq) && /^[ACGTUN]+$/.test(B.seq);
+  const cells = A.seq.length * B.seq.length;
+  if (cells > 40e6) { $('#pairStats').innerHTML = ''; $('#pairOut').innerHTML = `<div class="notice">That is ${fmt(Math.round(cells / 1e6))} million matrix cells, above the 40 million this in-browser aligner handles. Pick a shorter piece (a protein, an exon, or a genomic range) or use the precomputed alignments (giant isoforms are in the Alignments tab).</div>`; return; }
+  let matrix, alphabet;
+  if (isDNA) { const [ma, mi] = ($('#pairDNA').value || '5/-4').split('/').map(Number); alphabet = 'ACGTN'; matrix = [...alphabet].map(x => [...alphabet].map(y => (x === 'N' || y === 'N') ? 0 : (x === y ? ma : mi))); }
+  else { alphabet = B62.alphabet; matrix = B62.rows; }
+  const msg = { a: A.seq.replace(/U/g, 'T'), b: B.seq.replace(/U/g, 'T'), mode: $('#pairMode').value, go: +$('#pairOpen').value, ge: +$('#pairExt').value, matrix, alphabet };
+  $('#pairOut').textContent = `Aligning ${fmt(A.seq.length)} × ${fmt(B.seq.length)}…`; $('#pairStats').innerHTML = '';
+  const t0 = performance.now();
+  const done = r => showPair(r, A, B, isDNA, matrix, alphabet, performance.now() - t0);
+  if (worker) { worker.onmessage = e => done(e.data); worker.postMessage(msg); }
+  else { $('#pairOut').textContent = 'Web Workers are unavailable in this browser.'; }
+}
+function showPair(r, A, B, isDNA, matrix, alphabet, ms) {
+  const idx = {}; [...alphabet].forEach((c, i) => idx[c] = i);
+  let id = 0, sim = 0, gaps = 0, mid = '';
+  for (let k = 0; k < r.A.length; k++) { const x = r.A[k], y = r.B[k];
+    if (x === '-' || y === '-') { gaps++; mid += ' '; continue; }
+    if (x === y) { id++; sim++; mid += '|'; continue; }
+    const s = (idx[x] != null && idx[y] != null) ? matrix[idx[x]][idx[y]] : -1;
+    if (!isDNA && s > 0) { sim++; mid += ':'; } else mid += (!isDNA && s === 0) ? '.' : ' ';
+  }
+  const L = r.A.length, pct = x => (100 * x / L).toFixed(1) + '%';
+  $('#pairStats').innerHTML = `<span>Score <b>${r.score}</b></span><span>Length <b>${fmt(L)}</b></span><span>Identity <b>${fmt(id)}/${fmt(L)} (${pct(id)})</b></span>${isDNA ? '' : `<span>Similarity <b>${pct(sim)}</b></span>`}<span>Gaps <b>${fmt(gaps)} (${pct(gaps)})</b></span><span>A ${fmt(r.startA)}–${fmt(r.endA)}, B ${fmt(r.startB)}–${fmt(r.endB)}</span><span class="muted">${Math.round(ms)} ms</span>`;
+  let out = `# A: ${A.name}\n# B: ${B.name}\n# ${$('#pairMode').selectedOptions[0].textContent}; ${isDNA ? 'DNA ' + $('#pairDNA').value : 'BLOSUM62'}; gap open ${$('#pairOpen').value}, extend ${$('#pairExt').value}\n\n`;
+  let pa = r.startA, pb = r.startB; const W = 60;
+  for (let k = 0; k < L; k += W) {
+    const sa = r.A.slice(k, k + W), sb = r.B.slice(k, k + W), sm = mid.slice(k, k + W);
+    const na = sa.replace(/-/g, '').length, nb = sb.replace(/-/g, '').length;
+    out += `A ${String(pa).padStart(7)} ${sa} ${pa + na - 1}\n          ${sm}\nB ${String(pb).padStart(7)} ${sb} ${pb + nb - 1}\n\n`;
+    pa += na; pb += nb;
+  }
+  $('#pairOut').textContent = out; PAIR.last = out;
+}
+$('#pairRun').addEventListener('click', runPair);
+$('#pairCopy').addEventListener('click', () => PAIR.last && copyText(PAIR.last, 'Alignment'));
+function pairPreset(p) { PAIR.A = Object.assign({ src: 'db' }, p.A); PAIR.B = Object.assign({ src: 'db' }, p.B); $('#pairMode').value = p.mode; renderPairSide('A'); renderPairSide('B'); runPair(); }
+function initPair() {
+  const zfA2 = 'syne1a-alpha2-pred-plusDV23-GRCz11';
+  const presets = [
+    { label: 'Zebrafish α2 vs human α2 (protein)', A: { view: 'zebrafish_syne1a', tx: zfA2, type: 'protein' }, B: { view: 'human_SYNE1', tx: 'NM_001347702.2', type: 'protein' }, mode: 'global' },
+    { label: 'Exon 1α2: zebrafish vs mouse (DNA)', A: { view: 'zebrafish_syne1a', tx: zfA2, type: 'exon', exon: 1 }, B: { view: 'mouse_Syne1', tx: 'NM_022027.3', type: 'exon', exon: 1 }, mode: 'local' },
+    { label: 'Zebrafish α2 CDS vs human α2 CDS', A: { view: 'zebrafish_syne1a', tx: zfA2, type: 'cds' }, B: { view: 'human_SYNE1', tx: 'NM_001347702.2', type: 'cds' }, mode: 'global' },
+    { label: 'Human α2 vs mouse α2 (protein)', A: { view: 'human_SYNE1', tx: 'NM_001347702.2', type: 'protein' }, B: { view: 'mouse_Syne1', tx: 'XM_036155937.1', type: 'protein' }, mode: 'global' },
+  ];
+  $('#pairPresets').innerHTML = '<span class="small muted">Examples:</span>' + presets.map((p, i) => `<button class="btn small" type="button" data-preset="${i}">${esc(p.label)}</button>`).join('');
+  $$('#pairPresets [data-preset]').forEach(b => b.addEventListener('click', () => pairPreset(presets[+b.dataset.preset])));
+  PAIR.A = Object.assign({ src: 'db' }, presets[0].A); PAIR.B = Object.assign({ src: 'db' }, presets[0].B);
+  renderPairSide('A'); renderPairSide('B');
+}
+
+/* =====================================================================
+   key result + evidence
+   ===================================================================== */
+function renderKeyResult() {
+  const R = DATA.result, z = R.grcz11;
+  $('#keyresult').innerHTML = `<div style="min-width:0">
+      <div class="eyebrow">Zebrafish nesprin-1α2 first exon · <span class="gene">syne1a</span> (absent from <span class="gene">syne1b</span>)</div>
+      <div class="coord">chr20:${fmt(z.exon[0])}-${fmt(z.exon[1])} (+) · GRCz11 / danRer11</div>
+      <div class="small muted">coding part chr20:${fmt(z.cds[0])}-${fmt(z.cds[1])} (${R.coding_nt} nt, GC splice donor) · GRCz12tu ${esc(R.grcz12tu.acc)}:${fmt(R.grcz12tu.exon[0])}-${fmt(R.grcz12tu.exon[1])} · predicted α2 protein ${fmt(R.protein_len)} aa</div>
+      <div class="peptide">${esc(R.peptide)}<span style="color:var(--ink-3)">|RVKKLRETLVAVQQLDKNMSSLRSW…</span></div></div>
+    <div class="actions">${linkHTML({ label: 'UCSC danRer11', href: R.links.ucsc }, 'btn primary')} ${linkHTML({ label: 'Ensembl', href: R.links.ensembl })} ${linkHTML({ label: 'NCBI GRCz12tu', href: R.links.ncbi })}
+      <button class="btn small" type="button" id="krCopy">Copy coordinates</button><button class="btn small" type="button" id="krShow">Show in browser</button><button class="btn small" type="button" id="krEv">Evidence</button></div>`;
+  $('#krCopy').onclick = () => copyText(`zebrafish syne1a exon 1alpha2 (predicted)\nGRCz11/danRer11 chr20:${z.exon[0]}-${z.exon[1]} (+), CDS part chr20:${z.cds[0]}-${z.cds[1]}\nGRCz12tu ${R.grcz12tu.acc}:${R.grcz12tu.exon[0]}-${R.grcz12tu.exon[1]}, CDS part ${R.grcz12tu.cds[0]}-${R.grcz12tu.cds[1]}\nGRCz13ab ${R.grcz13ab.acc}: CDS part ${R.grcz13ab.cds[0]}-${R.grcz13ab.cds[1]}\n`, 'Coordinates');
+  $('#krShow').onclick = () => { setView('zebrafish_syne1a'); setFocus('syne1a-alpha2-pred-plusDV23-GRCz11'); const h = VIEW.zebrafish_syne1a.highlights[0]; setTab('structure'); setWin(h.start - 1500, h.end + 1800); };
+  $('#krEv').onclick = () => setTab('evidence');
+}
+let evidenceDone = false;
+function introgramSVG() {
+  // hosting intron in each species, drawn to scale per row (row width = intron length + flanking exons)
+  const rows = DATA.result.introns; const W = 1000, rowH = 68, top = 30, left = 230, right = 120, ex = 18;
+  const maxLen = Math.max(...rows.map(r => r.intron_len)); const pw = W - left - right - 2 * ex;
+  const sc = L => L / maxLen * pw;
+  const T = (x, y, txt, o = '') => `<text x="${x}" y="${y}" ${o}>${esc(txt)}</text>`;
+  let s = `<svg viewBox="0 0 ${W} ${top + rows.length * rowH + 4}" role="img" aria-label="Position of exon 1α2 inside the homologous intron in each species" font-family="var(--font-sans)">`;
+  s += T(left, 14, `Intron between the two giant-isoform exons that flank exon 1α2, drawn to scale (longest ${fmt(maxLen)} bp); exon 1α2 widened ×3`, 'font-size="11.5" fill="var(--ink-2)"');
+  rows.forEach((r, i) => {
+    const y = top + i * rowH + 30, L = sc(r.intron_len), a = left + ex, b = a + L;
+    const [asm, coords] = r.sub.split(/ (?=chr)/);
+    s += T(0, y - 6, r.label, 'font-size="13" font-weight="600" fill="var(--ink)"');
+    s += T(0, y + 9, asm, 'font-size="10.5" fill="var(--ink-3)" font-family="var(--font-mono)"');
+    s += T(0, y + 22, coords || '', 'font-size="10.5" fill="var(--ink-3)" font-family="var(--font-mono)"');
+    s += `<line x1="${a}" y1="${y}" x2="${b}" y2="${y}" stroke="var(--ink-3)" stroke-width="1.5"/>`;
+    s += `<rect x="${left}" y="${y - 7}" width="${ex}" height="14" fill="var(--teal)"/><rect x="${b}" y="${y - 7}" width="${ex}" height="14" fill="var(--teal)"/>`;
+    s += T(left, y - 13, r.up_label, 'font-size="10.5" fill="var(--ink-2)" font-family="var(--font-mono)"');
+    s += T(b, y - 13, r.down_label, 'font-size="10.5" fill="var(--ink-2)" font-family="var(--font-mono)"');
+    s += T(b + ex + 8, y + 4, fmt(r.intron_len) + ' bp', 'font-size="11" fill="var(--ink-3)" font-family="var(--font-mono)"');
+    if (r.exon_from_up != null) {
+      const w = Math.max(5, sc(r.exon_len) * 3), x = a + sc(r.exon_from_up);
+      s += `<rect x="${x}" y="${y - 9}" width="${w}" height="18" fill="${r.predicted ? 'var(--accent-soft)' : 'var(--accent)'}" stroke="var(--accent)" ${r.predicted ? 'stroke-dasharray="3 2"' : ''}/>`;
+      const lab = `exon 1α2${r.predicted ? ' (predicted)' : ''} · ${fmt(r.exon_to_down)} bp to next exon`;
+      const lw = lab.length * 6.4;  // monospace 10.5px ≈ 6.3px per character
+      s += T(clamp(x + w / 2 - lw / 2, left, W - lw - 6), y + 25, lab, 'font-size="10.5" fill="var(--accent)" font-family="var(--font-mono)"');
+    } else { const lab = 'no α2 exon candidate (best score at background level)'; const lw = lab.length * 5.9;
+      s += T(clamp(a + L / 2 - lw / 2, left, W - lw - 6), y + 25, lab, 'font-size="10.5" fill="var(--ink-3)"'); }
+  });
+  return s + '</svg>';
+}
+function renderEvidence() {
+  evidenceDone = true; const R = DATA.result, A = DATA.analysis;
+  const pep = A.peptide_alignment;
+  const surv = A.survey_counts; const survTxt = Object.entries(surv).map(([k, n]) => `${k} ${n}`).join(' · ');
+  const sc = A.scans; const ws = A.whole_gene;
+  const prim = DATA.primers;
+  $('#evidence').innerHTML = `
+  <div class="prose">
+    <h2 class="section-title">Where the muscle isoform comes from in zebrafish</h2>
+    <p>Nesprin-1α2 is made from an internal promoter: a unique first exon (exon 1α2) in the intron before human exon 131 of the giant transcript (NM_182961) is spliced to the giant exons 131-146. In zebrafish, the orthologous exon sits in the same intron of <span class="gene">syne1a</span> (between Ensembl syne1a-201 exons 127 and 128). It is not annotated by Ensembl 116 or by the current NCBI RefSeq models, and <span class="gene">syne1b</span> has no trace of it.</p>
+  </div>
+  <div class="tablewrap"><table><thead><tr><th>Assembly</th><th>Exon 1α2 (predicted exon)</th><th>Coding part</th><th>Strand</th><th>Open</th></tr></thead><tbody>
+    ${R.assemblies.map(a => `<tr><td>${esc(a.name)}</td><td class="mono">${a.exon ? esc(a.acc) + ':' + fmt(a.exon[0]) + '-' + fmt(a.exon[1]) : '<span class="muted">coding part mapped only</span>'}</td><td class="mono">${fmt(a.cds[0])}-${fmt(a.cds[1])}</td><td>+</td><td>${a.links.map(l => linkHTML(l, '')).join(' · ')}</td></tr>`).join('')}
+  </tbody></table></div>
+  <p class="small muted prose">The 3′ end of the exon (GC donor) and the start codon are fixed by the open reading frame. The 5′ end (transcription start) is placed by homology to human exon 1α2 and should be read as approximate.</p>
+  <div class="figure">${introgramSVG()}</div>
+  <h3 class="section-title">Evidence</h3>
+  <div class="evidence">
+    <div class="ev"><div class="verdict support">supports</div><h4>Same intron, same reading frame</h4>
+      <p class="small">Exon 1α2 has 92 coding nt in human, mouse and rat (30 codons + 2 nt) and 86 in zebrafish (28 codons + 2 nt). Every species ends in phase 2, so the split codon is completed by the first shared exon (human exon 131 = zebrafish syne1a exon 128, both 163 bp and both starting in phase 2).</p>
+      <div class="metric">${esc(sc.syne1a.first_shared)}</div></div>
+    <div class="ev"><div class="verdict support">supports</div><h4>Conserved α2 peptide</h4>
+      <p class="small">The ORF encodes MVLDMGTDNMAGCPGQDSDLPECDCDIN, the best of ${sc.syne1a.n_candidates} ATG-to-donor ORFs in the intron. A scan of the whole 268 kb syne1a locus with the Betta α2 peptide finds this exon and nothing else above background.</p>
+      <div class="metric">SW score vs human / mouse / rat α2: ${esc(sc.syne1a.scores)} · whole-gene best ${ws.syne1a.best_score} vs shuffled max ${ws.syne1a.shuffled_max}</div></div>
+    <div class="ev"><div class="verdict support">supports</div><h4>Non-canonical GC donor, conserved</h4>
+      <p class="small">All four species splice exon 1α2 with the rare GC-AG donor <span class="mono">AG|GCAGG</span>. Gene predictors usually expect GT, which helps explain why the zebrafish exon was missed.</p>
+      <div class="metric">${esc(A.donors)}</div></div>
+    <div class="ev"><div class="verdict support">supports</div><h4>Fish α2 orthologues are syne1a</h4>
+      <p class="small">RefSeq models of α2 exist for pike, Betta and sterlet <span class="gene">syne1a</span> and for herring. Their unique N-termini match the zebrafish prediction closely.</p>
+      <div class="metric" style="white-space:pre;overflow-x:auto">${esc(pep)}</div></div>
+    <div class="ev"><div class="verdict support">supports</div><h4>Conserved across vertebrates</h4>
+      <p class="small">${fmt(A.survey_total)} RefSeq proteins of the α2 type (unique N-terminus joined to RVKKLKE) were found across vertebrates. The full set is in the Alignments tab.</p>
+      <div class="metric">${esc(survTxt)}</div></div>
+    <div class="ev"><div class="verdict support">supports</div><h4>Identical in three assemblies</h4>
+      <p class="small">The 86-nt coding part and its donor are identical in GRCz11 (Tübingen), GRCz12tu (Tübingen) and GRCz13ab (AB strain).</p></div>
+    <div class="ev"><div class="verdict caution">caution</div><h4>syne1b has no α2 exon</h4>
+      <p class="small">The homologous syne1b intron (${fmt(sc.syne1b.intron_len)} bp) has no candidate ORF above background. Whole-gene scans of syne1b in GRCz11 and GRCz12tu stay at background level.</p>
+      <div class="metric">best intron candidate score ${esc(sc.syne1b.scores)} · whole-gene best ${ws.syne1b.best_score} vs shuffled max ${ws.syne1b.shuffled_max}</div></div>
+    <div class="ev"><div class="verdict caution">caution</div><h4>No zebrafish transcript evidence yet</h4>
+      <p class="small">No zebrafish EST or mRNA in UCSC danRer11, and no Ensembl RNA-seq model (blastula to 3 dpf, adult male), covers the exon. The isoform is muscle-restricted and switched on during myotube differentiation in mammals, so muscle RNA from later stages is the place to look.</p></div>
+  </div>
+  <h3 class="section-title">Suggested RT-PCR primers for zebrafish α2</h3>
+  <p class="small muted prose">${esc(prim.note)} Positions refer to the predicted α2 mRNA (exon 1α2 starts at position 1; the start codon is at ${prim.atg_mrna}). Any product from genomic DNA would include the ${fmt(prim.first_intron_bp)} bp intron after exon 1α2.</p>
+  <div class="tablewrap"><table><thead><tr><th>#</th><th>Forward (5′→3′)</th><th>Tm</th><th>Location</th><th>Reverse (5′→3′)</th><th>Tm</th><th>Location</th><th class="r">cDNA product</th><th></th></tr></thead><tbody>
+    ${prim.pairs.map((p, i) => `<tr><td>${i + 1}</td><td class="mono">${esc(p.forward.seq)}</td><td>${p.forward.tm}</td><td>${p.forward.junction ? 'exon 1α2 / exon 2 junction' : 'exon 1α2'} (${p.forward.start}-${p.forward.end})</td><td class="mono">${esc(p.reverse.seq)}</td><td>${p.reverse.tm}</td><td>exon ${p.reverse.exon} (${p.reverse.start}-${p.reverse.end})</td><td class="r">${p.product} bp</td><td><button class="btn small" type="button" data-copyp="${i}">Copy</button></td></tr>`).join('')}
+  </tbody></table></div>
+  <h3 class="section-title">Predicted zebrafish α2 sequences</h3>
+  <div class="toolbar">${R.downloads.map((d, i) => `<button class="btn small" type="button" data-dl="${i}">Copy ${esc(d.label)}</button>`).join('')}<button class="btn small" type="button" id="bedCopy">Copy BED track for UCSC</button></div>
+  <div class="seqbox" style="max-height:none"><span class="lc">${esc(R.exon_utr.toLowerCase())}</span><span class="cds">${esc(R.exon_cds)}</span><span class="lc">${esc(R.donor.toLowerCase())}…</span></div>
+  <p class="small muted">Exon 1α2 in GRCz11: lowercase before the start codon = predicted 5′UTR, highlighted = coding part, lowercase after = start of the intron (GC donor). Paste the BED track into UCSC (My Data → Custom Tracks) on danRer11 to see both predicted models.</p>
+  <h3 class="section-title">How this was found</h3>
+  <div class="prose small">${DATA.methods.map(p => `<p>${esc(p)}</p>`).join('')}</div>
+  <h3 class="section-title">Data versions</h3>
+  <p class="small prose">${esc(DATA.sources_text)}</p>
+  <h3 class="section-title">References</h3>
+  <ol class="refs small">${DATA.references.map(r => `<li>${esc(r.text)} <a href="https://doi.org/${esc(r.doi)}" target="_blank" rel="noopener">doi:${esc(r.doi)}</a></li>`).join('')}</ol>`;
+  $$('[data-copyp]').forEach(b => b.addEventListener('click', () => { const p = prim.pairs[+b.dataset.copyp]; copyText(`>syne1a_alpha2_F${+b.dataset.copyp + 1}\n${p.forward.seq}\n>syne1a_alpha2_R${+b.dataset.copyp + 1}\n${p.reverse.seq}\n`, 'Primers'); }));
+  $$('[data-dl]').forEach(b => b.addEventListener('click', () => { const d = R.downloads[+b.dataset.dl]; copyText(d.fasta, d.label); }));
+  $('#bedCopy').onclick = () => copyText(R.bed, 'BED track');
+}
+
+/* =====================================================================
+   init
+   ===================================================================== */
+$('#buildInfo').textContent = DATA.built_text;
+renderLegend(); renderKeyResult(); initPair();
+const startView = VIEW[lsGet('syne1-view', '')] ? lsGet('syne1-view', '') : 'zebrafish_syne1a';
+setView(startView);
+const h0 = location.hash.slice(1); setTab(h0 && $('#tab-' + h0) ? h0 : 'structure', false);
+runPair();
+})();
+</script>
+</body>
+</html>
