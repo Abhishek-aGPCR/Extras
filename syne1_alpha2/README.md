@@ -81,13 +81,14 @@ the plus-strand zebrafish locus.
 | Human healthy left ventricle (×3) | 19 (23) | 35 | 35 % | positive control — detected |
 | Mouse C2C12 **myoblast** | **0 (0)** | 5 | 0 % | undifferentiated — absent |
 | Mouse C2C12 **myotube, day 3** | **47 (48)** | 15 | 76 % | differentiated — induced |
-| Zebrafish 4 dpf whole larva (×4) | 2 (2) | 39 | 5 % | larval — low, exon covered 13× |
+| Zebrafish 4 dpf whole larva (×4) | 7 (8) | 91 | 7 % | larval — low but detected, exon covered 7× |
 
 The mouse **myoblast → myotube** step (0 → 47) catches the developmental induction of nesprin-1α2 directly, as
 expected (Stroud et al. 2017), and doubles as a positive control. The conserved GC-AG α2 donor is recovered in
-human, mouse and zebrafish alike by the splice-aware aligner. The whole 4 dpf larva (mostly skeletal muscle, with
-a tiny heart) shows exon 1α2 coverage but few junction reads — consistent with the cardiac restriction seen in
-adult; a larval heart or a myogenic time-course would resolve the exact developmental timing.
+human, mouse and zebrafish alike by the splice-aware aligner. In whole 4 dpf wild-type larvae the α2 junction is
+low but detected (7 fragments, 24-mer 8), where the adult **skeletal** muscle is essentially null — consistent
+with α2 appearing during active larval myogenesis (as in the mouse myotubes) and then becoming cardiac-restricted
+in the adult. A larval heart dissection or a staged myogenic time-course would resolve the exact timing.
 
 Confirm at the bench by RT-PCR with the intron-spanning, cDNA-specific primers in
 `results/zebrafish_alpha2_primer_suggestions.tsv` (check specificity with Primer-BLAST first); 5′RACE from exon
