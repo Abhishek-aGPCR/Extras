@@ -12,6 +12,10 @@ done
 #   python3 scripts/10_rnaseq_junctions.py patterns && python3 scripts/10_rnaseq_junctions.py scan
 echo "== 10_rnaseq_junctions analyse"
 python3 scripts/10_rnaseq_junctions.py analyse
+# Step 11 (cross-species + developmental positive controls). Reads are streamed from ENA:
+#   python3 scripts/11_rnaseq_crossspecies.py patterns && python3 scripts/11_rnaseq_crossspecies.py scan
+echo "== 11_rnaseq_crossspecies analyse"
+python3 scripts/11_rnaseq_crossspecies.py analyse --panels human_heart mouse_c2c12 zebrafish_dev zebrafish_adult || true
 echo "== 08_build_html"
 python3 scripts/08_build_html.py
 echo "== 09_variant_report"
