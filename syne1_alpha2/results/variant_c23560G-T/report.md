@@ -85,7 +85,7 @@ The per-transcript table is in `isoform_consequences_zebrafish_syne1a.tsv`.
 ## Method and limits
 
 - Positions come from RefSeq/Ensembl exon models on GRCh38 and the GRCh38 sequence. The engine checks the reference base before annotating.
-- NMD is predicted with the exon-junction rule: a premature stop >50–55 nt upstream of the last exon–exon junction triggers decay. Exceptions are a stop in the last exon, a stop <150 nt after the start codon, and a stop in an exon >407 nt (Lindeboom, Supek & Lehner 2016, Nat Genet 48:1112). These are predictions; efficiency varies between cell types and transcripts.
+- NMD is predicted with the exon-junction rule: a premature stop >50–55 nt upstream of the last exon–exon junction triggers decay. Exceptions are a stop in the last exon, a stop <150 nt after the start codon, and a stop in an exon >407 nt (Lindeboom, Supek & Lehner 2016, Nat Genet 48:1112, https://doi.org/10.1038/ng.3664; thresholds as in NMDetective, Lindeboom et al. 2019, Nat Genet 51:1645, https://doi.org/10.1038/s41588-019-0517-5). These are predictions; efficiency varies between cell types and transcripts.
 - Domains come from UniProt Q8NF91, whose sequence is identical to NP_892006.3. They are carried onto other isoforms and species through shared codons and alignment.
 
 Figures: `figure_human_c23560G-T.svg` / `.png`, `figure_zebrafish_syne1a_equivalent.svg` / `.png`.

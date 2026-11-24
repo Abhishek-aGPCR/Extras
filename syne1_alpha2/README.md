@@ -208,4 +208,7 @@ installed. Data used here: Ensembl release 116, NCBI RefSeq (downloaded 2026-11-
 * Attali et al. 2009, Hum Mol Genet 18:3462 (a different SYNE1 arthrogryposis mutation). https://doi.org/10.1093/hmg/ddp290
 * Baumann et al. 2017, Eur J Hum Genet 25:262: a last-exon SYNE1 nonsense variant keeps wild-type mRNA levels,
   consistent with NMD escape. https://doi.org/10.1038/ejhg.2016.144
-* Lindeboom, Supek & Lehner 2016, Nat Genet 48:1112: rules of nonsense-mediated decay used for the predictions.
+* Lindeboom, Supek & Lehner 2016, Nat Genet 48:1112: rules of nonsense-mediated decay. https://doi.org/10.1038/ng.3664
+* Lindeboom et al. 2019, Nat Genet 51:1645 (NMDetective): the rule thresholds used here. https://doi.org/10.1038/s41588-019-0517-5
+* Bühler et al. 2005, Mol Cell 18:307: PTC-induced transcriptional silencing of Ig minigenes. https://doi.org/10.1016/j.molcel.2005.03.030
+* El-Brolosy et al. 2019, Nature 568:193: transcriptional adaptation after mutant mRNA decay (zebrafish, mouse). https://doi.org/10.1038/s41586-019-1064-z

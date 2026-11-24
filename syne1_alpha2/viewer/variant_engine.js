@@ -14,7 +14,8 @@
  *                   orthologous positions in the other species
  *   figureSVG()  -> gene / mRNA-fate / protein cartoon as a standalone SVG
  *
- * NMD rules (Lindeboom, Supek & Lehner 2016, Nat Genet 48:1112; Nagy & Maquat 1998): a PTC more
+ * NMD rules (Lindeboom, Supek & Lehner 2016, Nat Genet 48:1112; thresholds as in the NMDetective rule set,
+ * Lindeboom et al. 2019, Nat Genet 51:1645): a PTC more
  * than 50-55 nt upstream of the last exon-exon junction triggers NMD; PTCs in the last exon or
  * within ~50 nt of the last junction escape; start-proximal PTCs (<150 nt from the start codon)
  * and PTCs in long exons (>407 nt) can escape. Predictions, not measurements.
@@ -680,7 +681,7 @@
     const lg = [[C.blue, 'CH (actin-binding)'], [C.srA, 'spectrin repeat'], [C.purple, 'LEWD (kinesin-binding)'], [C.kash, 'KASH + TM'], [C.crimson, 'α2-specific (exon 1α2)'], [C.dv23, 'DV23 exon'], [C.extra, 'other isoform-specific'], [C.teal, 'giant exons']];
     let lx = 24; for (const [f, txt] of lg) { s += `<rect x="${lx}" y="${y - 9}" width="14" height="10" fill="${f}"/>` + T(lx + 19, y, txt, { size: 11, fill: C.ink2 }); lx += 28 + txt.length * 5.9; }
     y += 20;
-    s += T(24, y, 'NMD rule: a PTC >50–55 nt upstream of the last exon-exon junction triggers decay; exceptions: last exon, <150 nt after the start codon, exons >407 nt (Lindeboom et al. 2016). Predictions, not measurements.', { size: 10.5, fill: C.ink3 });
+    s += T(24, y, 'NMD rule: a PTC >50–55 nt upstream of the last exon-exon junction triggers decay; exceptions: last exon, <150 nt after the start codon, exons >407 nt (Lindeboom et al. 2016, 2019). Predictions, not measurements.', { size: 10.5, fill: C.ink3 });
     y += 16;
     s += T(24, y, `Data: ${opts.source || 'Ensembl / NCBI RefSeq / UniProt'} · SYNE1 isoform browser`, { size: 10.5, fill: C.ink3 });
     y += 14;
