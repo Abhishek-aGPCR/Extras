@@ -5,3 +5,6 @@ __pycache__/
 syne1_alpha2/data/viewer_data.json
 # RNA-seq capture intermediates (step 10); regenerate with scripts/10_rnaseq_junctions.py
 syne1_alpha2/data/rnaseq/
+# RNA-seq analysis outputs are regenerated repeatedly during the scan phase;
+# the final versions are force-added at the end (git add -f).
+syne1_alpha2/results/rnaseq/
