@@ -1324,6 +1324,91 @@ function introgramSVG() {
   });
   return s + '</svg>';
 }
+/* ---------- RNA-seq test (step 10) ---------- */
+const pctTxt = x => x == null ? '–' : (x * 100).toFixed(x < 0.1 ? 1 : 0) + '%';
+function rsSum(rows, k) { return rows.reduce((s, r) => s + (r[k] || 0), 0); }
+function rnaseqCard() {
+  const S = DATA.rnaseq;
+  if (!S) return `<div class="ev"><div class="verdict caution">caution</div><h4>No zebrafish transcript evidence yet</h4>
+      <p class="small">No zebrafish EST or mRNA in UCSC danRer11, and no Ensembl RNA-seq model (blastula to 3 dpf, adult male), covers the exon. The isoform is muscle-restricted and switched on during myotube differentiation in mammals, so muscle RNA from later stages is the place to look.</p></div>`;
+  const mus = S.per_tissue.filter(t => /muscle/.test(t.tissue));
+  const a = rsSum(mus, 'alpha2_junction'), g = rsSum(mus, 'giant_junction'), a24 = rsSum(mus, 'alpha2_junction_24mer');
+  const nfish = new Set(S.per_fish.filter(r => /muscle/.test(r.tissue) && r.alpha2_junction > 0).map(r => r.fish)).size;
+  const into = rsSum(mus, 'junctions_into_alpha2_region');
+  const C = S.coords, kj = S.key_junctions.alpha2;
+  if (a >= 3) return `<div class="ev"><div class="verdict support">supports</div><h4>Spliced α2 mRNA in adult zebrafish muscle</h4>
+      <p class="small">In public RNA-seq of wild-type adult muscle (${esc(S.dataset.bioproject)}), ${fmt(a)} independent fragments join the exon 1α2 donor (chr20:${fmt(kj.donor_norm)}, ${esc(kj.motif)}) exactly to exon ${C.n128} (${fmt(kj.acceptor_norm)}), in ${nfish} fish. ${into ? `${into} fragment(s) splice into the exon 1α2 region from upstream.` : 'No read splices into exon 1α2 from upstream, as expected for a first exon.'}</p>
+      <div class="metric">muscle: α2 junction ${fmt(a)} (exact 24-mer ${fmt(a24)}) · giant e${C.n127}>e${C.n128} ${fmt(g)} · α2 share ${pctTxt(g + a ? a / (a + g) : null)}</div></div>`;
+  return `<div class="ev"><div class="verdict caution">${a ? 'weak' : 'caution'}</div><h4>${a ? 'Few' : 'No'} α2 junction reads in adult RNA-seq</h4>
+      <p class="small">Wild-type adult fast and slow muscle (${esc(S.dataset.bioproject)}): ${fmt(a)} fragment(s) join exon 1α2 to exon ${C.n128}, against ${fmt(g)} for the giant junction e${C.n127}>e${C.n128}. Details below.</p>
+      <div class="metric">α2 ${fmt(a)} (24-mer ${fmt(a24)}) · giant ${fmt(g)}</div></div>`;
+}
+function rnaseqSVG() {
+  const S = DATA.rnaseq, C = S.coords, W = 1000, left = 128, right = 18, trackH = 84, gap = 30, top = 34;
+  const tissues = S.per_tissue.map(t => t.tissue).filter(t => S.coverage[t]);
+  const x0 = S.coverage_start, x1 = C.window[1];
+  const X = g => left + (g - x0) / (x1 - x0) * (W - left - right);
+  const H = top + tissues.length * (trackH + gap) + 92;
+  const T = (x, y, txt, o = '') => `<text x="${x}" y="${y}" ${o}>${esc(txt)}</text>`;
+  const a2 = C.alpha2_exon, e127 = C.exon127, e128 = C.exon128;
+  let s = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="RNA-seq coverage and splice junctions around syne1a exon 1α2" font-family="var(--font-sans)">`;
+  s += T(left, 14, `Read coverage (log scale) and splice junctions per fragment, wild-type adult zebrafish, ${S.dataset.bioproject}`, 'font-size="11.5" fill="var(--ink-2)"');
+  s += T(left, 28, 'arcs: grey = giant junction (exon ' + C.n127 + ' > exon ' + C.n128 + '), red = α2 junction (exon 1α2 > exon ' + C.n128 + ')', 'font-size="11" fill="var(--ink-3)"');
+  for (const [a, b, fill] of [[e127[0], e127[1], 'var(--teal-soft)'], [e128[0], e128[1], 'var(--teal-soft)'], [a2[0], a2[1], 'var(--accent-soft)']])
+    s += `<rect x="${X(a)}" y="${top}" width="${Math.max(2, X(b) - X(a))}" height="${tissues.length * (trackH + gap) - gap + 4}" fill="${fill}" opacity="0.55"/>`;
+  tissues.forEach((t, i) => {
+    const y = top + i * (trackH + gap), base = y + trackH, cov = S.coverage[t];
+    const mx = Math.max(1, ...cov), sc = c => Math.log10(1 + c) / Math.log10(1 + mx) * (trackH - 34);
+    const P = S.per_tissue.find(r => r.tissue === t);
+    s += T(left - 10, y + trackH / 2 + 4, t, 'text-anchor="end" font-size="13" font-weight="600" fill="var(--ink)"');
+    s += T(left - 10, y + trackH / 2 + 19, `${P.fish} fish · max ${fmt(mx)}`, 'text-anchor="end" font-size="10.5" fill="var(--ink-3)"');
+    let d = `M${X(x0)},${base}`;
+    cov.forEach((c, k) => { d += ` L${X(x0 + k * S.coverage_step).toFixed(1)},${(base - sc(c)).toFixed(1)}`; });
+    d += ` L${X(x0 + (cov.length - 1) * S.coverage_step).toFixed(1)},${base} Z`;
+    s += `<path d="${d}" fill="var(--slate-soft)" stroke="var(--slate)" stroke-width="0.8"/>`;
+    s += `<line x1="${left}" x2="${W - right}" y1="${base}" y2="${base}" stroke="var(--line)"/>`;
+    for (const [a, b, n, col, lab, h] of [[e127[1], e128[0], P.giant_junction, 'var(--ink-3)', 'giant', 30], [a2[1], e128[0], P.alpha2_junction, 'var(--accent)', 'α2', 20]]) {
+      if (!n) continue;
+      const xa = X(a), xb = X(b), yy = y + 34, w = 1.2 + Math.min(4, Math.log10(n + 1) * 1.6);
+      s += `<path d="M${xa},${yy} C${xa},${yy - h} ${xb},${yy - h} ${xb},${yy}" fill="none" stroke="${col}" stroke-width="${w.toFixed(1)}"/>`;
+      s += T((xa + xb) / 2, yy - h * 0.75 - 5, `${lab} ${fmt(n)}`, `text-anchor="middle" font-size="11.5" font-weight="600" fill="${col}"`);
+    }
+    const f5 = (S.five_prime[t] || {}).estimated_5p_end;
+    if (f5) s += `<line x1="${X(f5)}" x2="${X(f5)}" y1="${y + 30}" y2="${base}" stroke="var(--accent)" stroke-dasharray="3 3"/>`;
+  });
+  const gy = top + tissues.length * (trackH + gap) + 6;
+  s += `<line x1="${X(e127[0])}" x2="${X(e128[1])}" y1="${gy + 9}" y2="${gy + 9}" stroke="var(--ink-3)" stroke-width="1.5"/>`;
+  for (const [a, b, lab, col] of [[e127[0], e127[1], 'exon ' + C.n127, 'var(--teal)'], [a2[0], a2[1], 'exon 1α2', 'var(--accent)'], [e128[0], e128[1], 'exon ' + C.n128, 'var(--teal)']]) {
+    s += `<rect x="${X(a)}" y="${gy}" width="${Math.max(3, X(b) - X(a))}" height="18" fill="${col}"/>`;
+    s += T((X(a) + X(b)) / 2, gy + 33, lab, 'text-anchor="middle" font-size="12" fill="var(--ink)"');
+    s += T((X(a) + X(b)) / 2, gy + 47, `${fmt(a)}-${fmt(b)}`, 'text-anchor="middle" font-size="10" fill="var(--ink-3)" font-family="var(--font-mono)"');
+  }
+  s += T(left, gy + 70, `GRCz11 chr20, + strand. Shaded: giant exons (teal) and predicted exon 1α2 (red). Dashed line: 5′ end of exon 1α2 estimated from coverage.`, 'font-size="10.5" fill="var(--ink-3)"');
+  return s + '</svg>';
+}
+function rnaseqSection() {
+  const S = DATA.rnaseq; if (!S) return '';
+  const C = S.coords, kj = S.key_junctions;
+  const ci = t => t.alpha2_fraction_ci95 && t.alpha2_fraction_ci95[0] != null ? ` <span class="muted">(${pctTxt(t.alpha2_fraction_ci95[0])}–${pctTxt(t.alpha2_fraction_ci95[1])})</span>` : '';
+  const fiveTxt = Object.entries(S.five_prime).map(([t, v]) => `${t}: ${v.estimated_5p_end ? 'coverage starts at ' + fmt(v.estimated_5p_end) + ` (${v.estimated_5p_end - C.alpha2_exon[0] >= 0 ? '+' : ''}${fmt(v.estimated_5p_end - C.alpha2_exon[0])} nt from the predicted 5′ end)` : 'too few reads'} · exon/intron coverage ${v.exon_to_background}×`).join('; ');
+  const near = (S.junctions_near_alpha2 || []).slice().sort((a, b) => b.total - a.total).slice(0, 12);
+  return `<h3 class="section-title">RNA-seq test in adult zebrafish muscle and heart</h3>
+  <div class="prose small"><p>Public poly(A) RNA-seq of adult zebrafish (strain AB), BioProject ${esc(S.dataset.bioproject)} from Aarhus University: fast-twitch muscle, slow-twitch muscle and cardiac ventricle. Only wild-type libraries were used; two sequencing runs of the same library are pooled. Every read sharing a 20-mer with <span class="gene">syne1a</span> exons 126-144 or intron ${C.n127} was kept and aligned to the <span class="gene">syne1a</span> locus with minimap2. Junction counts are independent fragments (mates counted once, duplicates removed, ≥${S.method.min_anchor} nt on each side). The α2 share is α2 / (α2 + giant) among fragments entering exon ${C.n128}.</p></div>
+  <div class="figure">${rnaseqSVG()}</div>
+  <div class="tablewrap"><table><thead><tr><th>Tissue</th><th class="r">Fish</th><th class="r">Reads scanned</th><th class="r">α2 junction<br><span class="muted small">1α2>e${C.n128} (24-mer)</span></th><th class="r">Giant junction<br><span class="muted small">e${C.n127}>e${C.n128} (24-mer)</span></th><th class="r">α2 share<br><span class="muted small">pooled (95% CI)</span></th><th>α2 share<br><span class="muted small">per fish</span></th><th class="r">DV23<br><span class="muted small">inclusion</span></th><th class="r">Other reads<br><span class="muted small">into 1α2 · unspliced</span></th></tr></thead><tbody>
+    ${S.per_tissue.map(t => `<tr><td>${esc(t.tissue)}</td><td class="r">${t.fish}</td><td class="r">${fmt(t.reads_scanned)}</td><td class="r"><b>${fmt(t.alpha2_junction)}</b> <span class="muted">(${fmt(t.alpha2_junction_24mer)})</span></td><td class="r">${fmt(t.giant_junction)} <span class="muted">(${fmt(t.giant_junction_24mer)})</span></td><td class="r">${pctTxt(t.alpha2_fraction_pooled)}${ci(t)}</td><td class="mono small">${t.alpha2_fraction_per_fish.map(pctTxt).join(' ')}</td><td class="r">${pctTxt(t.dv23_psi_pooled)}</td><td class="r">${fmt(t.junctions_into_alpha2_region)} · ${fmt(t.unspliced_through_alpha2_donor)}</td></tr>`).join('')}
+  </tbody></table></div>
+  <p class="small muted prose">“Into 1α2” = fragments splicing into exon 1α2 (or the 600 nt upstream) from any other exon; a first exon should have none. “Unspliced” = fragments running contiguously through the exon 1α2 donor into the intron (pre-mRNA or retention).</p>
+  <p class="small muted prose">Exon 1α2 5′ end from coverage: ${esc(fiveTxt)}. DV23 inclusion = mean of the two inclusion junctions / (that + skipping junction), for giant and α2 transcripts together.</p>
+  <details class="alltx"><summary>Junctions touching intron ${C.n127} (${near.length})</summary><div class="tablewrap"><table><thead><tr><th>Donor</th><th>Acceptor</th><th>Motif</th><th>Label</th><th class="r">Fragments</th>${S.per_tissue.map(t => `<th class="r">${esc(t.tissue)}</th>`).join('')}</tr></thead><tbody>
+    ${near.map(r => `<tr><td class="mono">${fmt(r.donor)}</td><td class="mono">${fmt(r.acceptor)}</td><td class="mono">${esc(r.motif)}</td><td>${esc(r.label || 'novel')}</td><td class="r">${fmt(r.total)}</td>${S.per_tissue.map(t => `<td class="r">${fmt(r.per_tissue[t.tissue] || 0)}</td>`).join('')}</tr>`).join('')}
+  </tbody></table></div></details>
+  <details class="alltx"><summary>Reads across the α2 junction (examples)</summary><div class="seqbox" style="max-height:420px;white-space:pre;overflow:auto">${esc(S.examples_text || '')}</div></details>
+  <details class="alltx"><summary>Per fish</summary><div class="tablewrap"><table><thead><tr><th>Tissue</th><th>Fish</th><th>Runs</th><th class="r">Reads</th><th class="r">α2</th><th class="r">giant</th><th class="r">α2 share</th><th class="r">DV23 inclusion</th><th class="r">duplicates (mapped)</th></tr></thead><tbody>
+    ${S.per_fish.map(r => `<tr><td>${esc(r.tissue)}</td><td>${esc(r.fish)}</td><td class="mono small">${esc(r.runs.join(', '))}</td><td class="r">${fmt(r.reads_scanned)}</td><td class="r">${fmt(r.alpha2_junction)}</td><td class="r">${fmt(r.giant_junction)}</td><td class="r">${pctTxt(r.alpha2_fraction)}</td><td class="r">${pctTxt(r.dv23_psi)}</td><td class="r">${fmt(r.reads_mapped_duplicate)} / ${fmt(r.reads_mapped)}</td></tr>`).join('')}
+  </tbody></table></div></details>
+  <p class="small muted prose">Limits: reads were aligned to the <span class="gene">syne1a</span> locus only (not the whole genome), so a read from a similar sequence elsewhere could in principle be forced onto it; the capture step, the ≥${Math.round(S.method.min_aligned_fraction * 100)}% aligned-length and ≤${Math.round(S.method.max_edit_rate * 100)}% edit-distance filters, and the exact 24-mer cross-check guard against this. The α2 share is measured at one junction and assumes similar capture of both isoforms there; whole-tissue samples mix myofibre, NMJ, connective and vascular cells.</p>`;
+}
 function renderEvidence() {
   evidenceDone = true; const R = DATA.result, A = DATA.analysis;
   const pep = A.peptide_alignment;
@@ -1362,9 +1447,9 @@ function renderEvidence() {
     <div class="ev"><div class="verdict caution">caution</div><h4>syne1b has no α2 exon</h4>
       <p class="small">The homologous syne1b intron (${fmt(sc.syne1b.intron_len)} bp) has no candidate ORF above background. Whole-gene scans of syne1b in GRCz11 and GRCz12tu stay at background level.</p>
       <div class="metric">best intron candidate score ${esc(sc.syne1b.scores)} · whole-gene best ${ws.syne1b.best_score} vs shuffled max ${ws.syne1b.shuffled_max}</div></div>
-    <div class="ev"><div class="verdict caution">caution</div><h4>No zebrafish transcript evidence yet</h4>
-      <p class="small">No zebrafish EST or mRNA in UCSC danRer11, and no Ensembl RNA-seq model (blastula to 3 dpf, adult male), covers the exon. The isoform is muscle-restricted and switched on during myotube differentiation in mammals, so muscle RNA from later stages is the place to look.</p></div>
+    ${rnaseqCard()}
   </div>
+  ${rnaseqSection()}
   <h3 class="section-title">Suggested RT-PCR primers for zebrafish α2</h3>
   <p class="small muted prose">${esc(prim.note)} Positions refer to the predicted α2 mRNA (exon 1α2 starts at position 1; the start codon is at ${prim.atg_mrna}). Any product from genomic DNA would include the ${fmt(prim.first_intron_bp)} bp intron after exon 1α2.</p>
   <div class="tablewrap"><table><thead><tr><th>#</th><th>Forward (5′→3′)</th><th>Tm</th><th>Location</th><th>Reverse (5′→3′)</th><th>Tm</th><th>Location</th><th class="r">cDNA product</th><th></th></tr></thead><tbody>

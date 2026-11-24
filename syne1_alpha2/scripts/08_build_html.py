@@ -58,7 +58,17 @@ REFERENCES = [
     dict(text="Zhou C, Li C, Zhou B, et al. Novel nesprin-1 mutations associated with dilated cardiomyopathy cause "
               "nuclear envelope disruption and defects in myogenesis. Hum Mol Genet. 2017;26:2258-2276.",
          doi="10.1093/hmg/ddx116"),
+    dict(text="Li H. Minimap2: pairwise alignment for nucleotide sequences. Bioinformatics. 2018;34:3094-3100.",
+         doi="10.1093/bioinformatics/bty191"),
 ]
+RNASEQ_METHOD = (
+    "RNA-seq test: public poly(A) RNA-seq of adult zebrafish (strain AB) fast-twitch muscle, slow-twitch muscle "
+    "and cardiac ventricle, BioProject PRJNA1257549 (Aarhus University; wild-type libraries only, 2 x 150 bp). "
+    "FASTQ files were streamed from ENA and every read containing a 20-mer of syne1a exons 126-144 or of intron 127 "
+    "(repeat-masked) was kept. Kept reads were aligned to the syne1a locus with minimap2 (preset splice:sr). "
+    "Junctions were moved to the best splice motif among equivalent positions and counted once per fragment, "
+    "with >= 8 nt on each side and PCR/optical duplicates removed. An exact 24-mer spanning each key junction "
+    "gave an alignment-free cross-check (scripts/10_rnaseq_junctions.py).")
 
 METHODS = [
     "Gene models: Ensembl release 116 (REST API) for human GRCh38, mouse GRCm39, rat GRCr8 and zebrafish GRCz11; "
@@ -116,6 +126,13 @@ def main() -> None:
     domains = load_json(DATA / "domains.json")
     vcheck_path = RESULTS / "variant_c23560G-T" / "verification.json"
     vcheck = load_json(vcheck_path) if vcheck_path.exists() else None
+    rs_path = RESULTS / "rnaseq" / "rnaseq_summary.json"
+    rnaseq = load_json(rs_path) if rs_path.exists() else None
+    if rnaseq:
+        ex_path = RESULTS / "rnaseq" / "alpha2_junction_examples.txt"
+        rnaseq["examples_text"] = ex_path.read_text() if ex_path.exists() else ""
+        for r in rnaseq.get("junctions_near_alpha2", []):
+            r.pop("per_run", None)
     sources = load_json(DATA / "sources.json")
     zx = ana["zebrafish_exon1alpha2"]
     mam = ana["mammal_exon1alpha2"]
@@ -325,8 +342,8 @@ def main() -> None:
     data = dict(
         built_text=f"Built {dt.date.today().isoformat()} · Ensembl {sources['ensembl_release']} · NCBI RefSeq · UCSC",
         views=views, result=result, analysis=analysis, alignments=alns, primers=primers,
-        methods=METHODS, sources_text=sources_text, references=REFERENCES,
-        giant_msa_views=GIANT_MSA_VIEWS, domains_source=domains["source"], variant_check=vcheck)
+        methods=METHODS + ([RNASEQ_METHOD] if rnaseq else []), sources_text=sources_text, references=REFERENCES,
+        giant_msa_views=GIANT_MSA_VIEWS, domains_source=domains["source"], variant_check=vcheck, rnaseq=rnaseq)
     raw = json.dumps(data, separators=(",", ":"), ensure_ascii=False)
     (DATA / "viewer_data.json").write_text(raw)
     js = raw.replace("</", "<\\/")
