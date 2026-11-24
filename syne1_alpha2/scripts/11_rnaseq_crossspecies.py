@@ -462,7 +462,7 @@ def figure(results):
         R = results[name]
         for g in R["groups"]:
             rowsflat.append((name, R, g))
-    W, left, right, top, rowh = 1040, 300, 150, 70, 30
+    W, left, right, top, rowh = 1280, 290, 410, 70, 30
     H = top + len(rowsflat) * rowh + 80
     maxlog = max([math.log10(1 + g["giant_per_10M"] + g["alpha2_per_10M"]) for _, _, g in rowsflat] + [1])
 
@@ -473,7 +473,7 @@ def figure(results):
          f'<rect width="{W}" height="{H}" fill="#ffffff"/>',
          '<text x="24" y="30" font-size="16" font-weight="bold">Nesprin-1α2 junction across species, tissues and development</text>',
          '<text x="24" y="50" fill="#555" font-size="12">Junction-spanning fragments per 10M reads (log scale): '
-         'red = α2 (exon 1α2→shared exon), grey = giant. α2 share and 95% CI at right.</text>']
+         'red = α2 (exon 1α2→shared exon), grey = giant. Counts and α2 share at right.</text>']
     y = top
     scale = (W - left - right) / maxlog
     for name, R, g in rowsflat:
@@ -484,12 +484,10 @@ def figure(results):
         o.append(f'<g transform="translate({left},{y})">' + bar(0, gx, "#8a95a3") + '</g>')
         o.append(f'<g transform="translate({left},{y})">' + bar(0, ax, "#b0124c") + '</g>')
         frac = '–' if g["alpha2_fraction"] is None else f'{g["alpha2_fraction"]*100:.2f}%'
-        ci = g["alpha2_fraction_ci95"]
-        cit = '' if ci[0] is None else f' [{ci[0]*100:.1f}–{ci[1]*100:.1f}%]'
         detect = "α2 detected" if g["alpha2_junction"] >= 3 else ("trace" if g["alpha2_junction"] else "not detected")
         col = "#1d7a4c" if g["alpha2_junction"] >= 3 else ("#a15c00" if g["alpha2_junction"] else "#8a95a3")
-        o.append(f'<text x="{left + (W-left-right) + 8}" y="{y + 10}" font-size="11" fill="{col}" font-weight="600">'
-                 f'{detect}: α2={g["alpha2_junction"]} / giant={g["giant_junction"]} · {frac}{cit}</text>')
+        o.append(f'<text x="{left + (W - left - right) + 10}" y="{y + 10}" font-size="11.5" fill="{col}" font-weight="600">'
+                 f'{detect} · α2 {g["alpha2_junction"]} vs giant {g["giant_junction"]} · {frac}</text>')
         y += rowh
     # panel separators + labels
     yy = top

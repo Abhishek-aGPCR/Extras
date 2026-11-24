@@ -1,42 +1,42 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 360" width="1040" height="360" font-family="Helvetica,Arial,sans-serif" font-size="12">
-<rect width="1040" height="360" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 360" width="1280" height="360" font-family="Helvetica,Arial,sans-serif" font-size="12">
+<rect width="1280" height="360" fill="#ffffff"/>
 <text x="24" y="30" font-size="16" font-weight="bold">Nesprin-1α2 junction across species, tissues and development</text>
-<text x="24" y="50" fill="#555" font-size="12">Junction-spanning fragments per 10M reads (log scale): red = α2 (exon 1α2→shared exon), grey = giant. α2 share and 95% CI at right.</text>
+<text x="24" y="50" fill="#555" font-size="12">Junction-spanning fragments per 10M reads (log scale): red = α2 (exon 1α2→shared exon), grey = giant. Counts and α2 share at right.</text>
 <text x="24" y="80" font-size="11.5">human · left ventricle (healthy adult)</text>
-<g transform="translate(300,70)"><rect x="0.0" y="0" width="372.6" height="12" fill="#8a95a3"/></g>
-<g transform="translate(300,70)"><rect x="0.0" y="0" width="262.1" height="12" fill="#b0124c"/></g>
-<text x="898" y="80" font-size="11" fill="#1d7a4c" font-weight="600">α2 detected: α2=19 / giant=35 · 35.19% [23.8–48.5%]</text>
+<g transform="translate(290,70)"><rect x="0.0" y="0" width="366.2" height="12" fill="#8a95a3"/></g>
+<g transform="translate(290,70)"><rect x="0.0" y="0" width="257.6" height="12" fill="#b0124c"/></g>
+<text x="880" y="80" font-size="11.5" fill="#1d7a4c" font-weight="600">α2 detected · α2 19 vs giant 35 · 35.19%</text>
 <text x="24" y="110" font-size="11.5">mouse · myoblast</text>
-<g transform="translate(300,100)"><rect x="0.0" y="0" width="95.6" height="12" fill="#8a95a3"/></g>
-<g transform="translate(300,100)"><rect x="0.0" y="0" width="0.4" height="12" fill="#b0124c"/></g>
-<text x="898" y="110" font-size="11" fill="#8a95a3" font-weight="600">not detected: α2=0 / giant=5 · 0.00% [0.0–43.5%]</text>
+<g transform="translate(290,100)"><rect x="0.0" y="0" width="93.9" height="12" fill="#8a95a3"/></g>
+<g transform="translate(290,100)"><rect x="0.0" y="0" width="0.4" height="12" fill="#b0124c"/></g>
+<text x="880" y="110" font-size="11.5" fill="#8a95a3" font-weight="600">not detected · α2 0 vs giant 5 · 0.00%</text>
 <text x="24" y="140" font-size="11.5">mouse · myotube (day 3)</text>
-<g transform="translate(300,130)"><rect x="0.0" y="0" width="230.4" height="12" fill="#8a95a3"/></g>
-<g transform="translate(300,130)"><rect x="0.0" y="0" width="439.9" height="12" fill="#b0124c"/></g>
-<text x="898" y="140" font-size="11" fill="#1d7a4c" font-weight="600">α2 detected: α2=47 / giant=15 · 75.81% [63.8–84.8%]</text>
+<g transform="translate(290,130)"><rect x="0.0" y="0" width="226.5" height="12" fill="#8a95a3"/></g>
+<g transform="translate(290,130)"><rect x="0.0" y="0" width="432.5" height="12" fill="#b0124c"/></g>
+<text x="880" y="140" font-size="11.5" fill="#1d7a4c" font-weight="600">α2 detected · α2 47 vs giant 15 · 75.81%</text>
 <text x="24" y="170" font-size="11.5">zebrafish · 96 hpf / 4 dpf larva</text>
-<g transform="translate(300,160)"><rect x="0.0" y="0" width="372.6" height="12" fill="#8a95a3"/></g>
-<g transform="translate(300,160)"><rect x="0.0" y="0" width="57.6" height="12" fill="#b0124c"/></g>
-<text x="898" y="170" font-size="11" fill="#1d7a4c" font-weight="600">α2 detected: α2=7 / giant=91 · 7.14% [3.5–14.0%]</text>
+<g transform="translate(290,160)"><rect x="0.0" y="0" width="366.3" height="12" fill="#8a95a3"/></g>
+<g transform="translate(290,160)"><rect x="0.0" y="0" width="56.6" height="12" fill="#b0124c"/></g>
+<text x="880" y="170" font-size="11.5" fill="#1d7a4c" font-weight="600">α2 detected · α2 7 vs giant 91 · 7.14%</text>
 <text x="24" y="200" font-size="11.5">zebrafish · fast muscle</text>
-<g transform="translate(300,190)"><rect x="0.0" y="0" width="309.6" height="12" fill="#8a95a3"/></g>
-<g transform="translate(300,190)"><rect x="0.0" y="0" width="0.4" height="12" fill="#b0124c"/></g>
-<text x="898" y="200" font-size="11" fill="#8a95a3" font-weight="600">not detected: α2=0 / giant=40 · 0.00% [0.0–8.8%]</text>
+<g transform="translate(290,190)"><rect x="0.0" y="0" width="304.4" height="12" fill="#8a95a3"/></g>
+<g transform="translate(290,190)"><rect x="0.0" y="0" width="0.4" height="12" fill="#b0124c"/></g>
+<text x="880" y="200" font-size="11.5" fill="#8a95a3" font-weight="600">not detected · α2 0 vs giant 40 · 0.00%</text>
 <text x="24" y="230" font-size="11.5">zebrafish · slow muscle</text>
-<g transform="translate(300,220)"><rect x="0.0" y="0" width="311.6" height="12" fill="#8a95a3"/></g>
-<g transform="translate(300,220)"><rect x="0.0" y="0" width="37.6" height="12" fill="#b0124c"/></g>
-<text x="898" y="230" font-size="11" fill="#a15c00" font-weight="600">trace: α2=2 / giant=30 · 6.25% [1.7–20.2%]</text>
+<g transform="translate(290,220)"><rect x="0.0" y="0" width="306.3" height="12" fill="#8a95a3"/></g>
+<g transform="translate(290,220)"><rect x="0.0" y="0" width="37.0" height="12" fill="#b0124c"/></g>
+<text x="880" y="230" font-size="11.5" fill="#a15c00" font-weight="600">trace · α2 2 vs giant 30 · 6.25%</text>
 <text x="24" y="260" font-size="11.5">zebrafish · ventricle</text>
-<g transform="translate(300,250)"><rect x="0.0" y="0" width="422.8" height="12" fill="#8a95a3"/></g>
-<g transform="translate(300,250)"><rect x="0.0" y="0" width="379.8" height="12" fill="#b0124c"/></g>
-<text x="898" y="260" font-size="11" fill="#1d7a4c" font-weight="600">α2 detected: α2=72 / giant=89 · 44.72% [37.2–52.4%]</text>
-<line x1="24" x2="1016" y1="64" y2="64" stroke="#e5e8ec"/>
+<g transform="translate(290,250)"><rect x="0.0" y="0" width="415.6" height="12" fill="#8a95a3"/></g>
+<g transform="translate(290,250)"><rect x="0.0" y="0" width="373.4" height="12" fill="#b0124c"/></g>
+<text x="880" y="260" font-size="11.5" fill="#1d7a4c" font-weight="600">α2 detected · α2 72 vs giant 89 · 44.72%</text>
+<line x1="24" x2="1256" y1="64" y2="64" stroke="#e5e8ec"/>
 <text x="24" y="60" font-size="10.5" fill="#888">positive control</text>
-<line x1="24" x2="1016" y1="94" y2="94" stroke="#e5e8ec"/>
+<line x1="24" x2="1256" y1="94" y2="94" stroke="#e5e8ec"/>
 <text x="24" y="90" font-size="10.5" fill="#888">developmental switch + positive control</text>
-<line x1="24" x2="1016" y1="154" y2="154" stroke="#e5e8ec"/>
+<line x1="24" x2="1256" y1="154" y2="154" stroke="#e5e8ec"/>
 <text x="24" y="150" font-size="10.5" fill="#888">larval development</text>
-<line x1="24" x2="1016" y1="184" y2="184" stroke="#e5e8ec"/>
+<line x1="24" x2="1256" y1="184" y2="184" stroke="#e5e8ec"/>
 <text x="24" y="180" font-size="10.5" fill="#888">adult tissue</text>
 <text x="24" y="340" fill="#888" font-size="10">Method: capture + minimap2 splice:sr, fragments with duplicates removed; giant junction is the internal positive control. Predictions from public RNA-seq; see results/rnaseq/crossspecies_groups.tsv.</text>
 </svg>
