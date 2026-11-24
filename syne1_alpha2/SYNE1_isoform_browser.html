@@ -273,6 +273,8 @@ ol.refs { padding-left: 20px; margin: 0; } ol.refs li { margin-bottom: 6px; }
 .vcard { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px; min-width: 0; }
 .vcard h4 { font-size: 14px; margin-bottom: 6px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
 .vcard .sum { font-size: 13px; margin: 6px 0 0; }
+.vfunc { background: var(--amber-soft); border-radius: var(--radius); padding: 6px 9px; margin-top: 6px; font-size: 12.5px; line-height: 1.45; }
+.vfunc strong { color: var(--ink); }
 .vp { display: inline-block; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; letter-spacing: 0.02em; white-space: nowrap; }
 .vp.red { background: color-mix(in srgb, #c62828 18%, var(--surface)); color: var(--accent-strong); }
 .vp.amber { background: var(--amber-soft); color: var(--amber); }
@@ -440,6 +442,7 @@ details.alltx > summary { cursor: pointer; font-weight: 600; padding: 6px 0; }
     <section class="tabpanel" id="tab-variant" role="tabpanel" aria-labelledby="t-variant" hidden>
       <div class="panel">
         <h2>Variant effect on every isoform</h2>
+        <p class="small muted prose" style="margin:2px 0 10px">For any variant, this predicts — separately for each isoform — the mRNA fate (nonsense-mediated decay, splicing, start/stop loss) and, for mutations inside the muscle isoform's own exons, which functional element is hit (KASH anchor, LEWD/kinesin motif, transmembrane, a spectrin repeat, or the α2-specific N-terminus) and what losing it would do. To test a mutation in the muscle isoform, pick it in the second menu and enter coordinates relative to it.</p>
         <div class="fieldrow">
           <div class="field"><label for="vView">Gene and assembly</label><select id="vView"></select></div>
           <div class="field"><label for="vTx">Isoform for c. / n. / p. / exon input</label><select id="vTx"></select></div>
@@ -844,7 +847,10 @@ details.alltx > summary { cursor: pointer; font-weight: 600; padding: 6px 0; }
         res.ptc = { i: G.cds0 + 3 * q, prot_len: q }; }
       else if (a1 === a2) { res.consequence = 'synonymous_variant'; res.hgvs_p = `p.${AA3[a1]}${q + 1}=`; res.effect = 'synonymous'; res.summary = `Synonymous (${codon}>${mut}, ${AA3[a1]}${q + 1}).`; }
       else { res.consequence = 'missense_variant'; res.hgvs_p = `p.${AA3[a1]}${q + 1}${AA3[a2]}`; res.hgvs_p1 = `p.${a1}${q + 1}${a2}`; res.effect = 'missense'; res.summary = `Missense ${AA3[a1]}${q + 1}${AA3[a2]} (${codon}>${mut}).`; }
+      annotateRegion(v, t, res);
       if (res.ptc) finishPTC(v, t, res, t.exons.map(([s, e]) => e - s + 1));
+      if (res.consequence === 'start_lost') res.function_note = 'No nesprin-1α2 protein is made from this isoform; isoforms that use a different start codon (e.g. the giant) are unaffected.';
+      else if (res.function_note && (res.consequence === 'missense_variant' || res.consequence === 'stop_lost')) res.summary = (res.summary || '') + ` Lies in the ${res.region}.`;
       if (res.splice_region) res.summary = (res.summary || '') + ` Within 3 nt of an exon boundary: may also alter splicing.`;
       return res;
     }
@@ -890,7 +896,9 @@ details.alltx > summary { cursor: pointer; font-weight: 600; padding: 6px 0; }
         res.effect = 'in-frame'; res.summary = `In-frame ${delta < 0 ? 'deletion' : 'insertion'} of ${Math.abs(delta) / 3} residue(s) at ${AA3[refP[f]] || ''}${f + 1}; no premature stop.`;
       }
     }
+    annotateRegion(v, t, res);
     if (res.ptc) finishPTC(v, t, res, lens);
+    else if (res.function_note && /inframe/.test(res.consequence || '')) res.summary = (res.summary || '') + ` Affects the ${res.region}.`;
     return res;
   }
   function finishPTC(v, t, res, lens) {
@@ -903,6 +911,8 @@ details.alltx > summary { cursor: pointer; font-weight: 600; padding: 6px 0; }
     if (r.verdict === 'NMD') { res.effect = 'NMD: mRNA degraded'; res.summary = `Premature stop (${res.hgvs_p}). ${r.rule}: nonsense-mediated decay predicted, so little mRNA or protein is expected. Any escaping protein would stop at residue ${fmt(L)}${lostTxt ? ', losing ' + lostTxt : ''}.`; }
     else if (r.verdict === 'possible escape') { res.effect = 'may escape NMD'; res.summary = `Premature stop (${res.hgvs_p}); ${r.rule}. The mRNA may partly escape NMD and make a protein of ${fmt(L)} residues${lostTxt ? ' lacking ' + lostTxt : ''}.`; }
     else { res.effect = 'escapes NMD: truncated protein'; res.summary = `Premature stop (${res.hgvs_p}); ${r.rule}, so NMD is not expected. Predicted product: ${fmt(L)} residues${lostTxt ? ' lacking ' + lostTxt : ''}.`; }
+    res.function_lost = functionLost(doms, L);
+    if (res.function_lost.length) res.summary += ` Functionally the truncated product ${res.function_lost.join('; ')}.`;
     // a downstream in-frame Met (possible re-initiation)
     const prot = translate(mrna(v, t).slice(G.cds0, G.cds1 + 1)); const nm = prot.indexOf('M', L + 1);
     if (nm > 0) res.next_met = nm + 1;
@@ -916,6 +926,50 @@ details.alltx > summary { cursor: pointer; font-weight: 600; padding: 6px 0; }
       parts.push(nums.length ? `spectrin repeats ${Math.min(...nums)}–${Math.max(...nums)}` : `${srs.length} spectrin repeats`); }
     for (const d of other) if (!parts.includes(d.label)) parts.push(d.label);
     return parts.join(', ');
+  }
+  // What each α2 domain does, and what disrupting it means for the muscle isoform (nesprin-1α2).
+  const DOMAIN_FUNCTION = {
+    KASH: 'KASH domain — anchors nesprin-1α2 to SUN proteins across the perinuclear space and completes the LINC complex (the nucleus-to-cytoskeleton bridge). Disrupting it uncouples the nucleus from the cytoskeleton and the protein no longer stays at the nuclear envelope.',
+    TM: 'transmembrane anchor — inserts α2 into the outer nuclear membrane. Disrupting it leaves the protein in the cytoplasm, unable to reach the envelope.',
+    LEWD: 'LEWD / STAR motif — binds kinesin and is required to recruit the microtubule motor and relocate the MTOC (microtubule-organising centre) to the nuclear envelope during muscle differentiation (Holt et al. 2019). Disrupting it leaves α2 in place but unable to position nuclei.',
+    SR: 'spectrin repeat — a structural rod unit. A missense is often tolerated; a change that unfolds the repeat, or its in-frame loss, shortens or destabilises the rod.',
+    CH: 'calponin-homology / actin-binding domain — part of the giant isoform only; it is not present in nesprin-1α2.',
+    unique: 'the α2-specific N-terminus encoded by exon 1α2. It defines the muscle isoform and is the epitope of the nesprin-1α2 monoclonal antibody (Holt et al. 2016); the giant and other isoforms do not contain it.',
+    dv23: 'the alternatively spliced DV23 micro-exon segment, present in the muscle form.',
+    extra: 'an isoform-specific segment absent from the giant protein.'
+  };
+  function regionLabel(d) {
+    if (!d) return 'outside the annotated domains';
+    if (d.type === 'motif') return d.label + ' motif';
+    if (d.type === 'KASH') return 'KASH domain';
+    if (d.type === 'TM') return 'transmembrane domain';
+    if (d.type === 'CH') return d.label + ' (actin-binding)';
+    if (d.type === 'SR') return d.label.replace(/^SR/, 'spectrin repeat ');
+    return d.label || 'isoform-specific segment';
+  }
+  function domainAt(v, t, protPos) {
+    const doms = domainsFor(v, t); if (!doms.length || !protPos) return null;
+    const hit = pred => doms.find(d => pred(d) && protPos >= d.start && protPos <= d.end);
+    return hit(d => d.type === 'motif') || hit(d => ['KASH', 'TM', 'CH'].includes(d.type)) || hit(d => d.type !== 'motif') || null;
+  }
+  function functionKey(d) { return d ? (d.type === 'motif' ? (/LEWD/i.test(d.label) ? 'LEWD' : null) : d.type) : null; }
+  function annotateRegion(v, t, res) {
+    if (!res.prot_pos) return;
+    const d = domainAt(v, t, res.prot_pos);
+    res.region = regionLabel(d);
+    const k = functionKey(d); if (k && DOMAIN_FUNCTION[k]) res.function_note = DOMAIN_FUNCTION[k];
+  }
+  // Functional capabilities a truncation at protein length L removes, read from the α2 domain layout.
+  function functionLost(doms, L) {
+    const lost = doms.filter(d => d.end > L);
+    const kash = lost.some(d => d.type === 'KASH'), tm = lost.some(d => d.type === 'TM');
+    const lewd = lost.some(d => d.type === 'motif' && /LEWD/i.test(d.label));
+    const srs = lost.filter(d => d.type === 'SR');
+    const out = [];
+    if (kash || tm) out.push('loses the nuclear-envelope anchor (' + (kash ? 'KASH' + (tm ? ' and transmembrane domain' : '') : 'transmembrane domain') + '): it can no longer bind SUN or sit in the membrane, so the LINC complex is broken and the protein mislocalises');
+    if (lewd) out.push('loses the LEWD/STAR motif: no kinesin binding, so no MTOC relocation or nuclear positioning');
+    if (!kash && !tm && !lewd && srs.length) out.push('removes part of the spectrin-repeat rod while keeping the LEWD, transmembrane and KASH elements');
+    return out;
   }
   function skipScenario(v, t, k) {
     const G = geom(t); const L = t.exons[k][1] - t.exons[k][0] + 1;
@@ -2187,6 +2241,11 @@ const V_EXAMPLES = [
   { label: 'Same, genomic', view: 'human_SYNE1', tx: 'NM_182961.4', input: 'chr6:152176461C>A' },
   { label: 'Same, protein', view: 'human_SYNE1', tx: 'NM_182961.4', input: 'p.Glu7854*' },
   { label: 'Human α2 exon 1α2 donor (c.92+1G>A)', view: 'human_SYNE1', tx: 'NM_001347702.2', input: 'NM_001347702.2:c.92+1G>A' },
+  { label: 'α2 KASH missense (p.Phe920Tyr)', view: 'human_SYNE1', tx: 'NM_001347702.2', input: 'NM_001347702.2:p.Phe920Tyr' },
+  { label: 'α2 LEWD/kinesin missense (p.Leu438Pro)', view: 'human_SYNE1', tx: 'NM_001347702.2', input: 'NM_001347702.2:p.Leu438Pro' },
+  { label: 'α2 nonsense → KASH-less, escapes NMD (p.Glu908*)', view: 'human_SYNE1', tx: 'NM_001347702.2', input: 'NM_001347702.2:p.Glu908*' },
+  { label: 'α2 nonsense → NMD (p.Gln418*)', view: 'human_SYNE1', tx: 'NM_001347702.2', input: 'NM_001347702.2:p.Gln418*' },
+  { label: 'α2 exon 1α2 frameshift (c.40del)', view: 'human_SYNE1', tx: 'NM_001347702.2', input: 'NM_001347702.2:c.40del' },
   { label: 'Zebrafish syne1a equivalent of E7854X', zf: true },
   { label: 'Zebrafish α2 start codon (c.1A>G)', view: 'zebrafish_syne1a', tx: 'syne1a-alpha2-pred-plusDV23-GRCz11', input: 'c.1A>G' },
 ];
@@ -2262,7 +2321,9 @@ function variantBlock(A, v, r, n) {
     h += `<div class="vcard"><h4><span class="mono">${esc(t.predicted ? t.name : x.id)}</span>${vPill(x)}</h4>
       <div class="small muted">${esc(CAT_LABEL[x.category] || x.category)}${t.isoform_name ? ' · ' + esc(t.isoform_name) : ''} · ${esc(x.where || '')}</div>
       <div class="mono small" style="margin-top:4px">${esc(x.hgvs || '')}${x.hgvs_p ? ' · ' + esc(x.hgvs_p) : ''}${x.codon ? ' · ' + esc(x.codon) : ''}</div>
-      <p class="sum">${esc(x.summary || '')}${x.next_met ? ` Next in-frame Met: residue ${fmt(x.next_met)}.` : ''}${x.skip ? ' Exon-skipping outcome: ' + esc(x.skip.text) + '.' : ''}</p></div>`;
+      <p class="sum">${esc(x.summary || '')}${x.next_met ? ` Next in-frame Met: residue ${fmt(x.next_met)}.` : ''}${x.skip ? ' Exon-skipping outcome: ' + esc(x.skip.text) + '.' : ''}</p>
+      ${x.function_note ? `<div class="vfunc"><strong>${esc(x.region || 'Region')}.</strong> ${esc(x.function_note)}</div>` : ''}
+      ${x.function_lost && x.function_lost.length ? `<div class="vfunc"><strong>Functional loss:</strong> the truncated protein ${esc(x.function_lost.join('; '))}.</div>` : ''}</div>`;
   }
   h += '</div>';
   if (A.variants.length === 1 || n === 0) {
@@ -2277,7 +2338,7 @@ function variantBlock(A, v, r, n) {
         <td>${o.self ? '' : o.aa === r.giant.aa_ref ? `<button class="btn small" type="button" data-vorth="${o.view}|p.${esc(VE.AA3[o.aa])}${o.pos}${r.giant.aa_alt === '*' ? '*' : esc(VE.AA3[r.giant.aa_alt] || '')}">Analyse ${esc(VE.AA3[o.aa])}${o.pos}${r.giant.aa_alt === '*' ? '*' : esc(VE.AA3[r.giant.aa_alt] || '')} here</button>` : `<span class="small muted">${esc(VE.AA3[o.aa])}, not ${esc(VE.AA3[r.giant.aa_ref])}: no direct equivalent</span>`}</td></tr>`).join('') + '</tbody></table></div>';
   }
   h += `<details class="alltx" style="margin-top:12px"><summary>All ${r.per.length} isoforms of ${esc(v.species)} ${esc(v.symbol)}</summary><div class="tablewrap"><table><thead><tr><th>Isoform</th><th>Group</th><th>Where</th><th>HGVS</th><th>Protein</th><th>Effect</th><th>NMD rule</th></tr></thead><tbody>` +
-    r.per.slice().sort((a, b) => CAT_ORDER.indexOf(a.category) - CAT_ORDER.indexOf(b.category)).map(x => `<tr><td class="mono">${esc(v.txById[x.id].predicted ? v.txById[x.id].name : x.id)}</td><td>${esc(CAT_LABEL[x.category] || '')}</td><td>${esc(x.where || '')}</td><td class="mono">${esc(x.hgvs || '')}</td><td class="mono">${esc(x.hgvs_p || '')}</td><td>${vPill(x)}</td><td class="small">${esc(x.nmd ? x.nmd.rule : '')}</td></tr>`).join('') +
+    r.per.slice().sort((a, b) => CAT_ORDER.indexOf(a.category) - CAT_ORDER.indexOf(b.category)).map(x => `<tr><td class="mono">${esc(v.txById[x.id].predicted ? v.txById[x.id].name : x.id)}</td><td>${esc(CAT_LABEL[x.category] || '')}</td><td>${esc(x.where || '')}</td><td class="mono">${esc(x.hgvs || '')}</td><td class="mono">${esc(x.hgvs_p || '')}${x.region && x.prot_pos ? `<br><span class="muted" style="font-weight:400">${esc(x.region)}</span>` : ''}</td><td>${vPill(x)}</td><td class="small">${esc(x.nmd ? x.nmd.rule : (x.function_lost && x.function_lost.length ? 'truncation removes a functional domain' : ''))}</td></tr>`).join('') +
     '</tbody></table></div></details>';
   if (DATA.variant_check && human && g.start === DATA.variant_check.own_mapping.grch38 && g.alt === DATA.variant_check.own_mapping.plus_strand_alt) h += litBlock(DATA.variant_check);
   return h;

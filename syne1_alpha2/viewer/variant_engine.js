@@ -378,7 +378,10 @@
         res.ptc = { i: G.cds0 + 3 * q, prot_len: q }; }
       else if (a1 === a2) { res.consequence = 'synonymous_variant'; res.hgvs_p = `p.${AA3[a1]}${q + 1}=`; res.effect = 'synonymous'; res.summary = `Synonymous (${codon}>${mut}, ${AA3[a1]}${q + 1}).`; }
       else { res.consequence = 'missense_variant'; res.hgvs_p = `p.${AA3[a1]}${q + 1}${AA3[a2]}`; res.hgvs_p1 = `p.${a1}${q + 1}${a2}`; res.effect = 'missense'; res.summary = `Missense ${AA3[a1]}${q + 1}${AA3[a2]} (${codon}>${mut}).`; }
+      annotateRegion(v, t, res);
       if (res.ptc) finishPTC(v, t, res, t.exons.map(([s, e]) => e - s + 1));
+      if (res.consequence === 'start_lost') res.function_note = 'No nesprin-1α2 protein is made from this isoform; isoforms that use a different start codon (e.g. the giant) are unaffected.';
+      else if (res.function_note && (res.consequence === 'missense_variant' || res.consequence === 'stop_lost')) res.summary = (res.summary || '') + ` Lies in the ${res.region}.`;
       if (res.splice_region) res.summary = (res.summary || '') + ` Within 3 nt of an exon boundary: may also alter splicing.`;
       return res;
     }
@@ -424,7 +427,9 @@
         res.effect = 'in-frame'; res.summary = `In-frame ${delta < 0 ? 'deletion' : 'insertion'} of ${Math.abs(delta) / 3} residue(s) at ${AA3[refP[f]] || ''}${f + 1}; no premature stop.`;
       }
     }
+    annotateRegion(v, t, res);
     if (res.ptc) finishPTC(v, t, res, lens);
+    else if (res.function_note && /inframe/.test(res.consequence || '')) res.summary = (res.summary || '') + ` Affects the ${res.region}.`;
     return res;
   }
   function finishPTC(v, t, res, lens) {
@@ -437,6 +442,8 @@
     if (r.verdict === 'NMD') { res.effect = 'NMD: mRNA degraded'; res.summary = `Premature stop (${res.hgvs_p}). ${r.rule}: nonsense-mediated decay predicted, so little mRNA or protein is expected. Any escaping protein would stop at residue ${fmt(L)}${lostTxt ? ', losing ' + lostTxt : ''}.`; }
     else if (r.verdict === 'possible escape') { res.effect = 'may escape NMD'; res.summary = `Premature stop (${res.hgvs_p}); ${r.rule}. The mRNA may partly escape NMD and make a protein of ${fmt(L)} residues${lostTxt ? ' lacking ' + lostTxt : ''}.`; }
     else { res.effect = 'escapes NMD: truncated protein'; res.summary = `Premature stop (${res.hgvs_p}); ${r.rule}, so NMD is not expected. Predicted product: ${fmt(L)} residues${lostTxt ? ' lacking ' + lostTxt : ''}.`; }
+    res.function_lost = functionLost(doms, L);
+    if (res.function_lost.length) res.summary += ` Functionally the truncated product ${res.function_lost.join('; ')}.`;
     // a downstream in-frame Met (possible re-initiation)
     const prot = translate(mrna(v, t).slice(G.cds0, G.cds1 + 1)); const nm = prot.indexOf('M', L + 1);
     if (nm > 0) res.next_met = nm + 1;
@@ -450,6 +457,50 @@
       parts.push(nums.length ? `spectrin repeats ${Math.min(...nums)}–${Math.max(...nums)}` : `${srs.length} spectrin repeats`); }
     for (const d of other) if (!parts.includes(d.label)) parts.push(d.label);
     return parts.join(', ');
+  }
+  // What each α2 domain does, and what disrupting it means for the muscle isoform (nesprin-1α2).
+  const DOMAIN_FUNCTION = {
+    KASH: 'KASH domain — anchors nesprin-1α2 to SUN proteins across the perinuclear space and completes the LINC complex (the nucleus-to-cytoskeleton bridge). Disrupting it uncouples the nucleus from the cytoskeleton and the protein no longer stays at the nuclear envelope.',
+    TM: 'transmembrane anchor — inserts α2 into the outer nuclear membrane. Disrupting it leaves the protein in the cytoplasm, unable to reach the envelope.',
+    LEWD: 'LEWD / STAR motif — binds kinesin and is required to recruit the microtubule motor and relocate the MTOC (microtubule-organising centre) to the nuclear envelope during muscle differentiation (Holt et al. 2019). Disrupting it leaves α2 in place but unable to position nuclei.',
+    SR: 'spectrin repeat — a structural rod unit. A missense is often tolerated; a change that unfolds the repeat, or its in-frame loss, shortens or destabilises the rod.',
+    CH: 'calponin-homology / actin-binding domain — part of the giant isoform only; it is not present in nesprin-1α2.',
+    unique: 'the α2-specific N-terminus encoded by exon 1α2. It defines the muscle isoform and is the epitope of the nesprin-1α2 monoclonal antibody (Holt et al. 2016); the giant and other isoforms do not contain it.',
+    dv23: 'the alternatively spliced DV23 micro-exon segment, present in the muscle form.',
+    extra: 'an isoform-specific segment absent from the giant protein.'
+  };
+  function regionLabel(d) {
+    if (!d) return 'outside the annotated domains';
+    if (d.type === 'motif') return d.label + ' motif';
+    if (d.type === 'KASH') return 'KASH domain';
+    if (d.type === 'TM') return 'transmembrane domain';
+    if (d.type === 'CH') return d.label + ' (actin-binding)';
+    if (d.type === 'SR') return d.label.replace(/^SR/, 'spectrin repeat ');
+    return d.label || 'isoform-specific segment';
+  }
+  function domainAt(v, t, protPos) {
+    const doms = domainsFor(v, t); if (!doms.length || !protPos) return null;
+    const hit = pred => doms.find(d => pred(d) && protPos >= d.start && protPos <= d.end);
+    return hit(d => d.type === 'motif') || hit(d => ['KASH', 'TM', 'CH'].includes(d.type)) || hit(d => d.type !== 'motif') || null;
+  }
+  function functionKey(d) { return d ? (d.type === 'motif' ? (/LEWD/i.test(d.label) ? 'LEWD' : null) : d.type) : null; }
+  function annotateRegion(v, t, res) {
+    if (!res.prot_pos) return;
+    const d = domainAt(v, t, res.prot_pos);
+    res.region = regionLabel(d);
+    const k = functionKey(d); if (k && DOMAIN_FUNCTION[k]) res.function_note = DOMAIN_FUNCTION[k];
+  }
+  // Functional capabilities a truncation at protein length L removes, read from the α2 domain layout.
+  function functionLost(doms, L) {
+    const lost = doms.filter(d => d.end > L);
+    const kash = lost.some(d => d.type === 'KASH'), tm = lost.some(d => d.type === 'TM');
+    const lewd = lost.some(d => d.type === 'motif' && /LEWD/i.test(d.label));
+    const srs = lost.filter(d => d.type === 'SR');
+    const out = [];
+    if (kash || tm) out.push('loses the nuclear-envelope anchor (' + (kash ? 'KASH' + (tm ? ' and transmembrane domain' : '') : 'transmembrane domain') + '): it can no longer bind SUN or sit in the membrane, so the LINC complex is broken and the protein mislocalises');
+    if (lewd) out.push('loses the LEWD/STAR motif: no kinesin binding, so no MTOC relocation or nuclear positioning');
+    if (!kash && !tm && !lewd && srs.length) out.push('removes part of the spectrin-repeat rod while keeping the LEWD, transmembrane and KASH elements');
+    return out;
   }
   function skipScenario(v, t, k) {
     const G = geom(t); const L = t.exons[k][1] - t.exons[k][0] + 1;

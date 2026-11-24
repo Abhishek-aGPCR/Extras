@@ -273,6 +273,8 @@ ol.refs { padding-left: 20px; margin: 0; } ol.refs li { margin-bottom: 6px; }
 .vcard { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px; min-width: 0; }
 .vcard h4 { font-size: 14px; margin-bottom: 6px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
 .vcard .sum { font-size: 13px; margin: 6px 0 0; }
+.vfunc { background: var(--amber-soft); border-radius: var(--radius); padding: 6px 9px; margin-top: 6px; font-size: 12.5px; line-height: 1.45; }
+.vfunc strong { color: var(--ink); }
 .vp { display: inline-block; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; letter-spacing: 0.02em; white-space: nowrap; }
 .vp.red { background: color-mix(in srgb, #c62828 18%, var(--surface)); color: var(--accent-strong); }
 .vp.amber { background: var(--amber-soft); color: var(--amber); }
@@ -440,6 +442,7 @@ details.alltx > summary { cursor: pointer; font-weight: 600; padding: 6px 0; }
     <section class="tabpanel" id="tab-variant" role="tabpanel" aria-labelledby="t-variant" hidden>
       <div class="panel">
         <h2>Variant effect on every isoform</h2>
+        <p class="small muted prose" style="margin:2px 0 10px">For any variant, this predicts — separately for each isoform — the mRNA fate (nonsense-mediated decay, splicing, start/stop loss) and, for mutations inside the muscle isoform's own exons, which functional element is hit (KASH anchor, LEWD/kinesin motif, transmembrane, a spectrin repeat, or the α2-specific N-terminus) and what losing it would do. To test a mutation in the muscle isoform, pick it in the second menu and enter coordinates relative to it.</p>
         <div class="fieldrow">
           <div class="field"><label for="vView">Gene and assembly</label><select id="vView"></select></div>
           <div class="field"><label for="vTx">Isoform for c. / n. / p. / exon input</label><select id="vTx"></select></div>
@@ -1495,6 +1498,11 @@ const V_EXAMPLES = [
   { label: 'Same, genomic', view: 'human_SYNE1', tx: 'NM_182961.4', input: 'chr6:152176461C>A' },
   { label: 'Same, protein', view: 'human_SYNE1', tx: 'NM_182961.4', input: 'p.Glu7854*' },
   { label: 'Human α2 exon 1α2 donor (c.92+1G>A)', view: 'human_SYNE1', tx: 'NM_001347702.2', input: 'NM_001347702.2:c.92+1G>A' },
+  { label: 'α2 KASH missense (p.Phe920Tyr)', view: 'human_SYNE1', tx: 'NM_001347702.2', input: 'NM_001347702.2:p.Phe920Tyr' },
+  { label: 'α2 LEWD/kinesin missense (p.Leu438Pro)', view: 'human_SYNE1', tx: 'NM_001347702.2', input: 'NM_001347702.2:p.Leu438Pro' },
+  { label: 'α2 nonsense → KASH-less, escapes NMD (p.Glu908*)', view: 'human_SYNE1', tx: 'NM_001347702.2', input: 'NM_001347702.2:p.Glu908*' },
+  { label: 'α2 nonsense → NMD (p.Gln418*)', view: 'human_SYNE1', tx: 'NM_001347702.2', input: 'NM_001347702.2:p.Gln418*' },
+  { label: 'α2 exon 1α2 frameshift (c.40del)', view: 'human_SYNE1', tx: 'NM_001347702.2', input: 'NM_001347702.2:c.40del' },
   { label: 'Zebrafish syne1a equivalent of E7854X', zf: true },
   { label: 'Zebrafish α2 start codon (c.1A>G)', view: 'zebrafish_syne1a', tx: 'syne1a-alpha2-pred-plusDV23-GRCz11', input: 'c.1A>G' },
 ];
@@ -1570,7 +1578,9 @@ function variantBlock(A, v, r, n) {
     h += `<div class="vcard"><h4><span class="mono">${esc(t.predicted ? t.name : x.id)}</span>${vPill(x)}</h4>
       <div class="small muted">${esc(CAT_LABEL[x.category] || x.category)}${t.isoform_name ? ' · ' + esc(t.isoform_name) : ''} · ${esc(x.where || '')}</div>
       <div class="mono small" style="margin-top:4px">${esc(x.hgvs || '')}${x.hgvs_p ? ' · ' + esc(x.hgvs_p) : ''}${x.codon ? ' · ' + esc(x.codon) : ''}</div>
-      <p class="sum">${esc(x.summary || '')}${x.next_met ? ` Next in-frame Met: residue ${fmt(x.next_met)}.` : ''}${x.skip ? ' Exon-skipping outcome: ' + esc(x.skip.text) + '.' : ''}</p></div>`;
+      <p class="sum">${esc(x.summary || '')}${x.next_met ? ` Next in-frame Met: residue ${fmt(x.next_met)}.` : ''}${x.skip ? ' Exon-skipping outcome: ' + esc(x.skip.text) + '.' : ''}</p>
+      ${x.function_note ? `<div class="vfunc"><strong>${esc(x.region || 'Region')}.</strong> ${esc(x.function_note)}</div>` : ''}
+      ${x.function_lost && x.function_lost.length ? `<div class="vfunc"><strong>Functional loss:</strong> the truncated protein ${esc(x.function_lost.join('; '))}.</div>` : ''}</div>`;
   }
   h += '</div>';
   if (A.variants.length === 1 || n === 0) {
@@ -1585,7 +1595,7 @@ function variantBlock(A, v, r, n) {
         <td>${o.self ? '' : o.aa === r.giant.aa_ref ? `<button class="btn small" type="button" data-vorth="${o.view}|p.${esc(VE.AA3[o.aa])}${o.pos}${r.giant.aa_alt === '*' ? '*' : esc(VE.AA3[r.giant.aa_alt] || '')}">Analyse ${esc(VE.AA3[o.aa])}${o.pos}${r.giant.aa_alt === '*' ? '*' : esc(VE.AA3[r.giant.aa_alt] || '')} here</button>` : `<span class="small muted">${esc(VE.AA3[o.aa])}, not ${esc(VE.AA3[r.giant.aa_ref])}: no direct equivalent</span>`}</td></tr>`).join('') + '</tbody></table></div>';
   }
   h += `<details class="alltx" style="margin-top:12px"><summary>All ${r.per.length} isoforms of ${esc(v.species)} ${esc(v.symbol)}</summary><div class="tablewrap"><table><thead><tr><th>Isoform</th><th>Group</th><th>Where</th><th>HGVS</th><th>Protein</th><th>Effect</th><th>NMD rule</th></tr></thead><tbody>` +
-    r.per.slice().sort((a, b) => CAT_ORDER.indexOf(a.category) - CAT_ORDER.indexOf(b.category)).map(x => `<tr><td class="mono">${esc(v.txById[x.id].predicted ? v.txById[x.id].name : x.id)}</td><td>${esc(CAT_LABEL[x.category] || '')}</td><td>${esc(x.where || '')}</td><td class="mono">${esc(x.hgvs || '')}</td><td class="mono">${esc(x.hgvs_p || '')}</td><td>${vPill(x)}</td><td class="small">${esc(x.nmd ? x.nmd.rule : '')}</td></tr>`).join('') +
+    r.per.slice().sort((a, b) => CAT_ORDER.indexOf(a.category) - CAT_ORDER.indexOf(b.category)).map(x => `<tr><td class="mono">${esc(v.txById[x.id].predicted ? v.txById[x.id].name : x.id)}</td><td>${esc(CAT_LABEL[x.category] || '')}</td><td>${esc(x.where || '')}</td><td class="mono">${esc(x.hgvs || '')}</td><td class="mono">${esc(x.hgvs_p || '')}${x.region && x.prot_pos ? `<br><span class="muted" style="font-weight:400">${esc(x.region)}</span>` : ''}</td><td>${vPill(x)}</td><td class="small">${esc(x.nmd ? x.nmd.rule : (x.function_lost && x.function_lost.length ? 'truncation removes a functional domain' : ''))}</td></tr>`).join('') +
     '</tbody></table></div></details>';
   if (DATA.variant_check && human && g.start === DATA.variant_check.own_mapping.grch38 && g.alt === DATA.variant_check.own_mapping.plus_strand_alt) h += litBlock(DATA.variant_check);
   return h;

@@ -140,6 +140,12 @@ fonts load from Google Fonts when online.
     (including the exon-skipping outcome)
   - predicts NMD for premature stops
   - lists the protein domains lost
+  - **for mutations inside the muscle isoform's own exons**, names the functional element hit (KASH anchor,
+    LEWD/kinesin motif, transmembrane, a spectrin repeat, or the α2-specific exon-1α2 N-terminus) and what
+    losing it does — e.g. a truncation before KASH breaks the LINC complex, a LEWD change abolishes kinesin/MTOC
+    recruitment. Pick the muscle isoform in the second menu to enter coordinates relative to it; built-in
+    examples cover a KASH missense, a LEWD missense, an NMD-escaping KASH-less truncation, and an exon-1α2
+    frameshift.
   - finds the same residue in the other species (one click analyses it there)
   - draws a gene / mRNA-fate / protein-domain figure you can save as SVG or PNG.
 
