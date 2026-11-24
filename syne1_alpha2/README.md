@@ -51,21 +51,52 @@ are in `results/*_GRCz11.gtf`, `.bed` (a UCSC custom track) and the GRCz12tu equ
   RefSeq proteins of the α2 type were found: 116 mammals, 56 birds, 22 amphibians, 7 reptiles, 4 ray-finned fish.
 * **Identical in three assemblies** (GRCz11, GRCz12tu, GRCz13ab).
 * ***syne1b* has no candidate.** Its homologous intron and whole locus score only at background level.
+* **Expressed in RNA-seq — in the heart** (see below). This is direct transcript evidence, not just a prediction.
 
-### Limitation and how to test it
+### Transcript evidence (RNA-seq)
 
-No zebrafish EST or mRNA (UCSC danRer11) covers the exon, and neither does an Ensembl RNA-seq model. Those models
-come only from blastula to 3 dpf embryos and adult male. In mammals α2 is muscle-restricted and switched on
-during myotube differentiation, so test it on muscle RNA. `results/zebrafish_alpha2_primer_suggestions.tsv`
-lists RT-PCR primer pairs, all intron-spanning and cDNA-specific. Check their specificity with Primer-BLAST
-before ordering. For example:
+The predicted exon is a **used exon**. Streaming public RNA-seq from ENA and counting reads that span the
+exon 1α2 → exon 128 junction (minimap2 `splice:sr`, duplicate-removed fragments, confirmed by an alignment-free
+exact 24-mer; `scripts/10_rnaseq_junctions.py`) shows nesprin-1α2 is expressed in zebrafish, and specifically in
+the **heart**:
+
+| Zebrafish tissue (PRJNA1257549, WT adult) | α2 junction (24-mer) | giant junction | exon 1α2 coverage | α2 share |
+|---|---|---|---|---|
+| fast skeletal muscle (4 fish) | 0 (0) | 40 | 0× | 0% |
+| slow skeletal muscle (3 fish) | 2 (2) | 30 | 0.6× | 6% |
+| **ventricle / cardiac (4 fish)** | **72 (67)** | 89 | **19×** | **45%** |
+
+All four ventricle fish are positive (per-fish α2 share 19–58 %); the reads join exon 1α2 to exon 128 exactly at
+the predicted GC-AG donor (`…TGCGACTGTGACATTAACAG | GGTGAAGAAGTT…`), and the DV23 muscle exon is fully included
+(PSI 1.0). The exon is near-absent from bulk adult skeletal muscle — the tissue pattern of cardiac nesprin-1α2 in
+mammals, where every cardiomyocyte expresses it but adult skeletal muscle confines it to neuromuscular-junction
+nuclei (Holt et al. 2019). Looking only at adult skeletal muscle would have missed it.
+
+**Cross-species and developmental controls** (the same pipeline made strand-generic, `scripts/11_rnaseq_crossspecies.py`):
+the method detects α2 where it is independently known, and the minus-strand human/mouse loci count identically to
+the plus-strand zebrafish locus.
+
+| Panel | α2 junction (24-mer) | giant | α2 share | role |
+|---|---|---|---|---|
+| Human healthy left ventricle (×3) | 19 (23) | 35 | 35 % | positive control — detected |
+| Mouse C2C12 **myoblast** | **0 (0)** | 5 | 0 % | undifferentiated — absent |
+| Mouse C2C12 **myotube, day 3** | **47 (48)** | 15 | 76 % | differentiated — induced |
+| Zebrafish 4 dpf whole larva (×4) | 2 (2) | 39 | 5 % | larval — low, exon covered 13× |
+
+The mouse **myoblast → myotube** step (0 → 47) catches the developmental induction of nesprin-1α2 directly, as
+expected (Stroud et al. 2017), and doubles as a positive control. The conserved GC-AG α2 donor is recovered in
+human, mouse and zebrafish alike by the splice-aware aligner. The whole 4 dpf larva (mostly skeletal muscle, with
+a tiny heart) shows exon 1α2 coverage but few junction reads — consistent with the cardiac restriction seen in
+adult; a larval heart or a myogenic time-course would resolve the exact developmental timing.
+
+Confirm at the bench by RT-PCR with the intron-spanning, cDNA-specific primers in
+`results/zebrafish_alpha2_primer_suggestions.tsv` (check specificity with Primer-BLAST first); 5′RACE from exon
+128 would pin the transcription start. For example:
 
 | Forward (exon 1α2) | Reverse | cDNA product |
 |---|---|---|
 | GCTCAATGGTGCTGGATATG | TTCTCTGGATCTCGTGTGAG (exon 2) | 237 bp |
 | CTGTGACATTAACAGGGTGAAG (exon 1α2/exon 2 junction) | TTCTCTGGATCTCGTGTGAG | 161 bp |
-
-5′RACE from exon 128 would define the transcription start.
 
 ## Human SYNE1 c.23560G>T (p.Glu7854*)
 
@@ -173,11 +204,15 @@ The steps run in order, and downloads are cached in `data/cache/`:
 | `scripts/05_primers.py` | RT-PCR primer suggestions |
 | `scripts/06_protein_domains.py` | UniProt Q8NF91 domains (CH, 74 spectrin repeats, LEWD, TM, KASH) projected onto every species |
 | `scripts/07_verify_c23560.py` | independent verification of c.23560G>T (RefSeq versions, genome, Ensembl VEP/recoder, GRCh37, ClinVar) |
+| `scripts/10_rnaseq_junctions.py` | zebrafish exon 1α2 → exon 128 junction counts in adult muscle/heart RNA-seq (ENA) |
+| `scripts/11_rnaseq_crossspecies.py` | the same method across human heart, mouse C2C12 and zebrafish larva (positive/developmental controls) |
 | `scripts/08_build_html.py` | builds `SYNE1_isoform_browser.html` from `viewer/template.html` + `viewer/variant_engine.js` |
 | `scripts/09_variant_report.js` | Node: variant report, isoform tables and SVG/PNG figures (same engine as the browser) |
 
-Network access is needed to `rest.ensembl.org`, `eutils.ncbi.nlm.nih.gov`, `api.ncbi.nlm.nih.gov`,
-`api.genome.ucsc.edu` and `rest.uniprot.org`. Step 9 needs Node.js; PNG export uses Playwright with Chromium if
+Steps 10–11 stream FASTQ from `ftp.sra.ebi.ac.uk` (ENA) and need `mappy` (minimap2) plus `ripgrep`; `run_all.sh`
+re-runs only their analysis from the captured reads under `data/rnaseq/` (re-download with the `patterns`/`scan`
+subcommands, ~35 GB streamed). Other network access is needed to `rest.ensembl.org`, `eutils.ncbi.nlm.nih.gov`,
+`api.ncbi.nlm.nih.gov`, `api.genome.ucsc.edu` and `rest.uniprot.org`. Step 9 needs Node.js; PNG export uses Playwright with Chromium if
 installed. Data used here: Ensembl release 116, NCBI RefSeq (downloaded 2026-11-20 and 2026-11-24).
 
 ## Files

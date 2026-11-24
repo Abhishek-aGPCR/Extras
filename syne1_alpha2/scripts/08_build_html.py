@@ -128,6 +128,8 @@ def main() -> None:
     vcheck = load_json(vcheck_path) if vcheck_path.exists() else None
     rs_path = RESULTS / "rnaseq" / "rnaseq_summary.json"
     rnaseq = load_json(rs_path) if rs_path.exists() else None
+    rsc_path = RESULTS / "rnaseq" / "crossspecies_summary.json"
+    rnaseq_cross = load_json(rsc_path) if rsc_path.exists() else None
     if rnaseq:
         ex_path = RESULTS / "rnaseq" / "alpha2_junction_examples.txt"
         rnaseq["examples_text"] = ex_path.read_text() if ex_path.exists() else ""
@@ -343,7 +345,7 @@ def main() -> None:
         built_text=f"Built {dt.date.today().isoformat()} · Ensembl {sources['ensembl_release']} · NCBI RefSeq · UCSC",
         views=views, result=result, analysis=analysis, alignments=alns, primers=primers,
         methods=METHODS + ([RNASEQ_METHOD] if rnaseq else []), sources_text=sources_text, references=REFERENCES,
-        giant_msa_views=GIANT_MSA_VIEWS, domains_source=domains["source"], variant_check=vcheck, rnaseq=rnaseq)
+        giant_msa_views=GIANT_MSA_VIEWS, domains_source=domains["source"], variant_check=vcheck, rnaseq=rnaseq, rnaseq_cross=rnaseq_cross)
     raw = json.dumps(data, separators=(",", ":"), ensure_ascii=False)
     (DATA / "viewer_data.json").write_text(raw)
     js = raw.replace("</", "<\\/")

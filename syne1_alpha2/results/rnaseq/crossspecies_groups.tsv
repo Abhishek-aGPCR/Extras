@@ -1,0 +1,8 @@
+panel	kind	group	n_samples	reads_scanned	alpha2_junction	alpha2_junction_24mer	giant_junction	alpha2_fraction	alpha2_per_10M	giant_per_10M	exon1a2_mean_cov	shared_exon_mean_cov	junctions_into_exon1a2
+human_heart	positive control	left ventricle (healthy adult)	3	106695662	19	23	35	0.3519	1.781	3.28	14.96	39.41	1
+mouse_c2c12	developmental switch + positive control	myoblast	2	110619070	0	0	5	0.0	0.0	0.452	0.0	3.33	0
+mouse_c2c12	developmental switch + positive control	myotube (day 3)	2	102913846	47	48	15	0.7581	4.567	1.458	26.75	88.62	1
+zebrafish_dev	larval development	96 hpf / 4 dpf larva	1	59253652	2	2	39	0.0488	0.338	6.582	12.67	118.5	0
+zebrafish_adult	adult tissue	fast muscle	6	170389462	0	0	40	0.0	0.0	2.348	0.0	13.3	0
+zebrafish_adult	adult tissue	slow muscle	4	126389704	2	2	30	0.0625	0.158	2.374	0.59	9.6	0
+zebrafish_adult	adult tissue	ventricle	4	211572190	72	67	89	0.4472	3.403	4.207	18.73	80.75	0

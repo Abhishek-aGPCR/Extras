@@ -1,0 +1,15 @@
+run	sample	tissue	fish	mates	complete	reads_scanned	reads_captured	reads_mapped	reads_mapped_duplicate	alpha2_junction	alpha2_junction_raw	alpha2_junction_24mer	alpha2_junction_24mer_raw	giant_junction	giant_junction_raw	giant_junction_24mer	giant_junction_24mer_raw	dv23_in1	dv23_in2	dv23_skip	alpha2_rescued	giant_rescued	junctions_into_alpha2_region	unspliced_through_alpha2_donor	unspliced_through_alpha2_5p_end
+SRR33394562	fast_mb_wt_42_run1	fast muscle	42	2	True	37742262	868	452	97	0	0	0	0	19	21	14	16	2	4	0	0	4	0	0	0
+SRR33394549	slow_mb_wt_42_run1	slow muscle	42	2	True	36592564	617	305	78	1	1	1	1	6	9	7	8	8	2	1	0	0	0	0	0
+SRR33394560	fast_mb_wt_43	fast muscle	43	2	True	40345318	906	435	114	0	0	0	0	9	10	8	10	15	9	2	0	1	0	0	0
+SRR33394546	slow_mb_wt_43	slow muscle	43	2	True	42634196	828	344	50	1	1	1	1	11	13	11	12	6	6	1	0	0	0	0	0
+SRR33394558	fast_mb_wt_46_run1	fast muscle	46	2	True	33751108	756	424	115	0	0	0	0	9	15	9	14	8	9	0	0	0	0	0	0
+SRR33394545	slow_mb_wt_46	slow muscle	46	2	True	39688436	657	356	110	0	0	0	0	13	15	11	12	0	4	1	0	1	0	0	0
+SRR33394556	fast_mb_wt_48	fast muscle	48	2	True	41170622	863	490	135	0	0	0	0	5	9	5	8	4	5	1	0	3	0	0	0
+SRR33394561	fast_mb_wt_42_run2	fast muscle	42	2	True	8534726	217	123	42	0	0	0	0	5	7	5	6	1	0	0	0	1	0	0	0
+SRR33394557	fast_mb_wt_46_run2	fast muscle	46	2	True	8845426	155	52	12	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0
+SRR33394547	slow_mb_wt_42_run2	slow muscle	42	2	True	7474508	123	59	15	0	0	0	0	1	1	1	1	2	1	0	0	0	0	0	0
+SRR33394541	ventricle_mb_wt_5	ventricle	5	1	False	21948146	1219	1064	301	12	17	11	17	14	18	13	17	24	22	0	0	0	0	0	2
+SRR33394540	ventricle_mb_wt_6	ventricle	6	2	True	55919264	2620	2234	714	8	9	7	8	34	52	34	51	47	41	0	0	2	0	0	1
+SRR33394539	ventricle_mb_wt_7	ventricle	7	2	True	62628916	2440	2016	677	25	35	25	35	21	30	21	30	34	29	0	0	0	0	0	4
+SRR33394569	ventricle_mb_wt_8	ventricle	8	2	True	71075864	2972	2499	853	29	38	24	36	21	31	19	31	39	46	0	4	1	0	0	7

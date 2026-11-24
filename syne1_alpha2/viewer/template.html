@@ -273,6 +273,7 @@ ol.refs { padding-left: 20px; margin: 0; } ol.refs li { margin-bottom: 6px; }
 .vcard { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px; min-width: 0; }
 .vcard h4 { font-size: 14px; margin-bottom: 6px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
 .vcard .sum { font-size: 13px; margin: 6px 0 0; }
+tr.xhead td { background: var(--surface-2); font-size: 12.5px; padding-top: 10px; }
 .vfunc { background: var(--amber-soft); border-radius: var(--radius); padding: 6px 9px; margin-top: 6px; font-size: 12.5px; line-height: 1.45; }
 .vfunc strong { color: var(--ink); }
 .vp { display: inline-block; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; letter-spacing: 0.02em; white-space: nowrap; }
@@ -1390,6 +1391,26 @@ function rnaseqSVG() {
   s += T(left, gy + 70, `GRCz11 chr20, + strand. Shaded: giant exons (teal) and predicted exon 1α2 (red). Dashed line: 5′ end of exon 1α2 estimated from coverage.`, 'font-size="10.5" fill="var(--ink-3)"');
   return s + '</svg>';
 }
+function crossSpeciesSection() {
+  const X = DATA.rnaseq_cross; if (!X) return '';
+  const order = ['human_heart', 'mouse_c2c12', 'zebrafish_dev', 'zebrafish_adult'].filter(k => X[k]);
+  if (!order.length) return '';
+  const verdict = g => g.alpha2_junction >= 3 ? ['α2 detected', 'var(--good)'] : g.alpha2_junction ? ['trace', 'var(--warn)'] : ['not detected', 'var(--ink-3)'];
+  let rows = '';
+  for (const k of order) {
+    const R = X[k];
+    rows += `<tr class="xhead"><td colspan="7"><b>${esc((R.view.split('_')[0]).replace(/^./, c => c.toUpperCase()))}</b> · ${esc(R.meta.kind)} <span class="muted">— ${esc(R.meta.source)} · α2 donor ${esc(R.coords.alpha2_motif)}, ${R.strand === 1 ? '+' : '−'} strand</span></td></tr>`;
+    for (const g of R.groups) {
+      const [vt, vc] = verdict(g);
+      const ci = g.alpha2_fraction_ci95 && g.alpha2_fraction_ci95[0] != null ? ` <span class="muted">[${pctTxt(g.alpha2_fraction_ci95[0])}–${pctTxt(g.alpha2_fraction_ci95[1])}]</span>` : '';
+      rows += `<tr><td>${esc(g.group)}</td><td class="r">${fmt(g.reads_scanned)}</td><td class="r"><b>${fmt(g.alpha2_junction)}</b> (${fmt(g.alpha2_junction_24mer)})</td><td class="r">${fmt(g.giant_junction)}</td><td class="r">${pctTxt(g.alpha2_fraction)}${ci}</td><td class="r">${g.exon1a2_mean_cov}×</td><td style="color:${vc};font-weight:600">${esc(vt)}</td></tr>`;
+    }
+  }
+  return `<h3 class="section-title">Cross-species and developmental validation</h3>
+  <div class="prose small"><p>The identical method run on public RNA-seq from other species and stages. The <b>giant</b> junction is the internal positive control — detected wherever the locus is expressed; the test is whether the <b>α2</b> junction rides with it. Human heart and mouse myotubes are where nesprin-1α2 is independently known to be made (Holt 2019; Stroud 2017); myoblasts and skeletal muscle are where it should be low.</p></div>
+  <div class="tablewrap"><table><thead><tr><th>Tissue / stage</th><th class="r">Reads</th><th class="r">α2 junction (24-mer)</th><th class="r">Giant</th><th class="r">α2 share (95% CI)</th><th class="r">Exon 1α2 cov</th><th>Verdict</th></tr></thead><tbody>${rows}</tbody></table></div>
+  <p class="small muted prose">α2 share = α2 / (α2 + giant) among fragments entering the shared exon; fragments are duplicate-removed. Full table: <span class="mono">results/rnaseq/crossspecies_groups.tsv</span>. The conserved GC-AG α2 donor is recovered in every species by the splice-aware aligner, independent of strand.</p>`;
+}
 function rnaseqSection() {
   const S = DATA.rnaseq; if (!S) return '';
   const C = S.coords, kj = S.key_junctions;
@@ -1454,6 +1475,7 @@ function renderEvidence() {
     ${rnaseqCard()}
   </div>
   ${rnaseqSection()}
+  ${crossSpeciesSection()}
   <h3 class="section-title">Suggested RT-PCR primers for zebrafish α2</h3>
   <p class="small muted prose">${esc(prim.note)} Positions refer to the predicted α2 mRNA (exon 1α2 starts at position 1; the start codon is at ${prim.atg_mrna}). Any product from genomic DNA would include the ${fmt(prim.first_intron_bp)} bp intron after exon 1α2.</p>
   <div class="tablewrap"><table><thead><tr><th>#</th><th>Forward (5′→3′)</th><th>Tm</th><th>Location</th><th>Reverse (5′→3′)</th><th>Tm</th><th>Location</th><th class="r">cDNA product</th><th></th></tr></thead><tbody>

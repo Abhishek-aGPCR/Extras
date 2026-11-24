@@ -1,0 +1,12 @@
+tissue	fish	runs	reads_scanned	reads_captured	reads_mapped	reads_mapped_duplicate	alpha2_junction	alpha2_junction_raw	alpha2_junction_24mer	alpha2_junction_24mer_raw	giant_junction	giant_junction_raw	giant_junction_24mer	giant_junction_24mer_raw	dv23_in1	dv23_in2	dv23_skip	alpha2_rescued	giant_rescued	junctions_into_alpha2_region	unspliced_through_alpha2_donor	unspliced_through_alpha2_5p_end	alpha2_fraction	dv23_psi
+fast muscle	42	SRR33394562,SRR33394561	46276988	1085	575	139	0	0	0	0	24	28	19	22	3	4	0	0	5	0	0	0	0.0	1.0
+fast muscle	43	SRR33394560	40345318	906	435	114	0	0	0	0	9	10	8	10	15	9	2	0	1	0	0	0	0.0	0.857
+fast muscle	46	SRR33394558,SRR33394557	42596534	911	476	127	0	0	0	0	9	15	9	14	9	10	0	0	0	0	0	0	0.0	1.0
+fast muscle	48	SRR33394556	41170622	863	490	135	0	0	0	0	5	9	5	8	4	5	1	0	3	0	0	0	0.0	0.818
+slow muscle	42	SRR33394549,SRR33394547	44067072	740	364	93	1	1	1	1	7	10	8	9	10	3	1	0	0	0	0	0	0.125	0.867
+slow muscle	43	SRR33394546	42634196	828	344	50	1	1	1	1	11	13	11	12	6	6	1	0	0	0	0	0	0.083	0.857
+slow muscle	46	SRR33394545	39688436	657	356	110	0	0	0	0	13	15	11	12	0	4	1	0	1	0	0	0	0.0	0.667
+ventricle	5	SRR33394541	21948146	1219	1064	301	12	17	11	17	14	18	13	17	24	22	0	0	0	0	0	2	0.462	1.0
+ventricle	6	SRR33394540	55919264	2620	2234	714	8	9	7	8	34	52	34	51	47	41	0	0	2	0	0	1	0.19	1.0
+ventricle	7	SRR33394539	62628916	2440	2016	677	25	35	25	35	21	30	21	30	34	29	0	0	0	0	0	4	0.543	1.0
+ventricle	8	SRR33394569	71075864	2972	2499	853	29	38	24	36	21	31	19	31	39	46	0	4	1	0	0	7	0.58	1.0

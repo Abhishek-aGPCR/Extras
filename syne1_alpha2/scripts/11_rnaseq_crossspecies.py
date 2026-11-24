@@ -271,7 +271,12 @@ def scan(name, max_bytes, workers, chunk, mates=(1, 2)):
             for f in [dl.submit(rj.fetch_range, url, a, b, p) for (a, b), p in zip(ranges, parts)]:
                 f.result()
             print(f"[{name}] {run}_{mate}: {nbytes / 1e6:,.0f} MB in {(time.time() - t0) / 60:.1f} min", flush=True)
-            rj.process_file(run, mate, parts, nbytes == size, size, nbytes)
+            try:
+                rj.process_file(run, mate, parts, nbytes == size, size, nbytes)
+            except Exception as e:
+                print(f"[{name}] {run}_{mate}: processing failed ({str(e)[:120]}); skipping this file", flush=True)
+                for p in parts:
+                    p.unlink(missing_ok=True)
 
 
 def read_hits(name, run):

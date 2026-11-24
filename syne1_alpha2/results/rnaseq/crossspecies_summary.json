@@ -1,0 +1,674 @@
+{
+ "human_heart": {
+  "panel": "human_heart",
+  "meta": {
+   "source": "GEO GSM9484163-165 (healthy adult left ventricle)",
+   "kind": "positive control",
+   "view": "human_SYNE1",
+   "group_order": [
+    "left ventricle (healthy adult)"
+   ]
+  },
+  "view": "human_SYNE1",
+  "strand": -1,
+  "coords": {
+   "assembly": "GRCh38",
+   "chrom": "6",
+   "exon1a2": [
+    152168113,
+    152168312
+   ],
+   "shared": [
+    152164163,
+    152164325
+   ],
+   "alpha2_intron": [
+    152164325,
+    152168113
+   ],
+   "alpha2_motif": "GC-AG",
+   "giant_motif": "GT-AG"
+  },
+  "samples": [
+   {
+    "panel": "human_heart",
+    "run": "SRR37034261",
+    "label": "HC_LV_1",
+    "group": "left ventricle (healthy adult)",
+    "mates": 2,
+    "complete": true,
+    "reads_scanned": 39548908,
+    "reads_captured": 856,
+    "reads_mapped": 756,
+    "alpha2_junction": 3,
+    "alpha2_junction_24mer": 5,
+    "giant_junction": 15,
+    "giant_junction_24mer": 18,
+    "junctions_into_exon1a2": 0,
+    "exon1a2_mean_cov": 7.57,
+    "shared_exon_mean_cov": 34.3
+   },
+   {
+    "panel": "human_heart",
+    "run": "SRR37034259",
+    "label": "HC_LV_2",
+    "group": "left ventricle (healthy adult)",
+    "mates": 2,
+    "complete": true,
+    "reads_scanned": 31342848,
+    "reads_captured": 849,
+    "reads_mapped": 697,
+    "alpha2_junction": 6,
+    "alpha2_junction_24mer": 5,
+    "giant_junction": 12,
+    "giant_junction_24mer": 13,
+    "junctions_into_exon1a2": 0,
+    "exon1a2_mean_cov": 13.65,
+    "shared_exon_mean_cov": 35.43
+   },
+   {
+    "panel": "human_heart",
+    "run": "SRR37034257",
+    "label": "HC_LV_3",
+    "group": "left ventricle (healthy adult)",
+    "mates": 2,
+    "complete": true,
+    "reads_scanned": 35803906,
+    "reads_captured": 1072,
+    "reads_mapped": 951,
+    "alpha2_junction": 10,
+    "alpha2_junction_24mer": 13,
+    "giant_junction": 8,
+    "giant_junction_24mer": 11,
+    "junctions_into_exon1a2": 1,
+    "exon1a2_mean_cov": 23.66,
+    "shared_exon_mean_cov": 48.5
+   }
+  ],
+  "groups": [
+   {
+    "group": "left ventricle (healthy adult)",
+    "n_samples": 3,
+    "reads_scanned": 106695662,
+    "alpha2_junction": 19,
+    "alpha2_junction_24mer": 23,
+    "giant_junction": 35,
+    "giant_junction_24mer": 42,
+    "alpha2_fraction": 0.3519,
+    "alpha2_fraction_ci95": [
+     0.2382,
+     0.4852
+    ],
+    "alpha2_per_10M": 1.781,
+    "giant_per_10M": 3.28,
+    "exon1a2_mean_cov": 14.96,
+    "shared_exon_mean_cov": 39.41,
+    "junctions_into_exon1a2": 1
+   }
+  ]
+ },
+ "mouse_c2c12": {
+  "panel": "mouse_c2c12",
+  "meta": {
+   "source": "PRJEB108758 (C2C12 myoblast vs myotube day 3, polysome RNA-seq)",
+   "kind": "developmental switch + positive control",
+   "view": "mouse_Syne1",
+   "group_order": [
+    "myoblast",
+    "myotube (day 3)"
+   ]
+  },
+  "view": "mouse_Syne1",
+  "strand": -1,
+  "coords": {
+   "assembly": "GRCm39",
+   "chrom": "10",
+   "exon1a2": [
+    5018807,
+    5019054
+   ],
+   "shared": [
+    5011389,
+    5011551
+   ],
+   "alpha2_intron": [
+    5011551,
+    5018807
+   ],
+   "alpha2_motif": "GC-AG",
+   "giant_motif": "GT-AG"
+  },
+  "samples": [
+   {
+    "panel": "mouse_c2c12",
+    "run": "ERR16751628",
+    "label": "myoblast_rep1",
+    "group": "myoblast",
+    "mates": 2,
+    "complete": true,
+    "reads_scanned": 59383734,
+    "reads_captured": 68,
+    "reads_mapped": 48,
+    "alpha2_junction": 0,
+    "alpha2_junction_24mer": 0,
+    "giant_junction": 4,
+    "giant_junction_24mer": 0,
+    "junctions_into_exon1a2": 0,
+    "exon1a2_mean_cov": 0.0,
+    "shared_exon_mean_cov": 4.67
+   },
+   {
+    "panel": "mouse_c2c12",
+    "run": "ERR16749445",
+    "label": "myoblast_rep2",
+    "group": "myoblast",
+    "mates": 2,
+    "complete": true,
+    "reads_scanned": 51235336,
+    "reads_captured": 63,
+    "reads_mapped": 44,
+    "alpha2_junction": 0,
+    "alpha2_junction_24mer": 0,
+    "giant_junction": 1,
+    "giant_junction_24mer": 0,
+    "junctions_into_exon1a2": 0,
+    "exon1a2_mean_cov": 0.0,
+    "shared_exon_mean_cov": 1.99
+   },
+   {
+    "panel": "mouse_c2c12",
+    "run": "ERR16755182",
+    "label": "myotube_d3_rep1",
+    "group": "myotube (day 3)",
+    "mates": 2,
+    "complete": true,
+    "reads_scanned": 60448280,
+    "reads_captured": 750,
+    "reads_mapped": 723,
+    "alpha2_junction": 28,
+    "alpha2_junction_24mer": 29,
+    "giant_junction": 4,
+    "giant_junction_24mer": 0,
+    "junctions_into_exon1a2": 1,
+    "exon1a2_mean_cov": 30.99,
+    "shared_exon_mean_cov": 107.12
+   },
+   {
+    "panel": "mouse_c2c12",
+    "run": "ERR16755183",
+    "label": "myotube_d3_rep2",
+    "group": "myotube (day 3)",
+    "mates": 2,
+    "complete": true,
+    "reads_scanned": 42465566,
+    "reads_captured": 578,
+    "reads_mapped": 555,
+    "alpha2_junction": 19,
+    "alpha2_junction_24mer": 19,
+    "giant_junction": 11,
+    "giant_junction_24mer": 0,
+    "junctions_into_exon1a2": 0,
+    "exon1a2_mean_cov": 22.52,
+    "shared_exon_mean_cov": 70.12
+   }
+  ],
+  "groups": [
+   {
+    "group": "myoblast",
+    "n_samples": 2,
+    "reads_scanned": 110619070,
+    "alpha2_junction": 0,
+    "alpha2_junction_24mer": 0,
+    "giant_junction": 5,
+    "giant_junction_24mer": 0,
+    "alpha2_fraction": 0.0,
+    "alpha2_fraction_ci95": [
+     0.0,
+     0.4345
+    ],
+    "alpha2_per_10M": 0.0,
+    "giant_per_10M": 0.452,
+    "exon1a2_mean_cov": 0.0,
+    "shared_exon_mean_cov": 3.33,
+    "junctions_into_exon1a2": 0
+   },
+   {
+    "group": "myotube (day 3)",
+    "n_samples": 2,
+    "reads_scanned": 102913846,
+    "alpha2_junction": 47,
+    "alpha2_junction_24mer": 48,
+    "giant_junction": 15,
+    "giant_junction_24mer": 0,
+    "alpha2_fraction": 0.7581,
+    "alpha2_fraction_ci95": [
+     0.6385,
+     0.8475
+    ],
+    "alpha2_per_10M": 4.567,
+    "giant_per_10M": 1.458,
+    "exon1a2_mean_cov": 26.75,
+    "shared_exon_mean_cov": 88.62,
+    "junctions_into_exon1a2": 1
+   }
+  ]
+ },
+ "zebrafish_dev": {
+  "panel": "zebrafish_dev",
+  "meta": {
+   "source": "PRJEB98861 (96 hpf / 4 dpf whole wild-type larvae; differentiated skeletal muscle)",
+   "kind": "larval development",
+   "view": "zebrafish_syne1a",
+   "group_order": [
+    "96 hpf / 4 dpf larva"
+   ]
+  },
+  "view": "zebrafish_syne1a",
+  "strand": 1,
+  "coords": {
+   "assembly": "GRCz11",
+   "chrom": "20",
+   "exon1a2": [
+    26341126,
+    26341308
+   ],
+   "shared": [
+    26342757,
+    26342919
+   ],
+   "alpha2_intron": [
+    26341308,
+    26342757
+   ],
+   "alpha2_motif": "GC-AG",
+   "giant_motif": "GT-AG"
+  },
+  "samples": [
+   {
+    "panel": "zebrafish_dev",
+    "run": "ERR15682390",
+    "label": "4dpf_wt_1",
+    "group": "96 hpf / 4 dpf larva",
+    "mates": 2,
+    "complete": true,
+    "reads_scanned": 59253652,
+    "reads_captured": 1857,
+    "reads_mapped": 1019,
+    "alpha2_junction": 2,
+    "alpha2_junction_24mer": 2,
+    "giant_junction": 39,
+    "giant_junction_24mer": 54,
+    "junctions_into_exon1a2": 0,
+    "exon1a2_mean_cov": 12.67,
+    "shared_exon_mean_cov": 118.5
+   }
+  ],
+  "groups": [
+   {
+    "group": "96 hpf / 4 dpf larva",
+    "n_samples": 1,
+    "reads_scanned": 59253652,
+    "alpha2_junction": 2,
+    "alpha2_junction_24mer": 2,
+    "giant_junction": 39,
+    "giant_junction_24mer": 54,
+    "alpha2_fraction": 0.0488,
+    "alpha2_fraction_ci95": [
+     0.0135,
+     0.1614
+    ],
+    "alpha2_per_10M": 0.338,
+    "giant_per_10M": 6.582,
+    "exon1a2_mean_cov": 12.67,
+    "shared_exon_mean_cov": 118.5,
+    "junctions_into_exon1a2": 0
+   }
+  ]
+ },
+ "zebrafish_adult": {
+  "panel": "zebrafish_adult",
+  "meta": {
+   "source": "PRJNA1257549 (adult fast/slow muscle, ventricle)",
+   "kind": "adult tissue",
+   "view": "zebrafish_syne1a",
+   "group_order": [
+    "fast muscle",
+    "slow muscle",
+    "ventricle"
+   ]
+  },
+  "view": "zebrafish_syne1a",
+  "strand": 1,
+  "coords": {
+   "assembly": "GRCz11",
+   "chrom": "20",
+   "exon1a2": [
+    26341126,
+    26341308
+   ],
+   "shared": [
+    26342757,
+    26342919
+   ],
+   "alpha2_intron": [
+    26341308,
+    26342757
+   ],
+   "alpha2_motif": "GC-AG",
+   "giant_motif": "GT-AG"
+  },
+  "samples": [
+   {
+    "panel": "zebrafish_adult",
+    "run": "SRR33394562",
+    "label": "fast_mb_wt_42_run1",
+    "group": "fast muscle",
+    "mates": 2,
+    "complete": true,
+    "reads_scanned": 37742262,
+    "reads_captured": 868,
+    "reads_mapped": 452,
+    "alpha2_junction": 0,
+    "alpha2_junction_24mer": 0,
+    "giant_junction": 15,
+    "giant_junction_24mer": 14,
+    "junctions_into_exon1a2": 0,
+    "exon1a2_mean_cov": 0.0,
+    "shared_exon_mean_cov": 19.37
+   },
+   {
+    "panel": "zebrafish_adult",
+    "run": "SRR33394549",
+    "label": "slow_mb_wt_42_run1",
+    "group": "slow muscle",
+    "mates": 2,
+    "complete": true,
+    "reads_scanned": 36592564,
+    "reads_captured": 617,
+    "reads_mapped": 305,
+    "alpha2_junction": 1,
+    "alpha2_junction_24mer": 1,
+    "giant_junction": 6,
+    "giant_junction_24mer": 7,
+    "junctions_into_exon1a2": 0,
+    "exon1a2_mean_cov": 1.13,
+    "shared_exon_mean_cov": 10.93
+   },
+   {
+    "panel": "zebrafish_adult",
+    "run": "SRR33394560",
+    "label": "fast_mb_wt_43",
+    "group": "fast muscle",
+    "mates": 2,
+    "complete": true,
+    "reads_scanned": 40345318,
+    "reads_captured": 906,
+    "reads_mapped": 435,
+    "alpha2_junction": 0,
+    "alpha2_junction_24mer": 0,
+    "giant_junction": 8,
+    "giant_junction_24mer": 8,
+    "junctions_into_exon1a2": 0,
+    "exon1a2_mean_cov": 0.0,
+    "shared_exon_mean_cov": 18.71
+   },
+   {
+    "panel": "zebrafish_adult",
+    "run": "SRR33394546",
+    "label": "slow_mb_wt_43",
+    "group": "slow muscle",
+    "mates": 2,
+    "complete": true,
+    "reads_scanned": 42634196,
+    "reads_captured": 828,
+    "reads_mapped": 344,
+    "alpha2_junction": 1,
+    "alpha2_junction_24mer": 1,
+    "giant_junction": 11,
+    "giant_junction_24mer": 11,
+    "junctions_into_exon1a2": 0,
+    "exon1a2_mean_cov": 1.24,
+    "shared_exon_mean_cov": 13.29
+   },
+   {
+    "panel": "zebrafish_adult",
+    "run": "SRR33394558",
+    "label": "fast_mb_wt_46_run1",
+    "group": "fast muscle",
+    "mates": 2,
+    "complete": true,
+    "reads_scanned": 33751108,
+    "reads_captured": 756,
+    "reads_mapped": 424,
+    "alpha2_junction": 0,
+    "alpha2_junction_24mer": 0,
+    "giant_junction": 9,
+    "giant_junction_24mer": 9,
+    "junctions_into_exon1a2": 0,
+    "exon1a2_mean_cov": 0.0,
+    "shared_exon_mean_cov": 18.44
+   },
+   {
+    "panel": "zebrafish_adult",
+    "run": "SRR33394545",
+    "label": "slow_mb_wt_46",
+    "group": "slow muscle",
+    "mates": 2,
+    "complete": true,
+    "reads_scanned": 39688436,
+    "reads_captured": 657,
+    "reads_mapped": 356,
+    "alpha2_junction": 0,
+    "alpha2_junction_24mer": 0,
+    "giant_junction": 12,
+    "giant_junction_24mer": 11,
+    "junctions_into_exon1a2": 0,
+    "exon1a2_mean_cov": 0.0,
+    "shared_exon_mean_cov": 12.77
+   },
+   {
+    "panel": "zebrafish_adult",
+    "run": "SRR33394556",
+    "label": "fast_mb_wt_48",
+    "group": "fast muscle",
+    "mates": 2,
+    "complete": true,
+    "reads_scanned": 41170622,
+    "reads_captured": 863,
+    "reads_mapped": 490,
+    "alpha2_junction": 0,
+    "alpha2_junction_24mer": 0,
+    "giant_junction": 4,
+    "giant_junction_24mer": 5,
+    "junctions_into_exon1a2": 0,
+    "exon1a2_mean_cov": 0.0,
+    "shared_exon_mean_cov": 13.25
+   },
+   {
+    "panel": "zebrafish_adult",
+    "run": "SRR33394561",
+    "label": "fast_mb_wt_42_run2",
+    "group": "fast muscle",
+    "mates": 2,
+    "complete": true,
+    "reads_scanned": 8534726,
+    "reads_captured": 217,
+    "reads_mapped": 123,
+    "alpha2_junction": 0,
+    "alpha2_junction_24mer": 0,
+    "giant_junction": 4,
+    "giant_junction_24mer": 5,
+    "junctions_into_exon1a2": 0,
+    "exon1a2_mean_cov": 0.0,
+    "shared_exon_mean_cov": 8.52
+   },
+   {
+    "panel": "zebrafish_adult",
+    "run": "SRR33394557",
+    "label": "fast_mb_wt_46_run2",
+    "group": "fast muscle",
+    "mates": 2,
+    "complete": true,
+    "reads_scanned": 8845426,
+    "reads_captured": 155,
+    "reads_mapped": 52,
+    "alpha2_junction": 0,
+    "alpha2_junction_24mer": 0,
+    "giant_junction": 0,
+    "giant_junction_24mer": 0,
+    "junctions_into_exon1a2": 0,
+    "exon1a2_mean_cov": 0.0,
+    "shared_exon_mean_cov": 1.51
+   },
+   {
+    "panel": "zebrafish_adult",
+    "run": "SRR33394547",
+    "label": "slow_mb_wt_42_run2",
+    "group": "slow muscle",
+    "mates": 2,
+    "complete": true,
+    "reads_scanned": 7474508,
+    "reads_captured": 123,
+    "reads_mapped": 59,
+    "alpha2_junction": 0,
+    "alpha2_junction_24mer": 0,
+    "giant_junction": 1,
+    "giant_junction_24mer": 1,
+    "junctions_into_exon1a2": 0,
+    "exon1a2_mean_cov": 0.0,
+    "shared_exon_mean_cov": 1.4
+   },
+   {
+    "panel": "zebrafish_adult",
+    "run": "SRR33394541",
+    "label": "ventricle_mb_wt_5",
+    "group": "ventricle",
+    "mates": 1,
+    "complete": false,
+    "reads_scanned": 21948146,
+    "reads_captured": 1219,
+    "reads_mapped": 1064,
+    "alpha2_junction": 12,
+    "alpha2_junction_24mer": 11,
+    "giant_junction": 14,
+    "giant_junction_24mer": 13,
+    "junctions_into_exon1a2": 0,
+    "exon1a2_mean_cov": 11.52,
+    "shared_exon_mean_cov": 40.86
+   },
+   {
+    "panel": "zebrafish_adult",
+    "run": "SRR33394540",
+    "label": "ventricle_mb_wt_6",
+    "group": "ventricle",
+    "mates": 2,
+    "complete": true,
+    "reads_scanned": 55919264,
+    "reads_captured": 2620,
+    "reads_mapped": 2234,
+    "alpha2_junction": 8,
+    "alpha2_junction_24mer": 7,
+    "giant_junction": 33,
+    "giant_junction_24mer": 34,
+    "junctions_into_exon1a2": 0,
+    "exon1a2_mean_cov": 11.21,
+    "shared_exon_mean_cov": 89.38
+   },
+   {
+    "panel": "zebrafish_adult",
+    "run": "SRR33394539",
+    "label": "ventricle_mb_wt_7",
+    "group": "ventricle",
+    "mates": 2,
+    "complete": true,
+    "reads_scanned": 62628916,
+    "reads_captured": 2440,
+    "reads_mapped": 2016,
+    "alpha2_junction": 25,
+    "alpha2_junction_24mer": 25,
+    "giant_junction": 21,
+    "giant_junction_24mer": 21,
+    "junctions_into_exon1a2": 0,
+    "exon1a2_mean_cov": 25.75,
+    "shared_exon_mean_cov": 78.28
+   },
+   {
+    "panel": "zebrafish_adult",
+    "run": "SRR33394569",
+    "label": "ventricle_mb_wt_8",
+    "group": "ventricle",
+    "mates": 2,
+    "complete": true,
+    "reads_scanned": 71075864,
+    "reads_captured": 2972,
+    "reads_mapped": 2499,
+    "alpha2_junction": 27,
+    "alpha2_junction_24mer": 24,
+    "giant_junction": 21,
+    "giant_junction_24mer": 19,
+    "junctions_into_exon1a2": 0,
+    "exon1a2_mean_cov": 26.42,
+    "shared_exon_mean_cov": 114.47
+   }
+  ],
+  "groups": [
+   {
+    "group": "fast muscle",
+    "n_samples": 6,
+    "reads_scanned": 170389462,
+    "alpha2_junction": 0,
+    "alpha2_junction_24mer": 0,
+    "giant_junction": 40,
+    "giant_junction_24mer": 41,
+    "alpha2_fraction": 0.0,
+    "alpha2_fraction_ci95": [
+     0.0,
+     0.0876
+    ],
+    "alpha2_per_10M": 0.0,
+    "giant_per_10M": 2.348,
+    "exon1a2_mean_cov": 0.0,
+    "shared_exon_mean_cov": 13.3,
+    "junctions_into_exon1a2": 0
+   },
+   {
+    "group": "slow muscle",
+    "n_samples": 4,
+    "reads_scanned": 126389704,
+    "alpha2_junction": 2,
+    "alpha2_junction_24mer": 2,
+    "giant_junction": 30,
+    "giant_junction_24mer": 30,
+    "alpha2_fraction": 0.0625,
+    "alpha2_fraction_ci95": [
+     0.0173,
+     0.2015
+    ],
+    "alpha2_per_10M": 0.158,
+    "giant_per_10M": 2.374,
+    "exon1a2_mean_cov": 0.59,
+    "shared_exon_mean_cov": 9.6,
+    "junctions_into_exon1a2": 0
+   },
+   {
+    "group": "ventricle",
+    "n_samples": 4,
+    "reads_scanned": 211572190,
+    "alpha2_junction": 72,
+    "alpha2_junction_24mer": 67,
+    "giant_junction": 89,
+    "giant_junction_24mer": 87,
+    "alpha2_fraction": 0.4472,
+    "alpha2_fraction_ci95": [
+     0.3725,
+     0.5243
+    ],
+    "alpha2_per_10M": 3.403,
+    "giant_per_10M": 4.207,
+    "exon1a2_mean_cov": 18.73,
+    "shared_exon_mean_cov": 80.75,
+    "junctions_into_exon1a2": 0
+   }
+  ]
+ }
+}
