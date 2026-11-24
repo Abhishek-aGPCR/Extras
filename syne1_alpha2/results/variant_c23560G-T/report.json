@@ -50,6 +50,8 @@
    "i": 24124,
    "prot_len": 7853
   },
+  "region": "spectrin repeat 68",
+  "function_note": "spectrin repeat — a structural rod unit. A missense is often tolerated; a change that unfolds the repeat, or its in-frame loss, shortens or destabilises the rod.",
   "nmd": {
    "exon": 130,
    "nExons": 146,
@@ -73,7 +75,11 @@
   ],
   "kept_len": 7853,
   "effect": "NMD: mRNA degraded",
-  "summary": "Premature stop (p.Glu7854Ter). PTC 2,591 nt upstream of the last exon-exon junction (exon 130 of 146): nonsense-mediated decay predicted, so little mRNA or protein is expected. Any escaping protein would stop at residue 7,853, losing spectrin repeats 68–74, TM, KASH, LEWD.",
+  "summary": "Premature stop (p.Glu7854Ter). PTC 2,591 nt upstream of the last exon-exon junction (exon 130 of 146): nonsense-mediated decay predicted, so little mRNA or protein is expected. Any escaping protein would stop at residue 7,853, losing spectrin repeats 68–74, TM, KASH, LEWD. Functionally the truncated product loses the nuclear-envelope anchor (KASH and transmembrane domain): it can no longer bind SUN or sit in the membrane, so the LINC complex is broken and the protein mislocalises; loses the LEWD/STAR motif: no kinesin binding, so no MTOC relocation or nuclear positioning.",
+  "function_lost": [
+   "loses the nuclear-envelope anchor (KASH and transmembrane domain): it can no longer bind SUN or sit in the membrane, so the LINC complex is broken and the protein mislocalises",
+   "loses the LEWD/STAR motif: no kinesin binding, so no MTOC relocation or nuclear positioning"
+  ],
   "next_met": 7894
  },
  "alpha2": [
@@ -234,6 +240,8 @@
     "i": 23443,
     "prot_len": 7747
    },
+   "region": "spectrin repeat 68",
+   "function_note": "spectrin repeat — a structural rod unit. A missense is often tolerated; a change that unfolds the repeat, or its in-frame loss, shortens or destabilises the rod.",
    "nmd": {
     "exon": 127,
     "nExons": 144,
@@ -257,7 +265,11 @@
    ],
    "kept_len": 7747,
    "effect": "NMD: mRNA degraded",
-   "summary": "Premature stop (p.Glu7748Ter). PTC 2,588 nt upstream of the last exon-exon junction (exon 127 of 144): nonsense-mediated decay predicted, so little mRNA or protein is expected. Any escaping protein would stop at residue 7,747, losing spectrin repeats 68–74, TM, KASH, LEWD.",
+   "summary": "Premature stop (p.Glu7748Ter). PTC 2,588 nt upstream of the last exon-exon junction (exon 127 of 144): nonsense-mediated decay predicted, so little mRNA or protein is expected. Any escaping protein would stop at residue 7,747, losing spectrin repeats 68–74, TM, KASH, LEWD. Functionally the truncated product loses the nuclear-envelope anchor (KASH and transmembrane domain): it can no longer bind SUN or sit in the membrane, so the LINC complex is broken and the protein mislocalises; loses the LEWD/STAR motif: no kinesin binding, so no MTOC relocation or nuclear positioning.",
+   "function_lost": [
+    "loses the nuclear-envelope anchor (KASH and transmembrane domain): it can no longer bind SUN or sit in the membrane, so the LINC complex is broken and the protein mislocalises",
+    "loses the LEWD/STAR motif: no kinesin binding, so no MTOC relocation or nuclear positioning"
+   ],
    "next_met": 7788
   },
   "alpha2": [
