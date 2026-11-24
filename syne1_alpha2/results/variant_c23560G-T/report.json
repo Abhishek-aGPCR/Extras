@@ -1,0 +1,276 @@
+{
+ "input": "NM_182961.4:c.23560G>T",
+ "genomic": {
+  "chrom": "6",
+  "acc": "NC_000006.12",
+  "assembly": "GRCh38",
+  "start": 152176461,
+  "end": 152176461,
+  "ref": "C",
+  "alt": "A",
+  "type": "sub",
+  "ref_ok": true,
+  "given_ref": "C",
+  "hgvs_g": "NC_000006.12:g.152176461C>A",
+  "vcf": "6-152176461-C-A",
+  "grch37": {
+   "start": 152497596,
+   "end": 152497596
+  },
+  "context": "tgtattcaatct[C>A]agatgctttgct"
+ },
+ "giant": {
+  "id": "NM_182961.4",
+  "name": "transcript variant 1",
+  "category": "giant",
+  "source": "RefSeq",
+  "tags": [
+   "MANE_SELECT"
+  ],
+  "strand": -1,
+  "loc": {
+   "type": "exon",
+   "exon": 129,
+   "i": 24124,
+   "pos": "c.23560"
+  },
+  "hgvs": "c.23560G>T",
+  "where": "exon 130/146",
+  "codon": "GAG>TAG",
+  "codon_pos": 1,
+  "aa_ref": "E",
+  "aa_alt": "*",
+  "prot_pos": 7854,
+  "cds_pos": 23560,
+  "prot_len": 8797,
+  "consequence": "stop_gained",
+  "hgvs_p": "p.Glu7854Ter",
+  "hgvs_p1": "p.E7854*",
+  "ptc": {
+   "i": 24124,
+   "prot_len": 7853
+  },
+  "nmd": {
+   "exon": 130,
+   "nExons": 146,
+   "distToLastEJ": 2591,
+   "cdsOffset": 23559,
+   "exonLen": 167,
+   "verdict": "NMD",
+   "rule": "PTC 2,591 nt upstream of the last exon-exon junction (exon 130 of 146)"
+  },
+  "lost": [
+   "part of SR68",
+   "SR69",
+   "SR70",
+   "SR71",
+   "SR72",
+   "SR73",
+   "SR74",
+   "TM",
+   "KASH",
+   "LEWD"
+  ],
+  "kept_len": 7853,
+  "effect": "NMD: mRNA degraded",
+  "summary": "Premature stop (p.Glu7854Ter). PTC 2,591 nt upstream of the last exon-exon junction (exon 130 of 146): nonsense-mediated decay predicted, so little mRNA or protein is expected. Any escaping protein would stop at residue 7,853, losing spectrin repeats 68–74, TM, KASH, LEWD.",
+  "next_met": 7894
+ },
+ "alpha2": [
+  {
+   "id": "NM_001347702.2",
+   "effect": "not in this mRNA",
+   "where": "8,149 bp upstream of the transcription start"
+  },
+  {
+   "id": "ENST00000354674.5",
+   "effect": "not in this mRNA",
+   "where": "8,149 bp upstream of the transcription start"
+  },
+  {
+   "id": "ENST00000539504.5",
+   "effect": "not in this mRNA",
+   "where": "8,097 bp upstream of the transcription start"
+  }
+ ],
+ "counts": {
+  "nesprin-1α2 (muscle) · not in this mRNA": 3,
+  "giant · PTC, NMD predicted": 51,
+  "other · PTC, NMD predicted": 4,
+  "N-terminal · not in this mRNA": 11,
+  "other · not in this mRNA": 12
+ },
+ "orthologs": [
+  {
+   "view": "human_SYNE1",
+   "species": "Human",
+   "symbol": "SYNE1",
+   "assembly": "GRCh38",
+   "chrom": "6",
+   "transcript": "NM_182961.4",
+   "aa": "E",
+   "pos": 7854,
+   "codon": "GAG",
+   "exon": 130,
+   "nExons": 146,
+   "gStart": 152176459,
+   "gEnd": 152176461,
+   "strand": -1,
+   "self": true
+  },
+  {
+   "view": "mouse_Syne1",
+   "species": "Mouse",
+   "symbol": "Syne1",
+   "assembly": "GRCm39",
+   "chrom": "10",
+   "transcript": "NM_001347732.2",
+   "aa": "E",
+   "pos": 7836,
+   "codon": "GAG",
+   "exon": 129,
+   "nExons": 146,
+   "gStart": 5022102,
+   "gEnd": 5022104,
+   "strand": -1,
+   "self": false
+  },
+  {
+   "view": "rat_Syne1",
+   "species": "Rat",
+   "symbol": "Syne1",
+   "assembly": "GRCr8",
+   "chrom": "1",
+   "transcript": "NM_001419849.1",
+   "aa": "E",
+   "pos": 7857,
+   "codon": "GAG",
+   "exon": 129,
+   "nExons": 146,
+   "gStart": 43968012,
+   "gEnd": 43968014,
+   "strand": -1,
+   "self": false
+  },
+  {
+   "view": "zebrafish_syne1a",
+   "species": "Zebrafish",
+   "symbol": "syne1a",
+   "assembly": "GRCz11",
+   "chrom": "20",
+   "transcript": "ENSDART00000139350.4",
+   "aa": "E",
+   "pos": 7748,
+   "codon": "GAA",
+   "exon": 127,
+   "nExons": 144,
+   "gStart": 26339444,
+   "gEnd": 26339446,
+   "strand": 1,
+   "self": false
+  },
+  {
+   "view": "zebrafish_syne1b",
+   "species": "Zebrafish",
+   "symbol": "syne1b",
+   "assembly": "GRCz11",
+   "chrom": "17",
+   "transcript": "ENSDART00000148520.3",
+   "aa": "D",
+   "pos": 7766,
+   "codon": "GAC",
+   "exon": 127,
+   "nExons": 143,
+   "gStart": 7888369,
+   "gEnd": 7888371,
+   "strand": -1,
+   "self": false
+  }
+ ],
+ "zebrafish": {
+  "input": "p.Glu7748*",
+  "genomic": {
+   "chrom": "20",
+   "acc": "NC_007131.7",
+   "assembly": "GRCz11",
+   "start": 26339444,
+   "end": 26339444,
+   "ref": "G",
+   "alt": "T",
+   "type": "sub",
+   "ref_ok": null,
+   "hgvs_g": "NC_007131.7:g.26339444G>T",
+   "vcf": "20-26339444-G-T",
+   "context": "agcaaagctgca[G>T]aaatccagtaca"
+  },
+  "giant": {
+   "id": "ENSDART00000139350.4",
+   "name": "syne1a-201",
+   "category": "giant",
+   "source": "Ensembl",
+   "tags": [
+    "Ensembl canonical"
+   ],
+   "strand": 1,
+   "loc": {
+    "type": "exon",
+    "exon": 126,
+    "i": 23443,
+    "pos": "c.23242"
+   },
+   "hgvs": "c.23242G>T",
+   "where": "exon 127/144",
+   "codon": "GAA>TAA",
+   "codon_pos": 1,
+   "aa_ref": "E",
+   "aa_alt": "*",
+   "prot_pos": 7748,
+   "cds_pos": 23242,
+   "prot_len": 8697,
+   "consequence": "stop_gained",
+   "hgvs_p": "p.Glu7748Ter",
+   "hgvs_p1": "p.E7748*",
+   "ptc": {
+    "i": 23443,
+    "prot_len": 7747
+   },
+   "nmd": {
+    "exon": 127,
+    "nExons": 144,
+    "distToLastEJ": 2588,
+    "cdsOffset": 23241,
+    "exonLen": 167,
+    "verdict": "NMD",
+    "rule": "PTC 2,588 nt upstream of the last exon-exon junction (exon 127 of 144)"
+   },
+   "lost": [
+    "part of SR68",
+    "SR69",
+    "SR70",
+    "SR71",
+    "SR72",
+    "SR73",
+    "SR74",
+    "TM",
+    "KASH",
+    "LEWD"
+   ],
+   "kept_len": 7747,
+   "effect": "NMD: mRNA degraded",
+   "summary": "Premature stop (p.Glu7748Ter). PTC 2,588 nt upstream of the last exon-exon junction (exon 127 of 144): nonsense-mediated decay predicted, so little mRNA or protein is expected. Any escaping protein would stop at residue 7,747, losing spectrin repeats 68–74, TM, KASH, LEWD.",
+   "next_met": 7788
+  },
+  "alpha2": [
+   {
+    "id": "syne1a-alpha2-pred-plusDV23-GRCz11",
+    "effect": "not in this mRNA",
+    "where": "1,682 bp upstream of the transcription start"
+   },
+   {
+    "id": "syne1a-alpha2-pred-minusDV23-GRCz11",
+    "effect": "not in this mRNA",
+    "where": "1,682 bp upstream of the transcription start"
+   }
+  ]
+ }
+}

@@ -1,0 +1,167 @@
+{
+ "variant": "NM_182961.4:c.23560G>T",
+ "literature": [
+  {
+   "ref": "Holt et al. 2016, BMC Cell Biol 17:26",
+   "doi": "10.1186/s12860-016-0105-9",
+   "says": "Immortalised myoblasts of a 16-year-old congenital muscular dystrophy patient, homozygous 'SYNE1 c.23560 G>T, p.Glu7854*' (paravertebral muscle), also written 'Nucleotide: 23560 gaa to taa; Protein: E7854X'. In patient cells nesprin-1-giant mRNA was 78% lower (myoblasts and myotubes) and nesprin-1-\u03b12 mRNA 85% lower in myotubes than the mean of five controls; neither isoform was detected by immunofluorescence; myotube formation and CKM/desmin induction were normal. The authors note that the stop codon lies 5\u2032 to the \u03b12 first exon and found no simple explanation for the \u03b12 decrease.",
+   "check": "c.23560G>T and p.Glu7854* agree with NM_182961.3/.4. The codon is GAG, not 'gaa' as written in the methods: the change is GAG>TAG (amber stop). No known SNP makes the codon GAA, so this is most likely a typo; the protein consequence is the same. Data come from one patient line (n=1 donor) against five controls, so a line effect on \u03b12 cannot be excluded."
+  },
+  {
+   "ref": "Gimpel et al. 2017, Curr Biol 27:2999",
+   "doi": "10.1016/j.cub.2017.08.031",
+   "says": "Same immortalised patient line ('homozygous nonsense mutation within the SYNE1 gene, nucleotide 23560 G>T'): nesprin-1 isoforms absent from the nuclear envelope, Pericentrin/AKAP450/PCM1 mislocalised, microtubule nucleation from the nucleus lost and nuclear spreading reduced.",
+   "check": "Gives no transcript version; the number only matches NM_182961 coding (c.) numbering, consistent with the verification below. The original clinical report is cited as reference 16, which the PMC full text did not include and PubMed searches for E7854X / c.23560G>T did not find."
+  },
+  {
+   "ref": "Attali et al. 2009, Hum Mol Genet 18:3462",
+   "doi": "10.1093/hmg/ddp290",
+   "says": "Autosomal recessive arthrogryposis caused by a SYNE1 intron 136 splice-acceptor mutation (A>G) with intron retention.",
+   "check": "A different SYNE1 mutation; not c.23560G>T. Listed to avoid confusing the two."
+  },
+  {
+   "ref": "Baumann et al. 2017, Eur J Hum Genet 25:262",
+   "doi": "10.1038/ejhg.2016.144",
+   "says": "Homozygous nonsense variant in the last exon of full-length SYNE1 (distal arthrogryposis); the mutant mRNA was expressed at wild-type levels.",
+   "check": "A different variant, but a useful contrast: a stop in the last exon escapes NMD exactly as the 50-55 nt rule predicts, whereas c.23560G>T lies 16 exons upstream of the last exon."
+  }
+ ],
+ "NM_182961.3": {
+  "cds": [
+   603,
+   26996
+  ],
+  "cds_len": 26394,
+  "mrna_pos": 24162,
+  "ref_base": "G",
+  "codon_number": 7854,
+  "codon": "GAG",
+  "codon_pos": 1,
+  "mutant_codon": "TAG",
+  "aa_ref": "E",
+  "aa_alt": "*",
+  "protein_aa": "E",
+  "context": "caaagcatct[G]agattgaata"
+ },
+ "NM_182961.4": {
+  "cds": [
+   566,
+   26959
+  ],
+  "cds_len": 26394,
+  "mrna_pos": 24125,
+  "ref_base": "G",
+  "codon_number": 7854,
+  "codon": "GAG",
+  "codon_pos": 1,
+  "mutant_codon": "TAG",
+  "aa_ref": "E",
+  "aa_alt": "*",
+  "protein_aa": "E",
+  "context": "caaagcatct[G]agattgaata"
+ },
+ "cds_identical_v3_v4": true,
+ "own_mapping": {
+  "exon": 130,
+  "n_exons": 146,
+  "exon_coords": [
+   152176394,
+   152176560
+  ],
+  "exon_len": 167,
+  "grch38": 152176461,
+  "from_exon_5p": 100,
+  "to_exon_3p": 67,
+  "plus_strand_ref": "C",
+  "transcript_ref": "G",
+  "plus_strand_alt": "A",
+  "hgvs_g": "NC_000006.12:g.152176461C>A"
+ },
+ "ensembl_variant_recoder": {
+  "hgvsg": [
+   "NC_000006.12:g.152176461C>A",
+   "LRG_427:g.465939G>T"
+  ],
+  "ids": [
+   "COSV54914060"
+  ],
+  "hgvsp_examples": [
+   "ENSP00000356224.5:p.Glu7854Ter",
+   "NP_001334630.1:p.Glu56Ter",
+   "NP_149062.2:p.Glu7783Ter",
+   "NP_892006.3:p.Glu7854Ter"
+  ]
+ },
+ "ensembl_vep": {
+  "most_severe": "stop_gained",
+  "seq_region": "6",
+  "start": 152176461,
+  "allele_string": "G/T",
+  "colocated": [
+   "COSV54914060"
+  ],
+  "refseq_transcripts": [
+   {
+    "transcript": "NM_001347701.2",
+    "consequence": [
+     "stop_gained"
+    ],
+    "exon": "3/18",
+    "codons": "Gag/Tag",
+    "hgvsc": "NM_001347701.2:c.166G>T",
+    "hgvsp": "NP_001334630.1:p.Glu56Ter"
+   },
+   {
+    "transcript": "NM_033071.5",
+    "consequence": [
+     "stop_gained"
+    ],
+    "exon": "129/146",
+    "codons": "Gag/Tag",
+    "hgvsc": "NM_033071.5:c.23347G>T",
+    "hgvsp": "NP_149062.2:p.Glu7783Ter"
+   },
+   {
+    "transcript": "NM_182961.4",
+    "consequence": [
+     "stop_gained"
+    ],
+    "exon": "130/146",
+    "codons": "Gag/Tag",
+    "hgvsc": "NM_182961.4:c.23560G>T",
+    "hgvsp": "NP_892006.3:p.Glu7854Ter"
+   }
+  ]
+ },
+ "grch37": 152497596,
+ "known_variants_in_codon": [
+  {
+   "id": "rs894257787",
+   "pos": 152176459,
+   "alleles": [
+    "C",
+    "A"
+   ],
+   "clinical_significance": [
+    "uncertain significance"
+   ],
+   "consequence": "missense_variant"
+  }
+ ],
+ "clinvar": {
+  "exact_searches": {
+   "\"NM_182961.4:c.23560G>T\"": [],
+   "SYNE1[gene] AND \"p.Glu7854Ter\"": [],
+   "6[chr] AND 152176461[chrpos38]": []
+  },
+  "same_codon_records": [
+   {
+    "uid": "500407",
+    "title": "NM_182961.4(SYNE1):c.23562G>T (p.Glu7854Asp)",
+    "classification": "Uncertain significance",
+    "review": "criteria provided, multiple submitters, no conflicts"
+   }
+  ],
+  "verdict": "not in ClinVar"
+ }
+}

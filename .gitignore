@@ -2,3 +2,4 @@
 syne1_alpha2/data/cache/
 __pycache__/
 *.pyc
+syne1_alpha2/data/viewer_data.json

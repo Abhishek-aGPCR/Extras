@@ -268,6 +268,20 @@ ol.refs { padding-left: 20px; margin: 0; } ol.refs li { margin-bottom: 6px; }
   padding: 8px 12px; border-radius: var(--radius); font-size: 13px; box-shadow: 0 6px 20px rgba(0,0,0,.2); }
 .copyfallback { position: fixed; inset: 10% 10% auto 10%; z-index: 30; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px; box-shadow: 0 8px 30px rgba(0,0,0,.25); }
 .copyfallback textarea { width: 100%; height: 200px; font-family: var(--font-mono); font-size: 12px; }
+/* ---------- variant effect ---------- */
+.vgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 10px; }
+.vcard { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px; min-width: 0; }
+.vcard h4 { font-size: 14px; margin-bottom: 6px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.vcard .sum { font-size: 13px; margin: 6px 0 0; }
+.vp { display: inline-block; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; letter-spacing: 0.02em; white-space: nowrap; }
+.vp.red { background: color-mix(in srgb, #c62828 18%, var(--surface)); color: var(--accent-strong); }
+.vp.amber { background: var(--amber-soft); color: var(--amber); }
+.vp.green { background: color-mix(in srgb, var(--good) 18%, var(--surface)); color: var(--good); }
+.vp.grey { background: var(--surface-2); color: var(--ink-2); }
+.figcard { background: #ffffff; border: 1px solid var(--line); border-radius: var(--radius); padding: 8px; overflow-x: auto; }
+.figcard svg { display: block; width: 100%; min-width: 760px; height: auto; }
+details.alltx > summary { cursor: pointer; font-weight: 600; padding: 6px 0; }
+.lit td { white-space: normal; vertical-align: top; min-width: 200px; }
 @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; transition: none !important; } }
 </style>
 </head>
@@ -309,6 +323,7 @@ ol.refs { padding-left: 20px; margin: 0; } ol.refs li { margin-bottom: 6px; }
       <button role="tab" id="t-exons" aria-controls="tab-exons" aria-selected="false" data-tab="exons">Exons</button>
       <button role="tab" id="t-alignments" aria-controls="tab-alignments" aria-selected="false" data-tab="alignments">Alignments</button>
       <button role="tab" id="t-aligner" aria-controls="tab-aligner" aria-selected="false" data-tab="aligner">Pairwise aligner</button>
+      <button role="tab" id="t-variant" aria-controls="tab-variant" aria-selected="false" data-tab="variant">Variant effect</button>
       <button role="tab" id="t-evidence" aria-controls="tab-evidence" aria-selected="false" data-tab="evidence">Zebrafish α2 evidence</button>
     </nav>
 
@@ -421,6 +436,25 @@ ol.refs { padding-left: 20px; margin: 0; } ol.refs li { margin-bottom: 6px; }
       <div class="pairout" id="pairOut">Running the example alignment…</div>
     </section>
 
+    <!-- Variant effect -->
+    <section class="tabpanel" id="tab-variant" role="tabpanel" aria-labelledby="t-variant" hidden>
+      <div class="panel">
+        <h2>Variant effect on every isoform</h2>
+        <div class="fieldrow">
+          <div class="field"><label for="vView">Gene and assembly</label><select id="vView"></select></div>
+          <div class="field"><label for="vTx">Isoform for c. / n. / p. / exon input</label><select id="vTx"></select></div>
+        </div>
+        <div class="fieldrow" style="margin-top:8px">
+          <div class="field" style="flex:4 1 320px"><label for="vInput">Variant</label>
+            <input id="vInput" type="text" autocomplete="off" spellcheck="false" placeholder="c.23560G>T · NM_182961.4:c.23560G>T · chr6:152176461C>A · 6-152176461-C-A · p.Glu7854* · E7854X · exon 130:100G>T"></div>
+          <div class="field" style="flex:0 0 auto;justify-content:flex-end"><button class="btn primary" id="vRun" type="button">Analyse</button></div>
+        </div>
+        <div class="toolbar" id="vExamples" style="margin-top:8px"></div>
+        <p class="small muted prose" style="margin:8px 0 0">Accepted: coding <span class="mono">c.</span> (exonic, intronic <span class="mono">c.123+5G&gt;A</span>, UTR <span class="mono">c.-12</span> / <span class="mono">c.*30</span>), transcript <span class="mono">n.</span>, genomic <span class="mono">g.</span> / <span class="mono">chr:pos ref&gt;alt</span> / VCF <span class="mono">6-152176461-C-A</span>, protein <span class="mono">p.</span> (one- or three-letter codes) and <span class="mono">exon N:position</span>. Substitutions, <span class="mono">del</span>, <span class="mono">dup</span>, <span class="mono">ins</span> and <span class="mono">delins</span>. Genomic input is on the + strand of the selected assembly.</p>
+      </div>
+      <div id="vOut"></div>
+    </section>
+
     <!-- Evidence -->
     <section class="tabpanel" id="tab-evidence" role="tabpanel" aria-labelledby="t-evidence" hidden>
       <div id="evidence"></div>
@@ -430,6 +464,7 @@ ol.refs { padding-left: 20px; margin: 0; } ol.refs li { margin-bottom: 6px; }
 <div class="toast" id="toast" hidden></div>
 
 <script id="app-data" type="application/json">__DATA_JSON__</script>
+<script>/*__VARIANT_ENGINE__*/</script>
 <script>
 (function () {
 'use strict';
@@ -600,6 +635,7 @@ function setTab(name, push = true) {
   if (name === 'exons' && exonsDirty) renderExons();
   if (name === 'alignments') renderAlignment();
   if (name === 'evidence' && !evidenceDone) renderEvidence();
+  if (name === 'variant') initVariant();
 }
 $$('.tabs [role="tab"]').forEach(b => b.addEventListener('click', () => setTab(b.dataset.tab)));
 window.addEventListener('hashchange', () => { const h = location.hash.slice(1); if (h && $('#tab-' + h)) setTab(h, false); });
@@ -1347,6 +1383,143 @@ function renderEvidence() {
   $$('[data-copyp]').forEach(b => b.addEventListener('click', () => { const p = prim.pairs[+b.dataset.copyp]; copyText(`>syne1a_alpha2_F${+b.dataset.copyp + 1}\n${p.forward.seq}\n>syne1a_alpha2_R${+b.dataset.copyp + 1}\n${p.reverse.seq}\n`, 'Primers'); }));
   $$('[data-dl]').forEach(b => b.addEventListener('click', () => { const d = R.downloads[+b.dataset.dl]; copyText(d.fasta, d.label); }));
   $('#bedCopy').onclick = () => copyText(R.bed, 'BED track');
+}
+
+/* =====================================================================
+   variant effect
+   ===================================================================== */
+const VE = window.VariantEngine;
+const VSTATE = { view: 'human_SYNE1', tx: null, done: false, last: null };
+function vPill(r) {
+  if (!r) return '';
+  if (r.effect === 'not in this mRNA') return '<span class="vp green">not in this mRNA</span>';
+  if (r.nmd) return r.nmd.verdict === 'NMD' ? '<span class="vp red">PTC · NMD predicted</span>' : r.nmd.verdict === 'possible escape' ? '<span class="vp amber">PTC · may escape NMD</span>' : '<span class="vp amber">PTC · escapes NMD</span>';
+  if (/splice_donor|splice_acceptor|start_lost|frameshift|stop_lost/.test(r.consequence || '')) return `<span class="vp red">${esc((r.consequence || '').replace(/_/g, ' '))}</span>`;
+  if (/missense|inframe|splice_region/.test(r.consequence || '')) return `<span class="vp amber">${esc((r.consequence || '').replace(/_variant/, '').replace(/_/g, ' '))}</span>`;
+  return `<span class="vp grey">${esc((r.consequence || r.effect || '').replace(/_variant/, '').replace(/_/g, ' '))}</span>`;
+}
+function fillVTx() {
+  const v = VIEW[VSTATE.view];
+  $('#vTx').innerHTML = CAT_ORDER.map(cat => { const items = v.transcripts.filter(t => t.category === cat); if (!items.length) return '';
+    return `<optgroup label="${esc(CAT_LABEL[cat])}">` + items.map(t => `<option value="${esc(t.id)}">${esc(t.predicted ? t.name : t.id)}${t.id === v.giant_ref ? ' (reference giant)' : ''}</option>`).join('') + '</optgroup>'; }).join('');
+  if (!VSTATE.tx || !v.txById[VSTATE.tx]) VSTATE.tx = v.giant_ref;
+  $('#vTx').value = VSTATE.tx;
+}
+const V_EXAMPLES = [
+  { label: 'Human c.23560G>T (E7854X)', view: 'human_SYNE1', tx: 'NM_182961.4', input: 'NM_182961.4:c.23560G>T' },
+  { label: 'Same, genomic', view: 'human_SYNE1', tx: 'NM_182961.4', input: 'chr6:152176461C>A' },
+  { label: 'Same, protein', view: 'human_SYNE1', tx: 'NM_182961.4', input: 'p.Glu7854*' },
+  { label: 'Human α2 exon 1α2 donor (c.92+1G>A)', view: 'human_SYNE1', tx: 'NM_001347702.2', input: 'NM_001347702.2:c.92+1G>A' },
+  { label: 'Zebrafish syne1a equivalent of E7854X', zf: true },
+  { label: 'Zebrafish α2 start codon (c.1A>G)', view: 'zebrafish_syne1a', tx: 'syne1a-alpha2-pred-plusDV23-GRCz11', input: 'c.1A>G' },
+];
+function initVariant() {
+  if (VSTATE.done) return; VSTATE.done = true;
+  $('#vView').innerHTML = VIEWS.map(v => `<option value="${v.key}">${esc(v.species)} ${esc(v.symbol)} (${esc(v.assembly)})</option>`).join('');
+  $('#vView').value = VSTATE.view; fillVTx();
+  $('#vView').addEventListener('change', e => { VSTATE.view = e.target.value; VSTATE.tx = null; fillVTx(); });
+  $('#vTx').addEventListener('change', e => { VSTATE.tx = e.target.value; });
+  $('#vRun').addEventListener('click', runVariant);
+  $('#vInput').addEventListener('keydown', e => { if (e.key === 'Enter') runVariant(); });
+  $('#vExamples').innerHTML = '<span class="small muted">Examples:</span>' + V_EXAMPLES.map((x, i) => `<button class="btn small" type="button" data-vex="${i}">${esc(x.label)}</button>`).join('');
+  $$('#vExamples [data-vex]').forEach(b => b.addEventListener('click', () => {
+    let x = V_EXAMPLES[+b.dataset.vex];
+    if (x.zf) { const h = VE.analyse(DATA, VIEW.human_SYNE1, 'NM_182961.4:c.23560G>T', { tx: 'NM_182961.4' });
+      const o = (h.variants && h.variants[0].orthologs || []).find(o => o.view === 'zebrafish_syne1a' && !o.gap);
+      if (!o) { toast('No aligned zebrafish residue'); return; }
+      x = { view: 'zebrafish_syne1a', tx: VIEW.zebrafish_syne1a.giant_ref, input: `p.${VE.AA3[o.aa]}${o.pos}*` }; }
+    VSTATE.view = x.view; VSTATE.tx = x.tx; $('#vView').value = x.view; fillVTx(); $('#vInput').value = x.input; runVariant();
+  }));
+  $('#vInput').value = 'NM_182961.4:c.23560G>T'; runVariant();
+}
+function runVariant() {
+  const v = VIEW[VSTATE.view]; const input = $('#vInput').value;
+  let A; try { A = VE.analyse(DATA, v, input, { tx: VSTATE.tx }); } catch (e) { A = { error: 'Analysis failed: ' + e.message }; }
+  VSTATE.last = { A, v }; renderVariant(A, v);
+}
+function renderVariant(A, v) {
+  if (A.error) { $('#vOut').innerHTML = `<div class="notice">${esc(A.error)}</div>` + ((A.notes || []).length ? `<div class="notice" style="margin-top:8px">${A.notes.map(esc).join('<br>')}</div>` : ''); return; }
+  let h = (A.notes || []).length ? `<div class="notice">${A.notes.map(esc).join('<br>')}</div>` : '';
+  A.variants.forEach((r, n) => { h += variantBlock(A, v, r, n); });
+  $('#vOut').innerHTML = h;
+  $$('[data-vsave]').forEach(b => b.addEventListener('click', () => {
+    const [n, kind] = b.dataset.vsave.split(':'); const svg = $('#vfig' + n).innerHTML; const base = 'SYNE1_variant_' + (A.input || 'figure').replace(/[^\w.+-]+/g, '_').slice(0, 60);
+    if (kind === 'svg') saveText(base + '.svg', svg);
+    else if (kind === 'copy') copyText(svg, 'SVG');
+    else savePNG(svg, base + '.png');
+  }));
+  $$('[data-vorth]').forEach(b => b.addEventListener('click', () => {
+    const [key, inp] = b.dataset.vorth.split('|'); VSTATE.view = key; VSTATE.tx = VIEW[key].giant_ref; $('#vView').value = key; fillVTx(); $('#vInput').value = inp; runVariant(); window.scrollTo({ top: $('#tab-variant').offsetTop - 10 });
+  }));
+}
+function savePNG(svg, name) {
+  try {
+    const img = new Image(); const url = URL.createObjectURL(new Blob([svg], { type: 'image/svg+xml' }));
+    img.onload = () => { const sc = 2, c = document.createElement('canvas'); c.width = img.width * sc; c.height = img.height * sc;
+      const ctx = c.getContext('2d'); ctx.scale(sc, sc); ctx.drawImage(img, 0, 0); URL.revokeObjectURL(url);
+      c.toBlob(b => { const a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = name; document.body.appendChild(a); a.click(); a.remove(); }, 'image/png'); };
+    img.onerror = () => toast('PNG export failed; use Save SVG'); img.src = url;
+  } catch (e) { toast('PNG export failed; use Save SVG'); }
+}
+function variantBlock(A, v, r, n) {
+  const g = r.genomic, human = v.species === 'Human';
+  const refTxt = g.ref_ok === false ? '<span class="vp red">reference mismatch</span>' : g.ref_ok ? '<span class="vp green">reference allele matches the genome</span>' : '<span class="vp grey">reference read from the genome</span>';
+  const links = browserLinks(v, Math.max(v.region.start, g.start - 30), g.end + 30).map(l => linkHTML(l)).join(' ');
+  const extra = human && g.type === 'sub' ? linkHTML({ label: 'ClinVar', href: `https://www.ncbi.nlm.nih.gov/clinvar/?term=${encodeURIComponent(v.chrom_acc + ':g.' + g.start + g.ref + '>' + g.alt)}` }) + ' ' +
+    linkHTML({ label: 'gnomAD', href: `https://gnomad.broadinstitute.org/variant/${v.chrom}-${g.start}-${g.ref}-${g.alt}?dataset=gnomad_r4` }) : '';
+  let h = `<div class="vgrid" style="margin-top:12px">
+    <div class="vcard"><h4>Variant ${A.variants.length > 1 ? n + 1 + ' of ' + A.variants.length : ''} ${refTxt}</h4>
+      <dl class="kv"><dt>Assembly</dt><dd>${esc(v.species)} ${esc(v.assembly)} (${esc(v.chrom_acc || 'chr' + v.chrom)})</dd>
+      <dt>+ strand</dt><dd class="mono">chr${esc(v.chrom)}:${fmt(g.start)}${g.end > g.start ? '-' + fmt(g.end) : ''} ${esc(g.ref || '')}${g.alt != null ? '&gt;' + esc(g.alt || '-') : ''}</dd>
+      ${g.hgvs_g ? `<dt>HGVS</dt><dd class="mono">${esc(g.hgvs_g)}</dd>` : ''}
+      ${g.grch37 ? `<dt>GRCh37</dt><dd class="mono">chr${esc(v.chrom)}:${fmt(g.grch37.start)} ${esc(g.ref || '')}${g.alt != null ? '&gt;' + esc(g.alt) : ''} <span class="muted small">(constant offset over the locus, Ensembl assembly mapper)</span></dd>` : ''}
+      ${g.vcf ? `<dt>VCF</dt><dd class="mono">${esc(g.vcf)}</dd>` : ''}
+      ${r.from_protein ? `<dt>Codon change</dt><dd class="mono">${esc(r.from_protein)}</dd>` : ''}
+      <dt>Context</dt><dd class="mono small">${esc(g.context)}</dd></dl>
+      <div class="toolbar" style="margin-top:8px">${links} ${extra}</div></div>`;
+  const key = []; if (r.giant) key.push(r.giant); (r.alpha2 || []).forEach(x => key.push(x));
+  const rank = x => (x.ptc ? 0 : /missense|frameshift|splice_donor|splice_acceptor|inframe|start_lost|stop_lost/.test(x.consequence || '') ? 1 : 2) * 10 + (/^NM_/.test(x.id) ? 0 : /^XM_/.test(x.id) ? 1 : 2);
+  r.per.filter(x => !key.includes(x) && x.effect !== 'not in this mRNA' && x.loc.type === 'exon').sort((a, b) => rank(a) - rank(b)).slice(0, 4).forEach(x => key.push(x));
+  for (const x of key) {
+    const t = v.txById[x.id];
+    h += `<div class="vcard"><h4><span class="mono">${esc(t.predicted ? t.name : x.id)}</span>${vPill(x)}</h4>
+      <div class="small muted">${esc(CAT_LABEL[x.category] || x.category)}${t.isoform_name ? ' · ' + esc(t.isoform_name) : ''} · ${esc(x.where || '')}</div>
+      <div class="mono small" style="margin-top:4px">${esc(x.hgvs || '')}${x.hgvs_p ? ' · ' + esc(x.hgvs_p) : ''}${x.codon ? ' · ' + esc(x.codon) : ''}</div>
+      <p class="sum">${esc(x.summary || '')}${x.next_met ? ` Next in-frame Met: residue ${fmt(x.next_met)}.` : ''}${x.skip ? ' Exon-skipping outcome: ' + esc(x.skip.text) + '.' : ''}</p></div>`;
+  }
+  h += '</div>';
+  if (A.variants.length === 1 || n === 0) {
+    let svg = ''; try { svg = VE.figureSVG(DATA, v, r, { source: DATA.built_text }); } catch (e) { svg = `<p class="small">Figure failed: ${esc(e.message)}</p>`; }
+    h += `<div class="toolbar" style="margin-top:12px"><strong>Scheme</strong><button class="btn small" type="button" data-vsave="${n}:svg">Save SVG</button><button class="btn small" type="button" data-vsave="${n}:png">Save PNG</button><button class="btn small" type="button" data-vsave="${n}:copy">Copy SVG</button></div>
+      <div class="figcard" id="vfig${n}" style="margin-top:6px">${svg}</div>`;
+  }
+  if (r.orthologs && r.orthologs.length) {
+    h += `<h3 class="section-title" style="margin-top:14px">Same residue in the other species (giant isoform alignment)</h3><div class="tablewrap"><table><thead><tr><th>Species</th><th>Gene</th><th>Residue</th><th>Codon</th><th>Exon (giant model)</th><th>Genomic codon</th><th></th></tr></thead><tbody>` +
+      r.orthologs.map(o => o.gap ? `<tr><td>${esc(o.species)}</td><td class="gene">${esc(o.symbol)}</td><td colspan="5">gap in the alignment</td></tr>` :
+        `<tr${o.self ? ' class="hl"' : ''}><td>${esc(o.species)}</td><td class="gene">${esc(o.symbol)}</td><td class="mono">${esc(VE.AA3[o.aa])}${o.pos}</td><td class="mono">${esc(o.codon)}</td><td>${o.exon}/${o.nExons} (${esc(o.transcript)})</td><td class="mono">${esc(o.assembly)} chr${esc(o.chrom)}:${fmt(o.gStart)}-${fmt(o.gEnd)} (${o.strand === 1 ? '+' : '−'})</td>
+        <td>${o.self ? '' : o.aa === r.giant.aa_ref ? `<button class="btn small" type="button" data-vorth="${o.view}|p.${esc(VE.AA3[o.aa])}${o.pos}${r.giant.aa_alt === '*' ? '*' : esc(VE.AA3[r.giant.aa_alt] || '')}">Analyse ${esc(VE.AA3[o.aa])}${o.pos}${r.giant.aa_alt === '*' ? '*' : esc(VE.AA3[r.giant.aa_alt] || '')} here</button>` : `<span class="small muted">${esc(VE.AA3[o.aa])}, not ${esc(VE.AA3[r.giant.aa_ref])}: no direct equivalent</span>`}</td></tr>`).join('') + '</tbody></table></div>';
+  }
+  h += `<details class="alltx" style="margin-top:12px"><summary>All ${r.per.length} isoforms of ${esc(v.species)} ${esc(v.symbol)}</summary><div class="tablewrap"><table><thead><tr><th>Isoform</th><th>Group</th><th>Where</th><th>HGVS</th><th>Protein</th><th>Effect</th><th>NMD rule</th></tr></thead><tbody>` +
+    r.per.slice().sort((a, b) => CAT_ORDER.indexOf(a.category) - CAT_ORDER.indexOf(b.category)).map(x => `<tr><td class="mono">${esc(v.txById[x.id].predicted ? v.txById[x.id].name : x.id)}</td><td>${esc(CAT_LABEL[x.category] || '')}</td><td>${esc(x.where || '')}</td><td class="mono">${esc(x.hgvs || '')}</td><td class="mono">${esc(x.hgvs_p || '')}</td><td>${vPill(x)}</td><td class="small">${esc(x.nmd ? x.nmd.rule : '')}</td></tr>`).join('') +
+    '</tbody></table></div></details>';
+  if (DATA.variant_check && human && g.start === DATA.variant_check.own_mapping.grch38 && g.alt === DATA.variant_check.own_mapping.plus_strand_alt) h += litBlock(DATA.variant_check);
+  return h;
+}
+function litBlock(V) {
+  const r4 = V['NM_182961.4'], r3 = V['NM_182961.3'], om = V.own_mapping, vep = V.ensembl_vep;
+  const rows = [
+    ['RefSeq NM_182961.3 and .4', `CDS identical (${fmt(r4.cds_len)} nt). c.23560 = ${r4.ref_base} (mRNA ${fmt(r3.mrna_pos)} in .3, ${fmt(r4.mrna_pos)} in .4), first base of codon ${r4.codon_number}: ${r4.codon}>${r4.mutant_codon} (${VE.AA3[r4.aa_ref]}>${VE.AA3[r4.aa_alt]}). NP_892006.3 residue ${r4.codon_number} = ${r4.protein_aa}.`, 'confirms c.23560G>T and p.Glu7854*; the codon is GAG, not GAA'],
+    ['Own mapping (GRCh38, NM_182961.4 exons)', `${om.hgvs_g}; exon ${om.exon}/${om.n_exons} (${om.exon_len} bp), base ${om.from_exon_5p} of the exon, ${om.to_exon_3p} nt before its 3′ end. Transcript base ${om.transcript_ref} (minus-strand gene; + strand ${om.plus_strand_ref}>${om.plus_strand_alt}).`, 'not at a splice site'],
+    ['Ensembl variant_recoder', (V.ensembl_variant_recoder.hgvsg || []).join(', '), 'same genomic position'],
+    ['Ensembl VEP (RefSeq)', vep.refseq_transcripts.map(x => `${x.hgvsc} → ${x.hgvsp} (exon ${x.exon})`).join('; '), `${vep.most_severe}; colocated: ${(vep.colocated || []).join(', ') || 'none'}`],
+    ['GRCh37', `chr6:${fmt(V.grch37)} C>A`, 'Ensembl assembly mapper'],
+    ['ClinVar', V.clinvar.verdict + '. Same codon: ' + (V.clinvar.same_codon_records.map(x => `${x.title} (${x.classification})`).join('; ') || 'none'), 'not submitted by the studies that used the line'],
+    ['Known variants in codon 7854', V.known_variants_in_codon.map(x => `${x.id} at ${fmt(x.pos)} ${x.alleles.join('>')} (${x.consequence})`).join('; ') || 'none', 'no common SNP makes the codon GAA'],
+  ];
+  return `<h3 class="section-title" style="margin-top:16px">Verification of c.23560G>T</h3><div class="tablewrap"><table class="lit"><thead><tr><th>Source</th><th>Result</th><th>Conclusion</th></tr></thead><tbody>` +
+    rows.map(x => `<tr><td>${esc(x[0])}</td><td>${esc(x[1])}</td><td>${esc(x[2])}</td></tr>`).join('') + '</tbody></table></div>' +
+    `<h3 class="section-title" style="margin-top:16px">What the literature says, and how it holds up</h3><div class="tablewrap"><table class="lit"><thead><tr><th>Study</th><th>Reported</th><th>Check</th></tr></thead><tbody>` +
+    V.literature.map(x => `<tr><td>${esc(x.ref)}<br><a href="https://doi.org/${esc(x.doi)}" target="_blank" rel="noopener">doi:${esc(x.doi)}</a></td><td>${esc(x.says)}</td><td>${esc(x.check)}</td></tr>`).join('') + '</tbody></table></div>';
 }
 
 /* =====================================================================

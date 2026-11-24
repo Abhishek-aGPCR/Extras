@@ -1,0 +1,7 @@
+transcript	source	group	isoform	where	hgvs_c	hgvs_p	consequence	effect	nmd_verdict	nmd_rule	protein_len	truncated_len	domains_lost
+syne1a-alpha2-pred-plusDV23-GRCz11	Predicted (this study)	nesprin-1α2 (muscle)	syne1a α2 predicted (+DV23)	1,682 bp upstream of the transcription start	c.-1779G>T		upstream_transcript_variant	not in this mRNA					
+syne1a-alpha2-pred-minusDV23-GRCz11	Predicted (this study)	nesprin-1α2 (muscle)	syne1a α2 predicted (−DV23)	1,682 bp upstream of the transcription start	c.-1779G>T		upstream_transcript_variant	not in this mRNA					
+XM_021468628.1	RefSeq (GRCz11 placement, UCSC)	giant	XM_021468628.1	exon 129/146	c.23344G>T	p.Glu7782Ter	stop_gained	NMD: mRNA degraded	NMD	PTC 2,588 nt upstream of the last exon-exon junction (exon 129 of 146)	8731	7781	part of SR68; SR69; SR70; SR71; SR72; SR73; SR74; KASH; TM; KASH; LEWD
+XM_021468629.1	RefSeq (GRCz11 placement, UCSC)	short KASH	XM_021468629.1	exon 75/92	c.14446G>T	p.Glu4816Ter	stop_gained	NMD: mRNA degraded	NMD	PTC 2,588 nt upstream of the last exon-exon junction (exon 75 of 92)	5765	4815	part of SR68; SR69; SR70; SR71; SR72; SR73; SR74; KASH; TM; KASH; LEWD
+ENSDART00000139350.4	Ensembl	giant	syne1a-201	exon 127/144	c.23242G>T	p.Glu7748Ter	stop_gained	NMD: mRNA degraded	NMD	PTC 2,588 nt upstream of the last exon-exon junction (exon 127 of 144)	8697	7747	part of SR68; SR69; SR70; SR71; SR72; SR73; SR74; TM; KASH; LEWD
+ENSDART00000152842.2	Ensembl	other	syne1a-202	9,558 bp upstream of the transcription start	c.-9558G>T		upstream_transcript_variant	not in this mRNA					

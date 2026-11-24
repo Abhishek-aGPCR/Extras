@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
-"""Step 6 - assemble the self-contained interactive viewer (SYNE1_isoform_browser.html).
+"""Step 8 - assemble the self-contained interactive viewer (SYNE1_isoform_browser.html).
 
-Embeds the genomic loci, every transcript model, proteins, the precomputed alignments and the
-zebrafish alpha2 analysis as one JSON block inside viewer/template.html.
+Embeds the genomic loci, every transcript model, proteins, protein domains, the precomputed
+alignments, the zebrafish alpha2 analysis and the c.23560G>T verification as one JSON block inside
+viewer/template.html, and inlines the variant engine (viewer/variant_engine.js). The same data are
+written to data/viewer_data.json for the command-line variant report (scripts/09_variant_report.js).
 """
 from __future__ import annotations
 
@@ -13,10 +15,29 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from common import DATA, RESULTS, ROOT, load_json, translate  # noqa: E402
+from common import DATA, ENSEMBL, RESULTS, ROOT, http, load_json, translate  # noqa: E402
 
 OUT = ROOT / "SYNE1_isoform_browser.html"
 TEMPLATE = ROOT / "viewer" / "template.html"
+ENGINE = ROOT / "viewer" / "variant_engine.js"
+CHROM_ACC = {"human_SYNE1": "NC_000006.12", "mouse_Syne1": "NC_000076.7", "rat_Syne1": "NC_086019.1",
+             "zebrafish_syne1a": "NC_007131.7", "zebrafish_syne1b": "NC_007128.7",
+             "zebrafish_syne1a_GRCz12tu": "NC_133195.1", "zebrafish_syne1b_GRCz12tu": "NC_133192.1"}
+GIANT_MSA_VIEWS = {"Human_NP_892006.3": "human_SYNE1", "Mouse_NP_001334661.1": "mouse_Syne1",
+                   "Rat_NP_001406778.1": "rat_Syne1", "Zebrafish_syne1a_ENSDARP_syne1a-201": "zebrafish_syne1a",
+                   "Zebrafish_syne1b_ENSDARP_syne1b-202": "zebrafish_syne1b"}
+
+
+def grch37_offset(region: dict) -> int | None:
+    """Constant GRCh38->GRCh37 offset if the whole human locus maps as one ungapped block."""
+    mp = http(f"{ENSEMBL}/map/human/GRCh38/6:{region['start']}..{region['end']}:1/GRCh37",
+              params={"content-type": "application/json"}, as_json=True).get("mappings", [])
+    if len(mp) != 1:
+        return None
+    o, t = mp[0]["original"], mp[0]["mapped"]
+    if t["strand"] != 1 or (t["end"] - t["start"]) != (o["end"] - o["start"]) or o["start"] != region["start"]:
+        return None
+    return t["start"] - o["start"]
 DV23_RE = re.compile(r"[ST]DV[MVI]IPE[ST]PE[AV]")
 ZF_A2 = "syne1a-alpha2-pred-plusDV23-GRCz11"
 
@@ -92,6 +113,9 @@ def main() -> None:
     ana = load_json(RESULTS / "alpha2_exon_analysis.json")
     alns = load_json(DATA / "alignments.json")
     primers = load_json(RESULTS / "zebrafish_alpha2_primer_suggestions.json")
+    domains = load_json(DATA / "domains.json")
+    vcheck_path = RESULTS / "variant_c23560G-T" / "verification.json"
+    vcheck = load_json(vcheck_path) if vcheck_path.exists() else None
     sources = load_json(DATA / "sources.json")
     zx = ana["zebrafish_exon1alpha2"]
     mam = ana["mammal_exon1alpha2"]
@@ -126,6 +150,10 @@ def main() -> None:
                                 0 if t["id"].startswith("NM_") else 1, t["id"]))
         v["transcripts"] = txs
         v["dv23"] = dv23_exons(m)
+        v["domains"] = domains["views"].get(key, [])
+        v["chrom_acc"] = CHROM_ACC.get(key)
+        if key == "human_SYNE1":
+            v["grch37_offset"] = grch37_offset(m["region"])
         # alpha2 exon highlight, hosting intron, default window
         sp = key.split("_")[0]
         if sp in mam:
@@ -297,9 +325,14 @@ def main() -> None:
     data = dict(
         built_text=f"Built {dt.date.today().isoformat()} · Ensembl {sources['ensembl_release']} · NCBI RefSeq · UCSC",
         views=views, result=result, analysis=analysis, alignments=alns, primers=primers,
-        methods=METHODS, sources_text=sources_text, references=REFERENCES)
-    js = json.dumps(data, separators=(",", ":"), ensure_ascii=False).replace("</", "<\\/")
-    html = TEMPLATE.read_text().replace("__DATA_JSON__", js)
+        methods=METHODS, sources_text=sources_text, references=REFERENCES,
+        giant_msa_views=GIANT_MSA_VIEWS, domains_source=domains["source"], variant_check=vcheck)
+    raw = json.dumps(data, separators=(",", ":"), ensure_ascii=False)
+    (DATA / "viewer_data.json").write_text(raw)
+    js = raw.replace("</", "<\\/")
+    engine = ENGINE.read_text()
+    assert "</script" not in engine.lower()
+    html = TEMPLATE.read_text().replace("__DATA_JSON__", js).replace("/*__VARIANT_ENGINE__*/", engine)
     OUT.write_text(html)
     print(f"wrote {OUT} ({OUT.stat().st_size / 1e6:.2f} MB)")
 

@@ -67,6 +67,47 @@ before ordering. For example:
 
 5′RACE from exon 128 would define the transcription start.
 
+## Human SYNE1 c.23560G>T (p.Glu7854*)
+
+This is the homozygous nonsense variant of the congenital muscular dystrophy patient myoblast line used by
+Holt et al. 2016 and Gimpel et al. 2017. The full report is `results/variant_c23560G-T/report.md`, with figures
+`figure_human_c23560G-T.png` and `figure_zebrafish_syne1a_equivalent.png`.
+
+**Position (verified).**
+
+| Coordinate | Value |
+|---|---|
+| GRCh38 | NC_000006.12:g.152176461C>A (chr6:152,176,461 C>A) |
+| GRCh37 | chr6:152,497,596 C>A |
+| Transcript | NM_182961.4:c.23560G>T, p.Glu7854Ter, exon 130 of 146 |
+| Position in exon | base 100 of 167, 67 nt before the exon end, so no splice-site involvement |
+| Codon | GAG>TAG |
+
+It was checked against NM_182961.3 and .4 (identical CDS), the GRCh38 genome, Ensembl variant recoder and VEP,
+the Ensembl assembly mapper and ClinVar.
+
+| Isoform | Contains the variant? | Predicted mRNA fate |
+|---|---|---|
+| Giant (NM_182961.4 and all giant variants) | yes, p.Glu7854* in spectrin repeat 68 | PTC ~2.6 kb upstream of the last exon junction → **NMD** |
+| **Nesprin-1α2** (NM_001347702.2, Ensembl SYNE1-202/236) | **no**: 8,149 bp upstream of the α2 transcription start | mRNA and protein sequence unchanged |
+| RefSeq isoform 3 (NM_001347701.2) | yes, p.Glu56* | NMD |
+| Variant 2 (NM_033071.5) | yes, p.Glu7783* | NMD |
+| All 81 annotated human transcripts | 55 carry the stop | all 55 NMD-predicted |
+
+**What the literature gets right and wrong.**
+- The giant mRNA was measured 78% lower, as NMD predicts.
+- α2 mRNA was 85% lower in patient myotubes. The variant cannot cause that through the α2 mRNA, which does not
+  contain it. The report lists testable explanations: silencing of the locus by the premature stop
+  (speculative), feedback from losing the exon-130 isoforms, or an effect of this single cell line.
+- Holt 2016 writes the codon as "gaa to taa". The reference is GAG, so the change is GAG>TAG, probably a typo.
+- The variant is not in ClinVar, and the original clinical report could not be retrieved.
+
+**Zebrafish equivalent.** Human E7854 aligns to **syne1a Glu7748**, codon GAA in exon 127 at GRCz11
+chr20:26,339,444-26,339,446. This exon sits just upstream of the intron that holds the zebrafish exon 1α2, as in
+human. The analogous allele is ENSDART00000139350.4:c.23242G>T, which gives the ochre stop TAA. It is predicted to
+send the syne1a giant mRNA to NMD and leave α2 intact (1,682 bp upstream of the α2 start). syne1b has Asp at this
+position.
+
 ## The browser
 
 Open `SYNE1_isoform_browser.html` in any modern browser. It is one self-contained file and works offline;
@@ -86,6 +127,23 @@ fonts load from Google Fonts when online.
   vertebrates, and the giant isoforms.
 * **Pairwise aligner:** global, local or semi-global affine-gap alignment of any two sequences in the browser
   (protein, CDS, mRNA, an exon, a genomic range) or pasted ones.
+* **Variant effect:** enter a variant for any gene/assembly and isoform as
+  - coding `c.` (including intronic `c.123+5G>A` and UTR `c.-12`/`c.*30`)
+  - transcript `n.`
+  - genomic `g.`, `chr:pos ref>alt` or VCF
+  - protein `p.` (one- or three-letter codes)
+  - `exon N:position`
+
+  Substitutions, del, dup, ins and delins are supported. The tool:
+  - checks the reference base against the genome
+  - reports HGVS for every isoform, with exon/intron location, codon and amino-acid change, and splice effects
+    (including the exon-skipping outcome)
+  - predicts NMD for premature stops
+  - lists the protein domains lost
+  - finds the same residue in the other species (one click analyses it there)
+  - draws a gene / mRNA-fate / protein-domain figure you can save as SVG or PNG.
+
+  The same engine (`viewer/variant_engine.js`) writes the command-line report.
 * **Zebrafish α2 evidence:** coordinates, figure, evidence, primers, methods, data versions and references.
 
 ## Reproduce
@@ -107,10 +165,14 @@ The steps run in order, and downloads are cached in `data/cache/`:
 | `scripts/03_build_models.py` | predicted zebrafish α2 models (± DV23), isoform classes, FASTA/GTF/BED |
 | `scripts/04_alignments.py` | FAMSA protein alignments, codon and exon 1α2 alignments, exon correspondence |
 | `scripts/05_primers.py` | RT-PCR primer suggestions |
-| `scripts/06_build_html.py` | builds `SYNE1_isoform_browser.html` from `viewer/template.html` |
+| `scripts/06_protein_domains.py` | UniProt Q8NF91 domains (CH, 74 spectrin repeats, LEWD, TM, KASH) projected onto every species |
+| `scripts/07_verify_c23560.py` | independent verification of c.23560G>T (RefSeq versions, genome, Ensembl VEP/recoder, GRCh37, ClinVar) |
+| `scripts/08_build_html.py` | builds `SYNE1_isoform_browser.html` from `viewer/template.html` + `viewer/variant_engine.js` |
+| `scripts/09_variant_report.js` | Node: variant report, isoform tables and SVG/PNG figures (same engine as the browser) |
 
-Network access is needed to `rest.ensembl.org`, `eutils.ncbi.nlm.nih.gov`, `api.ncbi.nlm.nih.gov` and
-`api.genome.ucsc.edu`. Data used here: Ensembl release 116, NCBI RefSeq (downloaded 2026-11-20).
+Network access is needed to `rest.ensembl.org`, `eutils.ncbi.nlm.nih.gov`, `api.ncbi.nlm.nih.gov`,
+`api.genome.ucsc.edu` and `rest.uniprot.org`. Step 9 needs Node.js; PNG export uses Playwright with Chromium if
+installed. Data used here: Ensembl release 116, NCBI RefSeq (downloaded 2026-11-20 and 2026-11-24).
 
 ## Files
 
@@ -121,6 +183,12 @@ Network access is needed to `rest.ensembl.org`, `eutils.ncbi.nlm.nih.gov`, `api.
 * `results/zebrafish_syne1a_intron_hosting_exon1alpha2_GRCz11.fa`: the scanned intron.
 * `results/vertebrate_alpha2_survey.tsv`: α2-type RefSeq proteins across vertebrates.
 * `results/alignments/*.fa`: alignments shown in the browser.
+* `results/variant_c23560G-T/`: the c.23560G>T files:
+  - `report.md` and `report.json`
+  - `verification.json`
+  - `isoform_consequences_human.tsv` and `isoform_consequences_zebrafish_syne1a.tsv`
+  - figures (SVG/PNG)
+* `data/domains.json`: protein domain map per species.
 * `data/models/`, `data/genomic/`: downloaded gene models and genomic loci; `data/models_built.json`: classified
   models with proteins.
 
@@ -135,3 +203,9 @@ Network access is needed to `rest.ensembl.org`, `eutils.ncbi.nlm.nih.gov`, `api.
 * Rajgor et al. 2012, PLoS One 7:e40098: nesprin-1 exon numbering and variants. https://doi.org/10.1371/journal.pone.0040098
 * Holt et al. 2019, Sci Rep 9:14202. https://doi.org/10.1038/s41598-019-50728-6
 * Zhou et al. 2017, Hum Mol Genet 26:2258. https://doi.org/10.1093/hmg/ddx116
+* Gimpel et al. 2017, Curr Biol 27:2999: the c.23560G>T patient myotubes lose nesprin-1 at the nuclear envelope
+  and microtubule nucleation from the nucleus. https://doi.org/10.1016/j.cub.2017.08.031
+* Attali et al. 2009, Hum Mol Genet 18:3462 (a different SYNE1 arthrogryposis mutation). https://doi.org/10.1093/hmg/ddp290
+* Baumann et al. 2017, Eur J Hum Genet 25:262: a last-exon SYNE1 nonsense variant keeps wild-type mRNA levels,
+  consistent with NMD escape. https://doi.org/10.1038/ejhg.2016.144
+* Lindeboom, Supek & Lehner 2016, Nat Genet 48:1112: rules of nonsense-mediated decay used for the predictions.
