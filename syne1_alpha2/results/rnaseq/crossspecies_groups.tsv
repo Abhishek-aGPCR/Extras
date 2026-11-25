@@ -6,3 +6,4 @@ zebrafish_dev	larval development	96 hpf / 4 dpf larva	4	277340140	7	8	91	0.0714	
 zebrafish_adult	adult tissue	fast muscle	6	170389462	0	0	40	0.0	0.0	2.348	0.0	13.3	0
 zebrafish_adult	adult tissue	slow muscle	4	126389704	2	2	30	0.0625	0.158	2.374	0.59	9.6	0
 zebrafish_adult	adult tissue	ventricle	4	211572190	72	67	89	0.4472	3.403	4.207	18.73	80.75	0
+zebrafish_osteoclast	osteoclast	osteoclast (Ctsk+ WT)	3	68589531	0	0	2	0.0	0.0	0.292	0.34	0.86	1

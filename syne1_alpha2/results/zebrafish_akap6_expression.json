@@ -1,0 +1,77 @@
+{
+ "rpkm": {
+  "fast muscle": {
+   "akap6": 1.0737074387739807,
+   "myl7": 0.0,
+   "actc1a": 9530.733577225003,
+   "rpl13a": 1007.7668748227616,
+   "elavl3": 0.18996586328634016,
+   "mylpfa": 4854.2693776042,
+   "smyhc1": 498.6333502725066,
+   "mybpc3": 1.4306180649358684,
+   "ctsk": 79.13208265160412
+  },
+  "slow muscle": {
+   "akap6": 1.6799376866674953,
+   "myl7": 0.0,
+   "actc1a": 13462.374325278028,
+   "rpl13a": 697.2811477462938,
+   "elavl3": 0.13696923895040594,
+   "mylpfa": 8818.96138383982,
+   "smyhc1": 1171.6048913882985,
+   "mybpc3": 56.918425501165764,
+   "ctsk": 51.45427044840559
+  },
+  "ventricle": {
+   "akap6": 0.09286212167637906,
+   "myl7": 14430.787284842883,
+   "actc1a": 19362.987013642774,
+   "rpl13a": 537.0415782131146,
+   "elavl3": 0.03129456378155012,
+   "mylpfa": 0.0,
+   "smyhc1": 1102.0408890891515,
+   "mybpc3": 1025.571655652363,
+   "ctsk": 8.564533537465314
+  },
+  "osteoclast": {
+   "akap6": 0.5732449516841233,
+   "myl7": 21.168213411086043,
+   "actc1a": 3113.8201379827897,
+   "rpl13a": 357.8936042495702,
+   "elavl3": 0.9721503648971032,
+   "mylpfa": 2.132650732510504,
+   "smyhc1": 0.13740226372252043,
+   "mybpc3": 0.2534257521560593,
+   "ctsk": 462.6849672638511
+  }
+ },
+ "reads_scanned": {
+  "fast muscle": 11418880,
+  "slow muscle": 11312224,
+  "ventricle": 9902210,
+  "osteoclast": 8287832
+ },
+ "cdna_len": {
+  "akap6": 6525,
+  "myl7": 1026,
+  "actc1a": 1320,
+  "rpl13a": 1123,
+  "elavl3": 3227,
+  "mylpfa": 1471,
+  "smyhc1": 6147,
+  "mybpc3": 4285,
+  "ctsk": 1639
+ },
+ "genes": {
+  "akap6": "QUERY: nesprin-1alpha / mAKAP partner",
+  "ctsk": "osteoclast marker",
+  "myl7": "cardiac marker",
+  "mybpc3": "cardiac marker",
+  "mylpfa": "fast-muscle marker",
+  "smyhc1": "slow-muscle marker",
+  "actc1a": "cardiac/skeletal actin",
+  "rpl13a": "housekeeping",
+  "elavl3": "neuronal (negative control)"
+ },
+ "note": "RPKM-like from cDNA 25-mer capture; one library per tissue, mate 1, ~700MB cap (scripts/12_akap6_expression.py)"
+}

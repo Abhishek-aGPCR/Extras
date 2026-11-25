@@ -473,7 +473,7 @@ def analyse(names):
 
 # --- figure -------------------------------------------------------------------------------------
 def figure(results):
-    order = [n for n in ["human_heart", "mouse_c2c12", "zebrafish_dev", "zebrafish_adult"] if n in results]
+    order = [n for n in ["human_heart", "mouse_c2c12", "zebrafish_dev", "zebrafish_adult", "zebrafish_osteoclast"] if n in results]
     rowsflat = []
     for name in order:
         R = results[name]

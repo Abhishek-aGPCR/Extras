@@ -1,0 +1,10 @@
+gene	fast muscle	slow muscle	ventricle	osteoclast	role
+akap6	1.07	1.68	0.09	0.57	QUERY: nesprin-1alpha / mAKAP partner
+ctsk	79.13	51.45	8.56	462.68	osteoclast marker
+myl7	0.00	0.00	14430.79	21.17	cardiac marker
+mybpc3	1.43	56.92	1025.57	0.25	cardiac marker
+mylpfa	4854.27	8818.96	0.00	2.13	fast-muscle marker
+smyhc1	498.63	1171.60	1102.04	0.14	slow-muscle marker
+actc1a	9530.73	13462.37	19362.99	3113.82	cardiac/skeletal actin
+rpl13a	1007.77	697.28	537.04	357.89	housekeeping
+elavl3	0.19	0.14	0.03	0.97	neuronal (negative control)

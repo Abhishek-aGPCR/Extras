@@ -724,5 +724,113 @@
     "junctions_into_exon1a2": 0
    }
   ]
+ },
+ "zebrafish_osteoclast": {
+  "panel": "zebrafish_osteoclast",
+  "meta": {
+   "source": "PRJNA1331843 (Ctsk+ wild-type sorted osteoclasts)",
+   "kind": "osteoclast",
+   "view": "zebrafish_syne1a",
+   "group_order": [
+    "osteoclast (Ctsk+ WT)"
+   ]
+  },
+  "view": "zebrafish_syne1a",
+  "strand": 1,
+  "coords": {
+   "assembly": "GRCz11",
+   "chrom": "20",
+   "exon1a2": [
+    26341126,
+    26341308
+   ],
+   "shared": [
+    26342757,
+    26342919
+   ],
+   "alpha2_intron": [
+    26341308,
+    26342757
+   ],
+   "alpha2_motif": "GC-AG",
+   "giant_motif": "GT-AG"
+  },
+  "samples": [
+   {
+    "panel": "zebrafish_osteoclast",
+    "run": "SRR35522660",
+    "label": "osteoclast_wt_1",
+    "group": "osteoclast (Ctsk+ WT)",
+    "mates": 2,
+    "complete": false,
+    "reads_scanned": 22753956,
+    "reads_captured": 265,
+    "reads_mapped": 12,
+    "alpha2_junction": 0,
+    "alpha2_junction_24mer": 0,
+    "giant_junction": 1,
+    "giant_junction_24mer": 1,
+    "junctions_into_exon1a2": 0,
+    "exon1a2_mean_cov": 0.0,
+    "shared_exon_mean_cov": 0.57
+   },
+   {
+    "panel": "zebrafish_osteoclast",
+    "run": "SRR35522659",
+    "label": "osteoclast_wt_2",
+    "group": "osteoclast (Ctsk+ WT)",
+    "mates": 2,
+    "complete": false,
+    "reads_scanned": 22886389,
+    "reads_captured": 274,
+    "reads_mapped": 17,
+    "alpha2_junction": 0,
+    "alpha2_junction_24mer": 0,
+    "giant_junction": 1,
+    "giant_junction_24mer": 1,
+    "junctions_into_exon1a2": 1,
+    "exon1a2_mean_cov": 1.03,
+    "shared_exon_mean_cov": 1.1
+   },
+   {
+    "panel": "zebrafish_osteoclast",
+    "run": "SRR35522658",
+    "label": "osteoclast_wt_3",
+    "group": "osteoclast (Ctsk+ WT)",
+    "mates": 2,
+    "complete": false,
+    "reads_scanned": 22949186,
+    "reads_captured": 437,
+    "reads_mapped": 12,
+    "alpha2_junction": 0,
+    "alpha2_junction_24mer": 0,
+    "giant_junction": 0,
+    "giant_junction_24mer": 0,
+    "junctions_into_exon1a2": 0,
+    "exon1a2_mean_cov": 0.0,
+    "shared_exon_mean_cov": 0.91
+   }
+  ],
+  "groups": [
+   {
+    "group": "osteoclast (Ctsk+ WT)",
+    "n_samples": 3,
+    "reads_scanned": 68589531,
+    "alpha2_junction": 0,
+    "alpha2_junction_24mer": 0,
+    "giant_junction": 2,
+    "giant_junction_24mer": 2,
+    "alpha2_fraction": 0.0,
+    "alpha2_fraction_ci95": [
+     0.0,
+     0.6576
+    ],
+    "alpha2_per_10M": 0.0,
+    "giant_per_10M": 0.292,
+    "exon1a2_mean_cov": 0.34,
+    "shared_exon_mean_cov": 0.86,
+    "junctions_into_exon1a2": 1
+   }
+  ]
  }
 }

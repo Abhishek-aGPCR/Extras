@@ -90,6 +90,29 @@ low but detected (7 fragments, 24-mer 8), where the adult **skeletal** muscle is
 with α2 appearing during active larval myogenesis (as in the mouse myotubes) and then becoming cardiac-restricted
 in the adult. A larval heart dissection or a staged myogenic time-course would resolve the exact timing.
 
+### akap6 and nesprin-1α2 across zebrafish tissues — a rewiring from mammals
+
+In mammals AKAP6/mAKAP is the nuclear-envelope scaffold that nesprin-1α recruits in **cardiac** myocytes
+(Pare et al. 2005), and the akap6–nesprin-1α2 module is found in striated muscle and osteoclasts. We measured
+**akap6** (cDNA 25-mer capture, RPKM-like; `scripts/12_akap6_expression.py`) next to the **nesprin-1α2** junction
+across zebrafish tissues:
+
+| | fast muscle | slow muscle | ventricle (heart) | osteoclast (Ctsk⁺) |
+|---|---|---|---|---|
+| **akap6** (RPKM) | 1.1 | 1.7 | **0.1** | 0.6 (noisy) |
+| **nesprin-1α2** (α2 junction) | 0 | 2 | **72** | 0 |
+| *syne1a total* (giant junction) | 40 | 30 | 89 | **2** (≈absent) |
+
+Tissue identities are confirmed by markers (ventricle myl7 = 14,431, mylpfa = 0; osteoclast ctsk = 463). The two
+partners of the mammalian complex sit in **different zebrafish tissues**: **akap6 is skeletal-muscle-biased and
+~14× lower in the heart** (0.1 vs 1.1–1.7, at the neuronal-background level) — i.e. **not expressed in the
+zebrafish heart** — while **nesprin-1α2 is cardiac-specific** (72 in ventricle, ~0 in skeletal muscle). In
+osteoclasts both are low and *syne1a itself is barely expressed*, so α2 there is "not detected, low sensitivity".
+So the mammalian cardiac nesprin-1α–mAKAP signalosome is **not co-assembled in any zebrafish tissue examined**:
+in the heart nesprin-1α2 is **orphaned** (no akap6 partner), and in skeletal muscle akap6 must partner a different
+nesprin-1 isoform. (One library per tissue, first pass; akap6 is a low-abundance scaffold, so the heart≪muscle
+*ratio* is the robust readout. Re-run with `--full` for replicates.)
+
 Confirm at the bench by RT-PCR with the intron-spanning, cDNA-specific primers in
 `results/zebrafish_alpha2_primer_suggestions.tsv` (check specificity with Primer-BLAST first); 5′RACE from exon
 128 would pin the transcription start. For example:
@@ -206,7 +229,8 @@ The steps run in order, and downloads are cached in `data/cache/`:
 | `scripts/06_protein_domains.py` | UniProt Q8NF91 domains (CH, 74 spectrin repeats, LEWD, TM, KASH) projected onto every species |
 | `scripts/07_verify_c23560.py` | independent verification of c.23560G>T (RefSeq versions, genome, Ensembl VEP/recoder, GRCh37, ClinVar) |
 | `scripts/10_rnaseq_junctions.py` | zebrafish exon 1α2 → exon 128 junction counts in adult muscle/heart RNA-seq (ENA) |
-| `scripts/11_rnaseq_crossspecies.py` | the same method across human heart, mouse C2C12 and zebrafish larva (positive/developmental controls) |
+| `scripts/11_rnaseq_crossspecies.py` | the same method across human heart, mouse C2C12, zebrafish larva and osteoclasts (positive/developmental controls) |
+| `scripts/12_akap6_expression.py` | zebrafish akap6 vs nesprin-1α2 across fast/slow muscle, ventricle and osteoclasts (RPKM-like cDNA capture) |
 | `scripts/08_build_html.py` | builds `SYNE1_isoform_browser.html` from `viewer/template.html` + `viewer/variant_engine.js` |
 | `scripts/09_variant_report.js` | Node: variant report, isoform tables and SVG/PNG figures (same engine as the browser) |
 
