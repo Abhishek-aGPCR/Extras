@@ -72,6 +72,16 @@ PANELS = {
         samples=[("SRR37034261", "HC_LV_1", "left ventricle (healthy adult)"),
                  ("SRR37034259", "HC_LV_2", "left ventricle (healthy adult)"),
                  ("SRR37034257", "HC_LV_3", "left ventricle (healthy adult)")]),
+    "human_brain": dict(
+        view="human_SYNE1", giant="NM_182961.4", alpha2="NM_001347702.2",
+        source="PRJNA1517665 (adult frontal cortex, QSBB; whole-tissue homogenate)",
+        kind="non-muscle tissue (brain)",
+        group_order=["frontal cortex"],
+        patterns=RNADIR / "human_heart" / "capture_kmers.txt",   # same SYNE1 locus as human_heart
+        samples=[("SRR40332934", "FCx_control", "frontal cortex"),
+                 ("SRR40332935", "FCx_C9FTD_1", "frontal cortex"),
+                 ("SRR40332938", "FCx_C9FTD_2", "frontal cortex"),
+                 ("SRR40332939", "FCx_C9FTD_3", "frontal cortex")]),
     "mouse_c2c12": dict(
         view="mouse_Syne1", giant="NM_001347732.2", alpha2="NM_022027.3",
         source="PRJEB108758 (C2C12 myoblast vs myotube day 3, polysome RNA-seq)",
