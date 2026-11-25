@@ -100,6 +100,13 @@ PANELS = {
                  ("ERR15682391", "4dpf_wt_2", "96 hpf / 4 dpf larva"),
                  ("ERR15682392", "4dpf_wt_3", "96 hpf / 4 dpf larva"),
                  ("ERR15682393", "4dpf_wt_4", "96 hpf / 4 dpf larva")]),
+    "zebrafish_osteoclast": dict(
+        view="zebrafish_syne1a", giant="ENSDART00000139350.4", alpha2="syne1a-alpha2-pred-plusDV23-GRCz11",
+        source="PRJNA1331843 (Ctsk+ wild-type sorted osteoclasts)", kind="osteoclast",
+        group_order=["osteoclast (Ctsk+ WT)"],
+        samples=[("SRR35522660", "osteoclast_wt_1", "osteoclast (Ctsk+ WT)"),
+                 ("SRR35522659", "osteoclast_wt_2", "osteoclast (Ctsk+ WT)"),
+                 ("SRR35522658", "osteoclast_wt_3", "osteoclast (Ctsk+ WT)")]),
     # reuse step-10 captures (no re-download) so the joint figure spans all species/stages
     "zebrafish_adult": dict(
         view="zebrafish_syne1a", giant="ENSDART00000139350.4", alpha2="syne1a-alpha2-pred-plusDV23-GRCz11",
