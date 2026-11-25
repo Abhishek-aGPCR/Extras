@@ -107,6 +107,132 @@
    }
   ]
  },
+ "human_brain": {
+  "panel": "human_brain",
+  "meta": {
+   "source": "PRJNA1517665 (adult frontal cortex, QSBB; whole-tissue homogenate)",
+   "kind": "non-muscle tissue (brain)",
+   "view": "human_SYNE1",
+   "group_order": [
+    "frontal cortex"
+   ]
+  },
+  "view": "human_SYNE1",
+  "strand": -1,
+  "coords": {
+   "assembly": "GRCh38",
+   "chrom": "6",
+   "exon1a2": [
+    152168113,
+    152168312
+   ],
+   "shared": [
+    152164163,
+    152164325
+   ],
+   "alpha2_intron": [
+    152164325,
+    152168113
+   ],
+   "alpha2_motif": "GC-AG",
+   "giant_motif": "GT-AG"
+  },
+  "samples": [
+   {
+    "panel": "human_brain",
+    "run": "SRR40332934",
+    "label": "FCx_control",
+    "group": "frontal cortex",
+    "mates": 2,
+    "complete": false,
+    "reads_scanned": 26175891,
+    "reads_captured": 772,
+    "reads_mapped": 591,
+    "alpha2_junction": 0,
+    "alpha2_junction_24mer": 0,
+    "giant_junction": 29,
+    "giant_junction_24mer": 34,
+    "junctions_into_exon1a2": 0,
+    "exon1a2_mean_cov": 1.05,
+    "shared_exon_mean_cov": 64.92
+   },
+   {
+    "panel": "human_brain",
+    "run": "SRR40332935",
+    "label": "FCx_C9FTD_1",
+    "group": "frontal cortex",
+    "mates": 2,
+    "complete": false,
+    "reads_scanned": 26496631,
+    "reads_captured": 752,
+    "reads_mapped": 584,
+    "alpha2_junction": 0,
+    "alpha2_junction_24mer": 0,
+    "giant_junction": 34,
+    "giant_junction_24mer": 47,
+    "junctions_into_exon1a2": 0,
+    "exon1a2_mean_cov": 1.11,
+    "shared_exon_mean_cov": 77.55
+   },
+   {
+    "panel": "human_brain",
+    "run": "SRR40332938",
+    "label": "FCx_C9FTD_2",
+    "group": "frontal cortex",
+    "mates": 2,
+    "complete": false,
+    "reads_scanned": 27124131,
+    "reads_captured": 567,
+    "reads_mapped": 422,
+    "alpha2_junction": 0,
+    "alpha2_junction_24mer": 0,
+    "giant_junction": 23,
+    "giant_junction_24mer": 26,
+    "junctions_into_exon1a2": 0,
+    "exon1a2_mean_cov": 0.0,
+    "shared_exon_mean_cov": 47.15
+   },
+   {
+    "panel": "human_brain",
+    "run": "SRR40332939",
+    "label": "FCx_C9FTD_3",
+    "group": "frontal cortex",
+    "mates": 2,
+    "complete": false,
+    "reads_scanned": 26494849,
+    "reads_captured": 775,
+    "reads_mapped": 574,
+    "alpha2_junction": 0,
+    "alpha2_junction_24mer": 0,
+    "giant_junction": 28,
+    "giant_junction_24mer": 35,
+    "junctions_into_exon1a2": 0,
+    "exon1a2_mean_cov": 0.0,
+    "shared_exon_mean_cov": 68.2
+   }
+  ],
+  "groups": [
+   {
+    "group": "frontal cortex",
+    "n_samples": 4,
+    "reads_scanned": 106291502,
+    "alpha2_junction": 0,
+    "alpha2_junction_24mer": 0,
+    "giant_junction": 114,
+    "giant_junction_24mer": 142,
+    "alpha2_fraction": 0.0,
+    "alpha2_fraction_ci95": [
+     0.0,
+     0.0326
+    ],
+    "alpha2_per_10M": 0.0,
+    "giant_per_10M": 10.725,
+    "exon1a2_mean_cov": 0.54,
+    "shared_exon_mean_cov": 64.45,
+    "junctions_into_exon1a2": 0
+   }
+  ]
+ },
  "mouse_c2c12": {
   "panel": "mouse_c2c12",
   "meta": {

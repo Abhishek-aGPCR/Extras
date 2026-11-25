@@ -1393,7 +1393,7 @@ function rnaseqSVG() {
 }
 function crossSpeciesSection() {
   const X = DATA.rnaseq_cross; if (!X) return '';
-  const order = ['human_heart', 'mouse_c2c12', 'zebrafish_dev', 'zebrafish_adult', 'zebrafish_osteoclast'].filter(k => X[k]);
+  const order = ['human_heart', 'human_brain', 'mouse_c2c12', 'zebrafish_dev', 'zebrafish_adult', 'zebrafish_osteoclast'].filter(k => X[k]);
   if (!order.length) return '';
   const verdict = g => g.alpha2_junction >= 3 ? ['α2 detected', 'var(--good)'] : g.alpha2_junction ? ['trace', 'var(--warn)'] : ['not detected', 'var(--ink-3)'];
   let rows = '';

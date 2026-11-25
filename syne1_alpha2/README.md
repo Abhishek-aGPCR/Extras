@@ -79,6 +79,7 @@ the plus-strand zebrafish locus.
 | Panel | α2 junction (24-mer) | giant | α2 share | role |
 |---|---|---|---|---|
 | Human healthy left ventricle (×3) | 19 (23) | 35 | 35 % | positive control — detected |
+| Human **frontal cortex** (×4) | **0 (0)** | **114** | 0 % | brain — **absent** (giant high: real negative) |
 | Mouse C2C12 **myoblast** | **0 (0)** | 5 | 0 % | undifferentiated — absent |
 | Mouse C2C12 **myotube, day 3** | **47 (48)** | 15 | 76 % | differentiated — induced |
 | Zebrafish 4 dpf whole larva (×4) | 7 (8) | 91 | 7 % | larval — low but detected, exon covered 7× |
@@ -89,6 +90,12 @@ human, mouse and zebrafish alike by the splice-aware aligner. In whole 4 dpf wil
 low but detected (7 fragments, 24-mer 8), where the adult **skeletal** muscle is essentially null — consistent
 with α2 appearing during active larval myogenesis (as in the mouse myotubes) and then becoming cardiac-restricted
 in the adult. A larval heart dissection or a staged myogenic time-course would resolve the exact timing.
+
+In **human frontal cortex**, nesprin-1α2 is **absent** (α2 junction 0 across 4 samples) even though SYNE1 is
+*more* highly expressed than in heart (giant junction 114 vs 35) — a clean negative with a strong internal
+control. This fits the known biology: the brain makes SYNE1 as the giant isoform and its own brain-specific
+isoform CPG2 (a different internal promoter; Sharp et al. 2017, Psychiatr Genet, doi:10.1097/YPG.0000000000000166),
+not the muscle/cardiac α2.
 
 ### akap6 and nesprin-1α2 across zebrafish tissues — a rewiring from mammals
 
