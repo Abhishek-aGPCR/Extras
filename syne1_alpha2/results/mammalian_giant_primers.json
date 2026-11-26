@@ -1,0 +1,344 @@
+{
+ "human_SYNE1": {
+  "view": "human_SYNE1",
+  "giant": "NM_182961.4",
+  "alpha2": "NM_001347702.2",
+  "shared_exon_index": 131,
+  "giant_exon127_len": 167,
+  "first_intron_bp": 12068,
+  "pairs": [
+   {
+    "forward": {
+     "seq": "GGAGAACGACTTGCTAAAGC",
+     "start": 24083,
+     "end": 24102,
+     "tm": 60.2,
+     "gc": 50.0,
+     "junction": false
+    },
+    "reverse": {
+     "seq": "CAGATGCAACACCTGTACTG",
+     "start": 24382,
+     "end": 24401,
+     "tm": 60.0,
+     "gc": 50.0,
+     "loc": "shared exon +1"
+    },
+    "product": 319,
+    "penalty": 0.45,
+    "qpcr_suitable": false,
+    "giant_products": [
+     319
+    ],
+    "alpha2_products": [],
+    "validated": true
+   },
+   {
+    "forward": {
+     "seq": "GAGAACGACTTGCTAAAGCC",
+     "start": 24084,
+     "end": 24103,
+     "tm": 60.2,
+     "gc": 50.0,
+     "junction": false
+    },
+    "reverse": {
+     "seq": "CAGATGCAACACCTGTACTG",
+     "start": 24382,
+     "end": 24401,
+     "tm": 60.0,
+     "gc": 50.0,
+     "loc": "shared exon +1"
+    },
+    "product": 318,
+    "penalty": 0.45,
+    "qpcr_suitable": false,
+    "giant_products": [
+     318
+    ],
+    "alpha2_products": [],
+    "validated": true
+   },
+   {
+    "forward": {
+     "seq": "CTCCAACAAATGGGAGAACG",
+     "start": 24071,
+     "end": 24090,
+     "tm": 60.3,
+     "gc": 50.0,
+     "junction": false
+    },
+    "reverse": {
+     "seq": "CAGATGCAACACCTGTACTG",
+     "start": 24382,
+     "end": 24401,
+     "tm": 60.0,
+     "gc": 50.0,
+     "loc": "shared exon +1"
+    },
+    "product": 331,
+    "penalty": 0.55,
+    "qpcr_suitable": false,
+    "giant_products": [
+     331
+    ],
+    "alpha2_products": [],
+    "validated": true
+   },
+   {
+    "forward": {
+     "seq": "GGGAGAACGACTTGCTAAAG",
+     "start": 24082,
+     "end": 24101,
+     "tm": 59.7,
+     "gc": 50.0,
+     "junction": false
+    },
+    "reverse": {
+     "seq": "CAGATGCAACACCTGTACTG",
+     "start": 24382,
+     "end": 24401,
+     "tm": 60.0,
+     "gc": 50.0,
+     "loc": "shared exon +1"
+    },
+    "product": 320,
+    "penalty": 0.55,
+    "qpcr_suitable": false,
+    "giant_products": [
+     320
+    ],
+    "alpha2_products": [],
+    "validated": true
+   }
+  ]
+ },
+ "mouse_Syne1": {
+  "view": "mouse_Syne1",
+  "giant": "NM_001347732.2",
+  "alpha2": "NM_022027.3",
+  "shared_exon_index": 130,
+  "giant_exon127_len": 167,
+  "first_intron_bp": 10485,
+  "pairs": [
+   {
+    "forward": {
+     "seq": "CATGGCAGCTAGGGTGAAG",
+     "start": 23980,
+     "end": 23998,
+     "tm": 62.2,
+     "gc": 57.9,
+     "junction": true
+    },
+    "reverse": {
+     "seq": "TCATAGACTATGGGCTTGGC",
+     "start": 24089,
+     "end": 24108,
+     "tm": 60.7,
+     "gc": 50.0,
+     "loc": "shared exon"
+    },
+    "product": 129,
+    "penalty": 3.69,
+    "qpcr_suitable": true,
+    "giant_products": [
+     129
+    ],
+    "alpha2_products": [],
+    "validated": true
+   },
+   {
+    "forward": {
+     "seq": "GCTTCAGGAAATGGGAGAAC",
+     "start": 23869,
+     "end": 23888,
+     "tm": 60.1,
+     "gc": 50.0,
+     "junction": false
+    },
+    "reverse": {
+     "seq": "GCTGTGTTTCTCGATGTCTC",
+     "start": 24165,
+     "end": 24184,
+     "tm": 59.9,
+     "gc": 50.0,
+     "loc": "shared exon +1"
+    },
+    "product": 316,
+    "penalty": 0.45,
+    "qpcr_suitable": false,
+    "giant_products": [
+     316
+    ],
+    "alpha2_products": [],
+    "validated": true
+   },
+   {
+    "forward": {
+     "seq": "GCTTCAGGAAATGGGAGAAC",
+     "start": 23869,
+     "end": 23888,
+     "tm": 60.1,
+     "gc": 50.0,
+     "junction": false
+    },
+    "reverse": {
+     "seq": "GCGTCTCCTTTAGCTTCTTC",
+     "start": 23995,
+     "end": 24014,
+     "tm": 59.7,
+     "gc": 50.0,
+     "loc": "shared exon"
+    },
+    "product": 146,
+    "penalty": 0.55,
+    "qpcr_suitable": true,
+    "giant_products": [
+     146
+    ],
+    "alpha2_products": [],
+    "validated": true
+   },
+   {
+    "forward": {
+     "seq": "CTTCAGGAAATGGGAGAACG",
+     "start": 23870,
+     "end": 23889,
+     "tm": 59.8,
+     "gc": 50.0,
+     "junction": false
+    },
+    "reverse": {
+     "seq": "GCTGTGTTTCTCGATGTCTC",
+     "start": 24165,
+     "end": 24184,
+     "tm": 59.9,
+     "gc": 50.0,
+     "loc": "shared exon +1"
+    },
+    "product": 315,
+    "penalty": 0.55,
+    "qpcr_suitable": false,
+    "giant_products": [
+     315
+    ],
+    "alpha2_products": [],
+    "validated": true
+   }
+  ]
+ },
+ "rat_Syne1": {
+  "view": "rat_Syne1",
+  "giant": "NM_001419849.1",
+  "alpha2": "XM_006227852.6",
+  "shared_exon_index": 130,
+  "giant_exon127_len": 167,
+  "first_intron_bp": 10918,
+  "pairs": [
+   {
+    "forward": {
+     "seq": "GAGCAAAGCCTCTGAGATTC",
+     "start": 24050,
+     "end": 24069,
+     "tm": 59.8,
+     "gc": 50.0,
+     "junction": false
+    },
+    "reverse": {
+     "seq": "TCGTAGACTATGGGCTTGG",
+     "start": 24229,
+     "end": 24247,
+     "tm": 60.0,
+     "gc": 52.6,
+     "loc": "shared exon"
+    },
+    "product": 198,
+    "penalty": 0.61,
+    "qpcr_suitable": true,
+    "giant_products": [
+     198
+    ],
+    "alpha2_products": [],
+    "validated": true
+   },
+   {
+    "forward": {
+     "seq": "GAGCAAAGCCTCTGAGATTC",
+     "start": 24050,
+     "end": 24069,
+     "tm": 59.8,
+     "gc": 50.0,
+     "junction": false
+    },
+    "reverse": {
+     "seq": "CTGCCCATGTTCTTATCCAG",
+     "start": 24171,
+     "end": 24190,
+     "tm": 59.7,
+     "gc": 50.0,
+     "loc": "shared exon"
+    },
+    "product": 141,
+    "penalty": 0.65,
+    "qpcr_suitable": true,
+    "giant_products": [
+     141
+    ],
+    "alpha2_products": [],
+    "validated": true
+   },
+   {
+    "forward": {
+     "seq": "CTCCAGCAAATGGGAGAAC",
+     "start": 24009,
+     "end": 24027,
+     "tm": 59.9,
+     "gc": 52.6,
+     "junction": false
+    },
+    "reverse": {
+     "seq": "GCTGCTCACTCAGTTTCTTC",
+     "start": 24272,
+     "end": 24291,
+     "tm": 60.2,
+     "gc": 50.0,
+     "loc": "shared exon"
+    },
+    "product": 283,
+    "penalty": 0.81,
+    "qpcr_suitable": false,
+    "giant_products": [
+     283
+    ],
+    "alpha2_products": [],
+    "validated": true
+   },
+   {
+    "forward": {
+     "seq": "CATGAGAGCAAAGCCTCTG",
+     "start": 24045,
+     "end": 24063,
+     "tm": 59.9,
+     "gc": 52.6,
+     "junction": false
+    },
+    "reverse": {
+     "seq": "CTGCCCATGTTCTTATCCAG",
+     "start": 24171,
+     "end": 24190,
+     "tm": 59.7,
+     "gc": 50.0,
+     "loc": "shared exon"
+    },
+    "product": 146,
+    "penalty": 0.81,
+    "qpcr_suitable": true,
+    "giant_products": [
+     146
+    ],
+    "alpha2_products": [],
+    "validated": true
+   }
+  ]
+ }
+}

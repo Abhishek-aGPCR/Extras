@@ -1,0 +1,13 @@
+species	giant_transcript	pair	forward (5'->3')	F_Tm	F_GC%	F_site	reverse (5'->3')	R_Tm	R_GC%	R_site	product_bp	qPCR?	in_silico
+human (SYNE1)	NM_182961.4	1	GGAGAACGACTTGCTAAAGC	60.2	50.0	giant exon 127 (giant-unique vs a2)	CAGATGCAACACCTGTACTG	60.0	50.0	shared exon +1	319	no	OK
+human (SYNE1)	NM_182961.4	2	GAGAACGACTTGCTAAAGCC	60.2	50.0	giant exon 127 (giant-unique vs a2)	CAGATGCAACACCTGTACTG	60.0	50.0	shared exon +1	318	no	OK
+human (SYNE1)	NM_182961.4	3	CTCCAACAAATGGGAGAACG	60.3	50.0	giant exon 127 (giant-unique vs a2)	CAGATGCAACACCTGTACTG	60.0	50.0	shared exon +1	331	no	OK
+human (SYNE1)	NM_182961.4	4	GGGAGAACGACTTGCTAAAG	59.7	50.0	giant exon 127 (giant-unique vs a2)	CAGATGCAACACCTGTACTG	60.0	50.0	shared exon +1	320	no	OK
+mouse (Syne1)	NM_001347732.2	1	CATGGCAGCTAGGGTGAAG	62.2	57.9	e127/shared junction	TCATAGACTATGGGCTTGGC	60.7	50.0	shared exon	129	yes	OK
+mouse (Syne1)	NM_001347732.2	2	GCTTCAGGAAATGGGAGAAC	60.1	50.0	giant exon 127 (giant-unique vs a2)	GCTGTGTTTCTCGATGTCTC	59.9	50.0	shared exon +1	316	no	OK
+mouse (Syne1)	NM_001347732.2	3	GCTTCAGGAAATGGGAGAAC	60.1	50.0	giant exon 127 (giant-unique vs a2)	GCGTCTCCTTTAGCTTCTTC	59.7	50.0	shared exon	146	yes	OK
+mouse (Syne1)	NM_001347732.2	4	CTTCAGGAAATGGGAGAACG	59.8	50.0	giant exon 127 (giant-unique vs a2)	GCTGTGTTTCTCGATGTCTC	59.9	50.0	shared exon +1	315	no	OK
+rat (Syne1)	NM_001419849.1	1	GAGCAAAGCCTCTGAGATTC	59.8	50.0	giant exon 127 (giant-unique vs a2)	TCGTAGACTATGGGCTTGG	60.0	52.6	shared exon	198	yes	OK
+rat (Syne1)	NM_001419849.1	2	GAGCAAAGCCTCTGAGATTC	59.8	50.0	giant exon 127 (giant-unique vs a2)	CTGCCCATGTTCTTATCCAG	59.7	50.0	shared exon	141	yes	OK
+rat (Syne1)	NM_001419849.1	3	CTCCAGCAAATGGGAGAAC	59.9	52.6	giant exon 127 (giant-unique vs a2)	GCTGCTCACTCAGTTTCTTC	60.2	50.0	shared exon	283	no	OK
+rat (Syne1)	NM_001419849.1	4	CATGAGAGCAAAGCCTCTG	59.9	52.6	giant exon 127 (giant-unique vs a2)	CTGCCCATGTTCTTATCCAG	59.7	50.0	shared exon	146	yes	OK
