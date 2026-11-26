@@ -4,7 +4,7 @@ human_brain	non-muscle tissue (brain)	frontal cortex	4	106291502	0	0	114	0.0	0.0
 human_osteoclast	osteoclast	osteoclast (monocyte-derived)	3	171810292	2	5	7	0.2222	0.116	0.407	2.48	11.04	0
 mouse_c2c12	developmental switch + positive control	myoblast	2	110619070	0	0	5	0.0	0.0	0.452	0.0	3.33	0
 mouse_c2c12	developmental switch + positive control	myotube (day 3)	2	102913846	47	48	15	0.7581	4.567	1.458	26.75	88.62	1
-zebrafish_larval_heart	larval heart	48 hpf heart (control)	3	140581310	1	1	74	0.0133	0.071	5.264	0.81	65.33	0
+zebrafish_larval_heart	larval heart	48 hpf heart (control)	4	196258229	2	2	115	0.0171	0.102	5.86	0.83	68.1	0
 zebrafish_dev	larval development	96 hpf / 4 dpf larva	4	277340140	7	8	91	0.0714	0.252	3.281	7.36	134.21	0
 zebrafish_adult	adult tissue	fast muscle	6	170389462	0	0	40	0.0	0.0	2.348	0.0	13.3	0
 zebrafish_adult	adult tissue	slow muscle	4	126389704	2	2	30	0.0625	0.158	2.374	0.59	9.6	0

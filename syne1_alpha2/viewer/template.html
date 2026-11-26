@@ -1393,7 +1393,7 @@ function rnaseqSVG() {
 }
 function crossSpeciesSection() {
   const X = DATA.rnaseq_cross; if (!X) return '';
-  const order = ['human_heart', 'human_brain', 'mouse_c2c12', 'zebrafish_dev', 'zebrafish_adult', 'zebrafish_osteoclast'].filter(k => X[k]);
+  const order = ['human_heart', 'human_brain', 'human_osteoclast', 'mouse_c2c12', 'zebrafish_larval_heart', 'zebrafish_dev', 'zebrafish_adult', 'zebrafish_osteoclast'].filter(k => X[k]);
   if (!order.length) return '';
   const verdict = g => g.alpha2_junction >= 3 ? ['α2 detected', 'var(--good)'] : g.alpha2_junction ? ['trace', 'var(--warn)'] : ['not detected', 'var(--ink-3)'];
   let rows = '';
@@ -1407,7 +1407,7 @@ function crossSpeciesSection() {
     }
   }
   return `<h3 class="section-title">Cross-species and developmental validation</h3>
-  <div class="prose small"><p>The identical method run on public RNA-seq from other species and stages. The <b>giant</b> junction is the internal positive control — detected wherever the locus is expressed; the test is whether the <b>α2</b> junction rides with it. Human heart and mouse myotubes are where nesprin-1α2 is independently known to be made (Holt 2019; Stroud 2017); myoblasts and skeletal muscle are where it should be low.</p></div>
+  <div class="prose small"><p>The identical method run on public RNA-seq from other species and stages. The <b>giant</b> junction is the internal positive control — detected wherever the locus is expressed; the test is whether the <b>α2</b> junction rides with it. Human heart and mouse myotubes are where nesprin-1α2 is independently known to be made (Holt 2019; Stroud 2017); myoblasts and skeletal muscle are where it should be low. Two axes are worth reading directly: <b>development</b> — the α2 junction is absent in the 48 hpf zebrafish heart (giant strong) and strong in the adult ventricle, i.e. cardiac α2 is a maturation program, not a constitutive one, echoing the mouse myoblast→myotube switch; and <b>osteoclasts</b> — human osteoclasts carry α2 (low, alongside abundant AKAP6), whereas the zebrafish locus is barely transcribed there.</p></div>
   <div class="tablewrap"><table><thead><tr><th>Tissue / stage</th><th class="r">Reads</th><th class="r">α2 junction (24-mer)</th><th class="r">Giant</th><th class="r">α2 share (95% CI)</th><th class="r">Exon 1α2 cov</th><th>Verdict</th></tr></thead><tbody>${rows}</tbody></table></div>
   <p class="small muted prose">α2 share = α2 / (α2 + giant) among fragments entering the shared exon; fragments are duplicate-removed. Full table: <span class="mono">results/rnaseq/crossspecies_groups.tsv</span>. The conserved GC-AG α2 donor is recovered in every species by the splice-aware aligner, independent of strand.</p>`;
 }

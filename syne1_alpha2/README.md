@@ -80,16 +80,30 @@ the plus-strand zebrafish locus.
 |---|---|---|---|---|
 | Human healthy left ventricle (×3) | 19 (23) | 35 | 35 % | positive control — detected |
 | Human **frontal cortex** (×4) | **0 (0)** | **114** | 0 % | brain — **absent** (giant high: real negative) |
+| Human **osteoclast** (×3) | 2 (5) | 7 | 22 % | osteoclast — α2 **detected, low** (SYNE1 low; AKAP6 abundant, RPKM 253) |
 | Mouse C2C12 **myoblast** | **0 (0)** | 5 | 0 % | undifferentiated — absent |
 | Mouse C2C12 **myotube, day 3** | **47 (48)** | 15 | 76 % | differentiated — induced |
+| Zebrafish **48 hpf dissected heart** (×4) | **2 (2)** | **115** | **1.7 %** | larval heart — α2 **absent**, giant strong (**adult-onset**) |
 | Zebrafish 4 dpf whole larva (×4) | 7 (8) | 91 | 7 % | larval — low but detected, exon covered 7× |
 
 The mouse **myoblast → myotube** step (0 → 47) catches the developmental induction of nesprin-1α2 directly, as
 expected (Stroud et al. 2017), and doubles as a positive control. The conserved GC-AG α2 donor is recovered in
-human, mouse and zebrafish alike by the splice-aware aligner. In whole 4 dpf wild-type larvae the α2 junction is
-low but detected (7 fragments, 24-mer 8), where the adult **skeletal** muscle is essentially null — consistent
-with α2 appearing during active larval myogenesis (as in the mouse myotubes) and then becoming cardiac-restricted
-in the adult. A larval heart dissection or a staged myogenic time-course would resolve the exact timing.
+human, mouse and zebrafish alike by the splice-aware aligner.
+
+**Cardiac α2 is adult-onset, not constitutive.** A dissected **48 hpf larval heart** (PRJNA395216, ×4) expresses
+the giant junction strongly (115 fragments) but essentially no α2 (2; share 1.7 %, 95 % CI 0.5–6 %), with the
+α2-specific exon 1α2 barely covered (0.8×) while the shared exon is deep (68×). So the early larval heart makes
+giant nesprin-1 but switches on α2 only later — the adult ventricle reaches 45 % share (a ~26× rise). This mirrors
+the mouse myoblast→myotube switch exactly: α2 behaves as a striated-muscle **maturation** marker in both systems,
+not a constitutive cardiac gene. (In whole 4 dpf larvae α2 is low but detected, 7 fragments — active larval
+myogenesis, where the α2-covered skeletal muscle contributes; the adult **skeletal** muscle is then essentially
+null and α2 becomes cardiac-restricted.)
+
+**Human osteoclasts carry both complex partners.** In monocyte-derived human osteoclasts the α2 junction is
+detected at low level (2; exact-24-mer 5; giant 7) alongside **abundant AKAP6** (RPKM 253, ~housekeeping;
+`scripts/12`-style cDNA capture) — the mammalian AKAP6–nesprin-1α2 substrate is present. The locus is lowly
+transcribed there (≈9 junction reads pooled), so the α2 call rests on few reads backed by the independent 24-mer
+count. This contrasts with the zebrafish osteoclast, where *syne1a is barely transcribed at all* (below).
 
 In **human frontal cortex**, nesprin-1α2 is **absent** (α2 junction 0 across 4 samples) even though SYNE1 is
 *more* highly expressed than in heart (giant junction 114 vs 35) — a clean negative with a strong internal
@@ -232,12 +246,14 @@ The steps run in order, and downloads are cached in `data/cache/`:
 | `scripts/02_find_alpha2_exon.py` | mammalian exon 1α2; zebrafish homologous-intron scan; controls; other assemblies; vertebrate survey |
 | `scripts/03_build_models.py` | predicted zebrafish α2 models (± DV23), isoform classes, FASTA/GTF/BED |
 | `scripts/04_alignments.py` | FAMSA protein alignments, codon and exon 1α2 alignments, exon correspondence |
-| `scripts/05_primers.py` | RT-PCR primer suggestions |
+| `scripts/05_primers.py` | zebrafish α2 RT-PCR primer suggestions |
 | `scripts/06_protein_domains.py` | UniProt Q8NF91 domains (CH, 74 spectrin repeats, LEWD, TM, KASH) projected onto every species |
 | `scripts/07_verify_c23560.py` | independent verification of c.23560G>T (RefSeq versions, genome, Ensembl VEP/recoder, GRCh37, ClinVar) |
 | `scripts/10_rnaseq_junctions.py` | zebrafish exon 1α2 → exon 128 junction counts in adult muscle/heart RNA-seq (ENA) |
-| `scripts/11_rnaseq_crossspecies.py` | the same method across human heart, mouse C2C12, zebrafish larva and osteoclasts (positive/developmental controls) |
+| `scripts/11_rnaseq_crossspecies.py` | the same method across human heart/brain/osteoclast, mouse C2C12, zebrafish larva, 48 hpf heart, adult tissues and osteoclasts (positive/developmental controls) |
 | `scripts/12_akap6_expression.py` | zebrafish akap6 vs nesprin-1α2 across fast/slow muscle, ventricle and osteoclasts (RPKM-like cDNA capture) |
+| `scripts/13_mammalian_alpha2_primers.py` | isoform-specific nesprin-1α2 RT-PCR/qPCR primers for human, mouse, rat (in-silico validated) |
+| `scripts/14_mammalian_giant_primers.py` | matched giant-isoform primers for human, mouse, rat (shared reverse with the α2 assay) |
 | `scripts/08_build_html.py` | builds `SYNE1_isoform_browser.html` from `viewer/template.html` + `viewer/variant_engine.js` |
 | `scripts/09_variant_report.js` | Node: variant report, isoform tables and SVG/PNG figures (same engine as the browser) |
 
