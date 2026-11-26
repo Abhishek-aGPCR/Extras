@@ -1,0 +1,290 @@
+{
+ "human_SYNE1": {
+  "view": "human_SYNE1",
+  "transcript": "NM_001347702.2",
+  "giant": "NM_182961.4",
+  "exon1a2_len": 200,
+  "cds_start_mrna": 109,
+  "first_intron_bp": 3787,
+  "n_forward_candidates": 37,
+  "n_junction_forward": 3,
+  "pairs": [
+   {
+    "forward": {
+     "seq": "CGATGTCACAAGGGTGAAG",
+     "start": 189,
+     "end": 207,
+     "tm": 59.7,
+     "gc": 52.6,
+     "junction": true
+    },
+    "reverse": {
+     "seq": "CAGATGCAACACCTGTACTG",
+     "start": 390,
+     "end": 409,
+     "tm": 60.0,
+     "gc": 50.0,
+     "exon": 3
+    },
+    "product": 221,
+    "penalty": 0.66,
+    "qpcr_suitable": false
+   },
+   {
+    "forward": {
+     "seq": "CCCAGATTGTAACTGCGATG",
+     "start": 174,
+     "end": 193,
+     "tm": 60.1,
+     "gc": 50.0,
+     "junction": false
+    },
+    "reverse": {
+     "seq": "CAGATGCAACACCTGTACTG",
+     "start": 390,
+     "end": 409,
+     "tm": 60.0,
+     "gc": 50.0,
+     "exon": 3
+    },
+    "product": 236,
+    "penalty": 0.35,
+    "qpcr_suitable": false
+   },
+   {
+    "forward": {
+     "seq": "CCCAGATTGTAACTGCGATG",
+     "start": 174,
+     "end": 193,
+     "tm": 60.1,
+     "gc": 50.0,
+     "junction": false
+    },
+    "reverse": {
+     "seq": "CCTTTCCATGGACATAGCAC",
+     "start": 524,
+     "end": 543,
+     "tm": 59.9,
+     "gc": 50.0,
+     "exon": 3
+    },
+    "product": 370,
+    "penalty": 0.45,
+    "qpcr_suitable": false
+   },
+   {
+    "forward": {
+     "seq": "CCCAGATTGTAACTGCGATG",
+     "start": 174,
+     "end": 193,
+     "tm": 60.1,
+     "gc": 50.0,
+     "junction": false
+    },
+    "reverse": {
+     "seq": "CAGGCTGCTCATGTTCTTATC",
+     "start": 244,
+     "end": 264,
+     "tm": 60.1,
+     "gc": 47.6,
+     "exon": 2
+    },
+    "product": 91,
+    "penalty": 0.59,
+    "qpcr_suitable": true
+   }
+  ]
+ },
+ "mouse_Syne1": {
+  "view": "mouse_Syne1",
+  "transcript": "NM_022027.3",
+  "giant": "NM_001347732.2",
+  "exon1a2_len": 248,
+  "cds_start_mrna": 157,
+  "first_intron_bp": 7255,
+  "n_forward_candidates": 11,
+  "n_junction_forward": 1,
+  "pairs": [
+   {
+    "forward": {
+     "seq": "CGATGTCTCCAGGGTGAAG",
+     "start": 237,
+     "end": 255,
+     "tm": 61.5,
+     "gc": 57.9,
+     "junction": true
+    },
+    "reverse": {
+     "seq": "CTGCTCATTCAGTTTCCTCTG",
+     "start": 388,
+     "end": 408,
+     "tm": 60.0,
+     "gc": 47.6,
+     "exon": 2
+    },
+    "product": 172,
+    "penalty": 2.53,
+    "qpcr_suitable": true
+   },
+   {
+    "forward": {
+     "seq": "ATGCAGATCTCCCAGACTG",
+     "start": 212,
+     "end": 230,
+     "tm": 60.4,
+     "gc": 52.6,
+     "junction": false
+    },
+    "reverse": {
+     "seq": "GCTGTGTTTCTCGATGTCTC",
+     "start": 422,
+     "end": 441,
+     "tm": 59.9,
+     "gc": 50.0,
+     "exon": 3
+    },
+    "product": 230,
+    "penalty": 1.01,
+    "qpcr_suitable": false
+   },
+   {
+    "forward": {
+     "seq": "ATGCAGATCTCCCAGACTG",
+     "start": 212,
+     "end": 230,
+     "tm": 60.4,
+     "gc": 52.6,
+     "junction": false
+    },
+    "reverse": {
+     "seq": "CTGCTCATTCAGTTTCCTCTG",
+     "start": 388,
+     "end": 408,
+     "tm": 60.0,
+     "gc": 47.6,
+     "exon": 2
+    },
+    "product": 197,
+    "penalty": 1.05,
+    "qpcr_suitable": true
+   },
+   {
+    "forward": {
+     "seq": "CAGTGTGGATGCAGATCTC",
+     "start": 204,
+     "end": 222,
+     "tm": 59.3,
+     "gc": 52.6,
+     "junction": false
+    },
+    "reverse": {
+     "seq": "GCTGTGTTTCTCGATGTCTC",
+     "start": 422,
+     "end": 441,
+     "tm": 59.9,
+     "gc": 50.0,
+     "exon": 3
+    },
+    "product": 238,
+    "penalty": 1.31,
+    "qpcr_suitable": false
+   }
+  ]
+ },
+ "rat_Syne1": {
+  "view": "rat_Syne1",
+  "transcript": "XM_006227852.6",
+  "giant": "NM_001419849.1",
+  "exon1a2_len": 226,
+  "cds_start_mrna": 135,
+  "first_intron_bp": 6019,
+  "n_forward_candidates": 17,
+  "n_junction_forward": 1,
+  "pairs": [
+   {
+    "forward": {
+     "seq": "CGATGTCTCCAGGGTGAAG",
+     "start": 215,
+     "end": 233,
+     "tm": 61.5,
+     "gc": 57.9,
+     "junction": true
+    },
+    "reverse": {
+     "seq": "GCTGCTCACTCAGTTTCTTC",
+     "start": 368,
+     "end": 387,
+     "tm": 60.2,
+     "gc": 50.0,
+     "exon": 2
+    },
+    "product": 173,
+    "penalty": 2.49,
+    "qpcr_suitable": true
+   },
+   {
+    "forward": {
+     "seq": "ATCTCCCAGACTGTGACTG",
+     "start": 196,
+     "end": 214,
+     "tm": 60.0,
+     "gc": 52.6,
+     "junction": false
+    },
+    "reverse": {
+     "seq": "GCTGCTCACTCAGTTTCTTC",
+     "start": 368,
+     "end": 387,
+     "tm": 60.2,
+     "gc": 50.0,
+     "exon": 2
+    },
+    "product": 192,
+    "penalty": 0.61,
+    "qpcr_suitable": true
+   },
+   {
+    "forward": {
+     "seq": "ATCTCCCAGACTGTGACTG",
+     "start": 196,
+     "end": 214,
+     "tm": 60.0,
+     "gc": 52.6,
+     "junction": false
+    },
+    "reverse": {
+     "seq": "TCGTAGACTATGGGCTTGG",
+     "start": 325,
+     "end": 343,
+     "tm": 60.0,
+     "gc": 52.6,
+     "exon": 2
+    },
+    "product": 148,
+    "penalty": 0.67,
+    "qpcr_suitable": true
+   },
+   {
+    "forward": {
+     "seq": "ATCTCCCAGACTGTGACTG",
+     "start": 196,
+     "end": 214,
+     "tm": 60.0,
+     "gc": 52.6,
+     "junction": false
+    },
+    "reverse": {
+     "seq": "CTGCCCATGTTCTTATCCAG",
+     "start": 267,
+     "end": 286,
+     "tm": 59.7,
+     "gc": 50.0,
+     "exon": 2
+    },
+    "product": 91,
+    "penalty": 0.71,
+    "qpcr_suitable": true
+   }
+  ]
+ }
+}
