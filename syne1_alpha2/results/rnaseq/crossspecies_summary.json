@@ -233,6 +233,114 @@
    }
   ]
  },
+ "human_osteoclast": {
+  "panel": "human_osteoclast",
+  "meta": {
+   "source": "PRJNA1504327 (monocyte-derived human osteoclasts)",
+   "kind": "osteoclast",
+   "view": "human_SYNE1",
+   "group_order": [
+    "osteoclast (monocyte-derived)"
+   ]
+  },
+  "view": "human_SYNE1",
+  "strand": -1,
+  "coords": {
+   "assembly": "GRCh38",
+   "chrom": "6",
+   "exon1a2": [
+    152168113,
+    152168312
+   ],
+   "shared": [
+    152164163,
+    152164325
+   ],
+   "alpha2_intron": [
+    152164325,
+    152168113
+   ],
+   "alpha2_motif": "GC-AG",
+   "giant_motif": "GT-AG"
+  },
+  "samples": [
+   {
+    "panel": "human_osteoclast",
+    "run": "SRR39902634",
+    "label": "OC_mono_1",
+    "group": "osteoclast (monocyte-derived)",
+    "mates": 2,
+    "complete": false,
+    "reads_scanned": 52985609,
+    "reads_captured": 329,
+    "reads_mapped": 218,
+    "alpha2_junction": 0,
+    "alpha2_junction_24mer": 0,
+    "giant_junction": 4,
+    "giant_junction_24mer": 4,
+    "junctions_into_exon1a2": 0,
+    "exon1a2_mean_cov": 0.61,
+    "shared_exon_mean_cov": 12.93
+   },
+   {
+    "panel": "human_osteoclast",
+    "run": "SRR39902635",
+    "label": "OC_mono_2",
+    "group": "osteoclast (monocyte-derived)",
+    "mates": 2,
+    "complete": false,
+    "reads_scanned": 65738967,
+    "reads_captured": 30,
+    "reads_mapped": 6,
+    "alpha2_junction": 0,
+    "alpha2_junction_24mer": 0,
+    "giant_junction": 0,
+    "giant_junction_24mer": 0,
+    "junctions_into_exon1a2": 0,
+    "exon1a2_mean_cov": 0.0,
+    "shared_exon_mean_cov": 0.46
+   },
+   {
+    "panel": "human_osteoclast",
+    "run": "SRR39902636",
+    "label": "OC_mono_3",
+    "group": "osteoclast (monocyte-derived)",
+    "mates": 2,
+    "complete": false,
+    "reads_scanned": 53085716,
+    "reads_captured": 297,
+    "reads_mapped": 240,
+    "alpha2_junction": 2,
+    "alpha2_junction_24mer": 5,
+    "giant_junction": 3,
+    "giant_junction_24mer": 3,
+    "junctions_into_exon1a2": 0,
+    "exon1a2_mean_cov": 6.82,
+    "shared_exon_mean_cov": 19.72
+   }
+  ],
+  "groups": [
+   {
+    "group": "osteoclast (monocyte-derived)",
+    "n_samples": 3,
+    "reads_scanned": 171810292,
+    "alpha2_junction": 2,
+    "alpha2_junction_24mer": 5,
+    "giant_junction": 7,
+    "giant_junction_24mer": 7,
+    "alpha2_fraction": 0.2222,
+    "alpha2_fraction_ci95": [
+     0.0632,
+     0.5474
+    ],
+    "alpha2_per_10M": 0.116,
+    "giant_per_10M": 0.407,
+    "exon1a2_mean_cov": 2.48,
+    "shared_exon_mean_cov": 11.04,
+    "junctions_into_exon1a2": 0
+   }
+  ]
+ },
  "mouse_c2c12": {
   "panel": "mouse_c2c12",
   "meta": {
@@ -376,6 +484,114 @@
     "exon1a2_mean_cov": 26.75,
     "shared_exon_mean_cov": 88.62,
     "junctions_into_exon1a2": 1
+   }
+  ]
+ },
+ "zebrafish_larval_heart": {
+  "panel": "zebrafish_larval_heart",
+  "meta": {
+   "source": "PRJNA395216 (dissected 48 hpf larval heart, wild-type/control siblings)",
+   "kind": "larval heart",
+   "view": "zebrafish_syne1a",
+   "group_order": [
+    "48 hpf heart (control)"
+   ]
+  },
+  "view": "zebrafish_syne1a",
+  "strand": 1,
+  "coords": {
+   "assembly": "GRCz11",
+   "chrom": "20",
+   "exon1a2": [
+    26341126,
+    26341308
+   ],
+   "shared": [
+    26342757,
+    26342919
+   ],
+   "alpha2_intron": [
+    26341308,
+    26342757
+   ],
+   "alpha2_motif": "GC-AG",
+   "giant_motif": "GT-AG"
+  },
+  "samples": [
+   {
+    "panel": "zebrafish_larval_heart",
+    "run": "SRR5855250",
+    "label": "48hpf_heart_ctrl_1",
+    "group": "48 hpf heart (control)",
+    "mates": 2,
+    "complete": true,
+    "reads_scanned": 52869202,
+    "reads_captured": 1627,
+    "reads_mapped": 1413,
+    "alpha2_junction": 1,
+    "alpha2_junction_24mer": 1,
+    "giant_junction": 28,
+    "giant_junction_24mer": 38,
+    "junctions_into_exon1a2": 0,
+    "exon1a2_mean_cov": 2.01,
+    "shared_exon_mean_cov": 83.75
+   },
+   {
+    "panel": "zebrafish_larval_heart",
+    "run": "SRR5855251",
+    "label": "48hpf_heart_ctrl_2",
+    "group": "48 hpf heart (control)",
+    "mates": 2,
+    "complete": true,
+    "reads_scanned": 55703882,
+    "reads_captured": 1222,
+    "reads_mapped": 1091,
+    "alpha2_junction": 0,
+    "alpha2_junction_24mer": 0,
+    "giant_junction": 24,
+    "giant_junction_24mer": 27,
+    "junctions_into_exon1a2": 0,
+    "exon1a2_mean_cov": 0.0,
+    "shared_exon_mean_cov": 70.13
+   },
+   {
+    "panel": "zebrafish_larval_heart",
+    "run": "SRR5855252",
+    "label": "48hpf_heart_ctrl_3",
+    "group": "48 hpf heart (control)",
+    "mates": 1,
+    "complete": false,
+    "reads_scanned": 32008226,
+    "reads_captured": 668,
+    "reads_mapped": 589,
+    "alpha2_junction": 0,
+    "alpha2_junction_24mer": 0,
+    "giant_junction": 22,
+    "giant_junction_24mer": 22,
+    "junctions_into_exon1a2": 0,
+    "exon1a2_mean_cov": 0.42,
+    "shared_exon_mean_cov": 42.12
+   }
+  ],
+  "groups": [
+   {
+    "group": "48 hpf heart (control)",
+    "n_samples": 3,
+    "reads_scanned": 140581310,
+    "alpha2_junction": 1,
+    "alpha2_junction_24mer": 1,
+    "giant_junction": 74,
+    "giant_junction_24mer": 87,
+    "alpha2_fraction": 0.0133,
+    "alpha2_fraction_ci95": [
+     0.0024,
+     0.0717
+    ],
+    "alpha2_per_10M": 0.071,
+    "giant_per_10M": 5.264,
+    "exon1a2_mean_cov": 0.81,
+    "shared_exon_mean_cov": 65.33,
+    "junctions_into_exon1a2": 0
    }
   ]
  },
