@@ -118,6 +118,16 @@ PANELS = {
                  ("SRR5855251", "48hpf_heart_ctrl_2", "48 hpf heart (control)"),
                  ("SRR5855252", "48hpf_heart_ctrl_3", "48 hpf heart (control)"),
                  ("SRR5855253", "48hpf_heart_ctrl_4", "48 hpf heart (control)")]),
+    "zebrafish_larval_muscle": dict(
+        view="zebrafish_syne1a", giant="ENSDART00000139350.4", alpha2="syne1a-alpha2-pred-plusDV23-GRCz11",
+        source="PRJNA1016321 (FACS-sorted mylz2+ skeletal muscle, 72 hpf larvae, WT/het controls)",
+        kind="larval muscle",
+        group_order=["72 hpf muscle (mylz2+)"],
+        patterns=RNADIR / "zebrafish_dev" / "capture_kmers.txt",   # identical syne1a locus
+        samples=[("SRR26050759", "72hpf_mylz2_ctrl_1", "72 hpf muscle (mylz2+)"),
+                 ("SRR26050760", "72hpf_mylz2_ctrl_2", "72 hpf muscle (mylz2+)"),
+                 ("SRR26050761", "72hpf_mylz2_ctrl_3", "72 hpf muscle (mylz2+)"),
+                 ("SRR26050762", "72hpf_mylz2_ctrl_4", "72 hpf muscle (mylz2+)")]),
     "zebrafish_osteoclast": dict(
         view="zebrafish_syne1a", giant="ENSDART00000139350.4", alpha2="syne1a-alpha2-pred-plusDV23-GRCz11",
         source="PRJNA1331843 (Ctsk+ wild-type sorted osteoclasts)", kind="osteoclast",
@@ -492,7 +502,8 @@ def analyse(names):
 # --- figure -------------------------------------------------------------------------------------
 def figure(results):
     order = [n for n in ["human_heart", "human_brain", "human_osteoclast", "mouse_c2c12",
-                         "zebrafish_larval_heart", "zebrafish_dev", "zebrafish_adult", "zebrafish_osteoclast"] if n in results]
+                         "zebrafish_larval_heart", "zebrafish_larval_muscle", "zebrafish_dev",
+                         "zebrafish_adult", "zebrafish_osteoclast"] if n in results]
     rowsflat = []
     for name in order:
         R = results[name]
