@@ -82,6 +82,14 @@ PANELS = {
                  ("SRR40332935", "FCx_C9FTD_1", "frontal cortex"),
                  ("SRR40332938", "FCx_C9FTD_2", "frontal cortex"),
                  ("SRR40332939", "FCx_C9FTD_3", "frontal cortex")]),
+    "human_osteoclast": dict(
+        view="human_SYNE1", giant="NM_182961.4", alpha2="NM_001347702.2",
+        source="PRJNA1504327 (monocyte-derived human osteoclasts)", kind="osteoclast",
+        group_order=["osteoclast (monocyte-derived)"],
+        patterns=RNADIR / "human_heart" / "capture_kmers.txt",   # same SYNE1 locus as human_heart
+        samples=[("SRR39902634", "OC_mono_1", "osteoclast (monocyte-derived)"),
+                 ("SRR39902635", "OC_mono_2", "osteoclast (monocyte-derived)"),
+                 ("SRR39902636", "OC_mono_3", "osteoclast (monocyte-derived)")]),
     "mouse_c2c12": dict(
         view="mouse_Syne1", giant="NM_001347732.2", alpha2="NM_022027.3",
         source="PRJEB108758 (C2C12 myoblast vs myotube day 3, polysome RNA-seq)",
