@@ -108,6 +108,16 @@ PANELS = {
                  ("ERR15682391", "4dpf_wt_2", "96 hpf / 4 dpf larva"),
                  ("ERR15682392", "4dpf_wt_3", "96 hpf / 4 dpf larva"),
                  ("ERR15682393", "4dpf_wt_4", "96 hpf / 4 dpf larva")]),
+    "zebrafish_larval_heart": dict(
+        view="zebrafish_syne1a", giant="ENSDART00000139350.4", alpha2="syne1a-alpha2-pred-plusDV23-GRCz11",
+        source="PRJNA395216 (dissected 48 hpf larval heart, wild-type/control siblings)",
+        kind="larval heart",
+        group_order=["48 hpf heart (control)"],
+        patterns=RNADIR / "zebrafish_dev" / "capture_kmers.txt",   # identical syne1a locus as zebrafish_dev
+        samples=[("SRR5855250", "48hpf_heart_ctrl_1", "48 hpf heart (control)"),
+                 ("SRR5855251", "48hpf_heart_ctrl_2", "48 hpf heart (control)"),
+                 ("SRR5855252", "48hpf_heart_ctrl_3", "48 hpf heart (control)"),
+                 ("SRR5855253", "48hpf_heart_ctrl_4", "48 hpf heart (control)")]),
     "zebrafish_osteoclast": dict(
         view="zebrafish_syne1a", giant="ENSDART00000139350.4", alpha2="syne1a-alpha2-pred-plusDV23-GRCz11",
         source="PRJNA1331843 (Ctsk+ wild-type sorted osteoclasts)", kind="osteoclast",
@@ -481,7 +491,8 @@ def analyse(names):
 
 # --- figure -------------------------------------------------------------------------------------
 def figure(results):
-    order = [n for n in ["human_heart", "human_brain", "mouse_c2c12", "zebrafish_dev", "zebrafish_adult", "zebrafish_osteoclast"] if n in results]
+    order = [n for n in ["human_heart", "human_brain", "human_osteoclast", "mouse_c2c12",
+                         "zebrafish_larval_heart", "zebrafish_dev", "zebrafish_adult", "zebrafish_osteoclast"] if n in results]
     rowsflat = []
     for name in order:
         R = results[name]
