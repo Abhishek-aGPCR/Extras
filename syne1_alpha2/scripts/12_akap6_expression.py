@@ -27,7 +27,7 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
-from common import DATA, ENSEMBL, RESULTS, http, revcomp, save_json  # noqa: E402
+from common import DATA, ENSEMBL, RESULTS, http, load_json, revcomp, save_json  # noqa: E402
 _spec = importlib.util.spec_from_file_location("rj", HERE / "10_rnaseq_junctions.py")
 rj = importlib.util.module_from_spec(_spec); _spec.loader.exec_module(rj)
 
@@ -49,6 +49,7 @@ ORDER = ["akap6", "ctsk", "myl7", "mybpc3", "mylpfa", "smyhc1", "actc1a", "rpl13
 TISSUE_RUNS = {
     "fast muscle": ["SRR33394562", "SRR33394560"],   # PRJNA1257549 adult WT
     "slow muscle": ["SRR33394549", "SRR33394546"],
+    "larval muscle (72hpf)": ["SRR26050759", "SRR26050760", "SRR26050761", "SRR26050762"],  # PRJNA1016321 mylz2+ sorted
     "ventricle":   ["SRR33394541", "SRR33394540"],
     "osteoclast":  ["SRR35522660", "SRR35522659"],   # PRJNA1331843 Ctsk+ WT sorted cells
 }
@@ -109,9 +110,15 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--full", action="store_true", help="2 libraries/tissue, no byte cap")
     ap.add_argument("--mates", type=int, nargs="*", default=[1])
+    ap.add_argument("--tissues", nargs="*", default=None,
+                    help="only (re)scan these tissues and merge into the existing table; default all")
     a = ap.parse_args()
     cap = None if a.full else 700_000_000
     runs_per = None if a.full else 1
+    todo = a.tissues if a.tissues else list(TISSUE_RUNS)
+    for t in todo:
+        if t not in TISSUE_RUNS:
+            raise SystemExit(f"unknown tissue {t!r}; choices: {list(TISSUE_RUNS)}")
     seq = cdnas()
     kmer_genes = defaultdict(set)
     for g, s in seq.items():
@@ -124,10 +131,13 @@ def main():
     patt = CDNADIR / "panel_kmers.txt"; patt.write_text("\n".join(sorted(k2g)) + "\n")
     print("gene-specific 25-mers: " + ", ".join(f"{g}={sum(1 for v in k2g.values() if v == g)}" for g in seq))
 
-    rpkm, reads = {}, {}
-    for tissue, runs in TISSUE_RUNS.items():
+    # merge base: keep previously-measured tissues that are not being re-scanned
+    jpath = RESULTS / "zebrafish_akap6_expression.json"
+    prev = load_json(jpath) if jpath.exists() else {}
+    rpkm = dict(prev.get("rpkm", {})); reads = dict(prev.get("reads_scanned", {}))
+    for tissue in todo:
         per = Counter(); tot = 0
-        for run in runs[:runs_per]:
+        for run in TISSUE_RUNS[tissue][:runs_per]:
             for mate in a.mates:
                 try:
                     nr, p = scan_run(run, mate, patt, k2g, cap)
@@ -138,22 +148,19 @@ def main():
         reads[tissue] = tot
         rpkm[tissue] = {g: (per[g] / (len(seq[g]) / 1000) / (tot / 1e6) if tot else 0) for g in seq}
 
+    cols = [t for t in TISSUE_RUNS if t in rpkm]   # all tissues with data, in canonical order
     out = RESULTS / "zebrafish_akap6_expression.tsv"
     with open(out, "w") as fh:
-        fh.write("gene\t" + "\t".join(TISSUE_RUNS) + "\trole\n")
+        fh.write("gene\t" + "\t".join(cols) + "\trole\n")
         for g in ORDER:
-            fh.write(f"{g}\t" + "\t".join(f"{rpkm[t][g]:.2f}" for t in TISSUE_RUNS) + f"\t{GENES[g][1]}\n")
-    save_json(RESULTS / "zebrafish_akap6_expression.json",
-              dict(rpkm=rpkm, reads_scanned=reads, cdna_len={g: len(s) for g, s in seq.items()},
-                   genes=GENES, note="RPKM-like (reads/kb/million) from cDNA 25-mer capture; one library/tissue unless --full"))
-    print(f"\n{'gene':8s} " + "".join(f"{t:>13s}" for t in TISSUE_RUNS) + "   role")
+            fh.write(f"{g}\t" + "\t".join(f"{rpkm[t].get(g, 0):.2f}" for t in cols) + f"\t{GENES[g][1]}\n")
+    save_json(jpath, dict(rpkm=rpkm, reads_scanned=reads, cdna_len={g: len(s) for g, s in seq.items()},
+                          genes=GENES, note="RPKM-like (reads/kb/million) from cDNA 25-mer capture; one library/tissue unless --full"))
+    print(f"\n{'gene':8s} " + "".join(f"{t[:12]:>13s}" for t in cols) + "   role")
     for g in ORDER:
-        print(f"{g:8s} " + "".join(f"{rpkm[t][g]:13.1f}" for t in TISSUE_RUNS) + f"   {GENES[g][1]}")
-    ak = {t: rpkm[t]["akap6"] for t in TISSUE_RUNS}
-    skm = [ak[t] for t in TISSUE_RUNS if "muscle" in t]
+        print(f"{g:8s} " + "".join(f"{rpkm[t].get(g, 0):13.1f}" for t in cols) + f"   {GENES[g][1]}")
+    ak = {t: rpkm[t]["akap6"] for t in cols}
     print("\nakap6 RPKM: " + ", ".join(f"{t} {v:.1f}" for t, v in ak.items()))
-    if skm and ak.get("ventricle") is not None:
-        print(f"akap6 ventricle / skeletal-muscle mean = {ak['ventricle'] / max(sum(skm) / len(skm), 0.01):.2f}x  -> {out}")
 
 
 if __name__ == "__main__":
